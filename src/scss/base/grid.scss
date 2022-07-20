@@ -1,0 +1,111 @@
+%grid {
+  display: grid;
+}
+%inline-grid {
+  display: inline-grid;
+}
+
+/**
+*==========================================================================
+ * 关于 ————  整体水平方向 
+ * ps：请前往 flex.scss 中《 主轴排列 》 查看
+*==========================================================================
+*/
+
+/**
+*========================================================================== 
+ * 关于 ————  整体垂直方向
+*==========================================================================
+*/
+%align-start {
+  align-content: flex-start;
+}
+%align-center {
+  align-content: center;
+}
+%align-end {
+  align-content: flex-end;
+}
+%align-between {
+  align-content: space-between;
+}
+%align-around {
+  align-content: space-around;
+}
+
+
+/**
+*========================================================================== 
+ * 关于 ————  所有格子垂直方向方向
+ * ps: 请前往 flex 中《 副轴排列 》 查看
+*==========================================================================
+*/
+
+/**
+*========================================================================== 
+ * 关于 ————  所有格子水平方向
+*==========================================================================
+*/
+%justify-items-start {
+  justify-items: flex-start;
+}
+%justify-items-center {
+  justify-items: center;
+}
+%justify-items-end {
+  justify-items: flex-end;
+}
+%justify-items-stretch {
+  justify-items: stretch;
+}
+
+/**
+*========================================================================== 
+ * 关于 ———— 单个格子水平
+*==========================================================================
+*/
+%justify-self-start {
+  justify-self: flex-start;
+}
+%justify-self-center {
+  justify-self: center;
+}
+%justify-self-end {
+  justify-self: flex-end;
+}
+%justify-self-stretch {
+  justify-self: stretch;
+}
+
+/**
+*========================================================================== 
+ * 关于 ———— 单个格子垂直
+*==========================================================================
+*/
+%align-self-start {
+  align-self: flex-start;
+}
+%align-self-center {
+  align-self: center;
+}
+%align-self-end {
+  align-self: flex-end;
+}
+%align-self-stretch {
+  align-self: stretch;
+}
+
+/**
+*========================================================================== 
+ * 关于 ———— 所有合写方式
+*==========================================================================
+*/
+%place-content-center {
+  place-content: center;
+}
+%place-items-center {
+  place-items: center;
+}
+%place-self-center {
+  place-self: center;
+}

@@ -1,0 +1,223 @@
+/**
+*========================================================================== 
+ * 关于 ———— flex 布局
+ * items / justify / column / row /...
+*==========================================================================
+*/
+$flexs: (
+  'flex',
+  'inline-flex',
+  'items-start',
+  'items-center ',
+  'items-end',
+  'items-baseline',
+  'items-stretch',
+  'justify-start',
+  'justify-center',
+  'justify-end',
+  'justify-between',
+  'justify-around',
+  'justify-evenly',
+  'column',
+  'column-reverse',
+  'row',
+  'row-reverse',
+  'flex-wrap',
+  'flex-1',
+  'flex-shrink'
+);
+@each $flex in $flexs {
+  .#{$flex} {
+    @extend %#{$flex};
+  }
+}
+
+/**
+*========================================================================== 
+ * 关于 ———— grid 布局
+ * grid / inline-grid /...
+*==========================================================================
+*/
+$grids: (
+  'grid',
+  'inline-grid',
+  'align-start',
+  'align-center',
+  'align-end',
+  'align-between',
+  'align-around',
+  'justify-items-start',
+  'justify-items-center',
+  'justify-items-end',
+  'justify-items-stretch',
+  'justify-self-start',
+  'justify-self-center',
+  'justify-self-end',
+  'justify-self-stretch',
+  'align-self-start',
+  'align-self-center',
+  'align-self-end',
+  'align-self-stretch',
+  'place-content-center',
+  'place-items-center',
+  'place-self-center'
+);
+@each $grid in $grids {
+  .#{$grid} {
+    @extend %#{$grid};
+  }
+}
+
+/**
+*========================================================================== 
+ * 关于 ———— Position 定位
+ * absolute / static / relative / fixed / sticky 
+*==========================================================================
+*/
+$positions: ('absolute', 'static', 'relative', 'fixed', 'sticky');
+@each $position in $positions {
+  .#{$position} {
+    @extend %#{$position};
+  }
+}
+
+/**
+*========================================================================== 
+ * 关于 ———— 常用的样式
+*==========================================================================
+*/
+$atomics: (
+  'block',
+  'inline-block',
+  'inline',
+  'display-none',
+  'box',
+  'box-sizing',
+  'left',
+  'right',
+  'clearfloat',
+  'overflow-hidden',
+  'overflow-auto',
+  'ellipsis',
+  'cp',
+  'cd',
+  'h-full',
+  'w-full',
+  'vh-full',
+  'vw-full',
+  'text-center',
+  'no-wrap',
+  'font-wrap',
+  'color-white',
+  'color-black',
+  'bg-white',
+  'bg-black'
+);
+@each $atomic in $atomics {
+  .#{$atomic} {
+    @extend %#{$atomic};
+  }
+}
+
+/**
+*========================================================================== 
+ * 关于 Margin 和 Padding
+ * 4, 8, 12, 16, 18, 24, 32
+*==========================================================================
+*/
+$distanceDirection: (
+  '': '',
+  't': '-top',
+  'r': '-right',
+  'b': '-bottom',
+  'l': '-left'
+);
+$distance: (4, 8, 12, 16, 24, 32);
+
+@each $key, $value in $distanceDirection {
+  @each $number in $distance {
+    .m#{$key}-#{$number} {
+      margin#{$value}: $number + px;
+    }
+    .p#{$key}-#{$number} {
+      padding#{$value}: $number + px;
+    }
+  }
+}
+
+/**
+*========================================================================== 
+ * 关于 ———— 圆角 Border-radius
+ * 4, 12, 16
+*==========================================================================
+*/
+$radius: (4, 6, 8, 12, 16);
+@each $radius in $radius {
+  .radius-#{$radius} {
+    border-radius: #{$radius}px;
+  }
+}
+
+/**
+*========================================================================== 
+ * 关于 ———— 字体大小 Font-size
+ * 24, 28, 32, 36, 44
+*==========================================================================
+*/
+$fontSizes: (12, 14, 16, 18, 20, 24);
+@each $fontSize in $fontSizes {
+  .fs-#{$fontSize} {
+    font-size: #{$fontSize}px;
+  }
+}
+
+/**
+*========================================================================== 
+ * 关于 ———— 字重 Font-weight
+ * 400, 500, 600, 700, 800
+*==========================================================================
+*/
+$fontWeights: (400, 500, 600, 700, bold);
+@each $fontWeight in $fontWeights {
+  .fw-#{$fontWeight} {
+    font-weight: #{$fontWeight};
+  }
+}
+
+/**
+*========================================================================== 
+ * 关于 ———— 行高 Line-height
+ * 40, 44, 48
+*==========================================================================
+*/
+$lineHeights: ();
+@each $lineHeight in $lineHeights {
+  .lh-#{$lineHeight} {
+    line-height: #{$lineHeight}px;
+  }
+}
+
+/**
+*========================================================================== 
+ * 关于 ———— CSS3
+*==========================================================================
+*/
+$transitionTime: ();
+@each $time in $transitionTime {
+  .transition-#{$time} {
+    transition: all ease math($time, 100) + s;
+  }
+}
+
+/**
+*========================================================================== 
+ * 关于 ———— color
+*==========================================================================
+*/
+
+$colors: ();
+@each $color, $index in $colors {
+  .color-#{$index} {
+    color: $color;
+  }
+}

@@ -1,0 +1,129 @@
+/**
+*========================================================================== 
+ * 关于 ———— 浮动
+*==========================================================================
+*/
+%left {
+  float: left;
+}
+%right {
+  float: right;
+}
+%clearfloat {
+  clear: both;
+  height: auto;
+  &:after,
+  &:before {
+    content: '';
+    clear: both;
+    overflow: hidden;
+  }
+}
+%overflow-hidden {
+  overflow: hidden;
+}
+%overflow-auto {
+  overflow: auto;
+}
+%ellipsis {
+  text-overflow: ellipsis;
+}
+/**
+*========================================================================== 
+ * 关于 ———— 盒模型
+*==========================================================================
+*/
+%block {
+  display: block;
+}
+%inline-block {
+  display: inline-block;
+}
+%inline {
+  display: inline;
+}
+%display-none {
+  display: none;
+}
+%box {
+  display: -webkit-box;
+  display: box;
+}
+
+%box-sizing {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+%w-full {
+  width: 100%;
+}
+%h-full {
+  height: 100%;
+}
+%vw-full {
+  width: 100vw;
+}
+%vh-full {
+  height: 100vh;
+}
+
+%cp {
+  cursor: pointer;
+}
+%cd {
+  cursor: no-drop;
+}
+/**
+*========================================================================== 
+ * 关于 ———— 定位
+*==========================================================================
+*/
+%absolute {
+  position: absolute;
+}
+%static {
+  position: static;
+}
+%relative {
+  position: relative;
+}
+%fixed {
+  position: fixed;
+}
+%sticky {
+  position: -webkit-sticky;
+  position: sticky;
+}
+/**
+*========================================================================== 
+ * 关于 ———— 文字
+*==========================================================================
+*/
+%no-wrap {
+  white-space: nowrap;
+}
+%font-wrap {
+  word-break: break-all;
+}
+%text-center {
+  text-align: center;
+}
+%color-white {
+  color: white;
+}
+%color-black {
+  color: black;
+}
+
+/**
+*========================================================================== 
+ * 关于 ———— 背景
+*==========================================================================
+*/
+%bg-white {
+  background-color: white;
+}
+%bg-black {
+  background-color: black;
+}

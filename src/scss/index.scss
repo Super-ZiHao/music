@@ -1,0 +1,22 @@
+@import 'antd/dist/antd.css';
+@import './reset';
+@import './base/extend';
+
+// 组件样式
+@import './components/Header.scss';
+@import './components/Menu.scss';
+
+body {
+  background-color: rgba($color: #000000, $alpha: 0);
+}
+
+.no-drag {
+  -webkit-app-region: no-drag;
+}
+
+.shell {
+  height: 100vh;
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: #5d7f82;
+}

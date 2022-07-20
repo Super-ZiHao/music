@@ -1,0 +1,113 @@
+/**
+*========================================================================== 
+ * 关于 ———— 文字溢出省略
+ * default ———— 1
+*==========================================================================
+*/
+@mixin text-line($number: 1) {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  @if $number >= 2 {
+    @extend %box;
+    -webkit-line-clamp: $number;
+    -webkit-box-orient: vertical;
+  } @else {
+    white-space: nowrap;
+  }
+}
+
+/**
+*========================================================================== 
+ * 关于 ———— 圆角
+ * default ———— 50%
+*==========================================================================
+*/
+@mixin border-radius($value: 50%) {
+  border-radius: $value;
+}
+
+/**
+*========================================================================== 
+ * 关于 ———— 快速定义 fixed
+ * default ———— left top
+*==========================================================================
+*/
+@mixin fixed($X: left, $Xvalue: 0, $Y: top, $Yvalue: 0) {
+  position: fixed;
+  @if ($X == 'left') {
+    left: $Xvalue;
+  }
+  @if ($X == 'right') {
+    right: $Xvalue;
+  }
+  @if ($Y == 'top') {
+    top: $Yvalue;
+  }
+  @if ($Y == 'bottom') {
+    bottom: $Yvalue;
+  }
+}
+
+/**
+*========================================================================== 
+ * 关于 ———— 快速定义 flex
+ * default ———— items-center justify-center
+*==========================================================================
+*/
+@mixin flex($justify: center, $items: center) {
+  @extend %flex;
+  @extend %justify-#{$justify};
+  @extend %items-#{$items};
+}
+
+/**
+*========================================================================== 
+ * 关于 ———— 快速定义 grid
+ * default ———— 1 格、0 间距、拉伸排列
+*==========================================================================
+*/
+@mixin grid($columns: 1, $rows: 1, $gap: 0, $align: stretch, $justify: stretch) {
+  @extend %grid;
+  grid-template-columns: repeat($columns, 1fr);
+  grid-template-rows: repeat($rows, 1fr);
+  gap: $gap;
+  align-content: $align;
+  justify-content: $justify;
+}
+
+/**
+*========================================================================== 
+ * 关于 ———— 骨架
+ * inevitable ———— width、height
+ * default ———— radius(无圆角)、bg1(底色)、bg2（阴影颜色）
+*==========================================================================
+*/
+@mixin skeleton($width, $height, $radius: 0px, $bg1: rgba(190, 190, 190, 0.2), $bg2: rgba(129, 129, 129, 0.24)) {
+  @include border-radius($radius);
+  width: $width;
+  height: $height;
+  background: linear-gradient(-45deg, $bg1 25%, $bg2 37%, $bg1 63%);
+  background-size: 400% 100%;
+  -webkit-animation: ant-skeleton-loading 1.4s ease infinite;
+  animation: ant-skeleton-loading 1.4s ease infinite;
+}
+
+/**
+*========================================================================== 
+ * 关于 ———— scrollbar 滚动条
+ * default ———— width（宽度）、color(滑块颜色)、bg（滚动背景颜色）
+*==========================================================================
+*/
+@mixin scroll($width: 4px, $color: #7e9fff, $bg: #ddd) {
+  ::-webkit-scrollbar {
+    width: $width;
+    height: $width;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: $color;
+    border-radius: math($width, 2);
+  }
+  ::-webkit-scrollbar-track {
+    background-color: $bg;
+  }
+}
