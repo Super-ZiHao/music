@@ -6,10 +6,10 @@ type Props = {};
 const Menu: React.FC<Props> = () => {
   return (
     <div className='menu'>
-      <CustomerServiceOutlined className='icon' />
-      <UnorderedListOutlined className='icon' />
-      <HeartOutlined className='icon' />
-      <BarChartOutlined className='icon' />
+      <div className='flex justify-center'><CustomerServiceOutlined className='icon' /></div>
+      <div className='flex justify-center'><UnorderedListOutlined className='icon' /></div>
+      <div className='flex justify-center'><HeartOutlined className='icon' /></div>
+      <div className='flex justify-center'><BarChartOutlined className='icon' /></div>
     </div>
   )
 };

@@ -1,4 +1,13 @@
 .header {
-  height: 68px;
   -webkit-app-region: drag;
+  height: 68px;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  .search-input {
+    width: 168px;
+    height: 30px;
+    padding: 0 15px;
+    border-radius: 15px;
+  }
 }

@@ -7,7 +7,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite --port 4000",
-    "electron": "electron . dev",
+    "dev:app": "electron . dev",
     "build": "tsc && vite build",
     "preview": "vite preview"
   },
