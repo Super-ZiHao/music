@@ -1,0 +1,33 @@
+.ant-menu {
+  background-color: transparent;
+  .ant-menu-item-selected,
+  .ant-menu-item-active {
+    &::after {
+      border-color: currentColor !important;
+    }
+  }
+  .ant-menu-item-selected:nth-child(1),
+  .ant-menu-item-active:nth-child(1) {
+    color: #3db2ff !important;
+  }
+  .ant-menu-item-selected:nth-child(2),
+  .ant-menu-item-active:nth-child(2) {
+    color: #ffedda !important;
+
+  }
+  .ant-menu-item-selected:nth-child(3),
+  .ant-menu-item-active:nth-child(3) {
+    color: #ffb830 !important;
+
+  }
+  .ant-menu-item-selected:nth-child(4),
+  .ant-menu-item-active:nth-child(4) {
+    color: #ff2442 !important;
+    
+  }
+}
+
+.ant-menu-horizontal {
+  border-color: var(--color-white-2);
+}
+

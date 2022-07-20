@@ -1,8 +1,14 @@
-import React, { useRef } from 'react';
+import { SearchOutlined } from '@ant-design/icons';
+import React, { useEffect, useRef } from 'react';
 
 type Props = {
   className?: string
   placeholder?: string
+  search?: boolean
+  /**
+   * 输入框内容
+   */
+  value?: string
   /**
    * value改变触发 — (value: string) => void
    */
@@ -23,11 +29,21 @@ type Props = {
    * 聚焦和失焦都会触发 — (value，eventName) => void
    */
   onToggle?: (value: string, name?: string) => void
+  /**
+   * 
+   */
+  onClear?: () => void
 };
 
 const Input: React.FC<Props> = (props) => {
-  const { placeholder, className, onChange, onEnter, onFocus, onBlur, onToggle } = props
+  const { placeholder, className, value, search, onChange, onEnter, onFocus, onBlur, onToggle } = props
   const inputRef = useRef<HTMLInputElement>(null)
+  
+  // value改变触发事件
+  const handleInput = (e: any) => {
+    onChange?.(e.target.value)
+    if (!!value) e.target.value = value
+  }
 
   // 回车事件
   const handleKeyDown = (e: any) => {
@@ -46,16 +62,27 @@ const Input: React.FC<Props> = (props) => {
     if (onToggle) onToggle(e.target.value, e._reactName === 'onFocus' ? 'focus' : 'blur')
   }
 
-  return <input
-    ref={inputRef}
-    className={`${className}`}
-    type="text"
-    placeholder={placeholder}
-    onInput={(e: any) => onChange?.(e.target.value)}
-    onKeyDown={handleKeyDown}
-    onBlur={handleToggle}
-    onFocus={handleToggle}
- />
+  useEffect(() => {
+    if (!inputRef.current) return
+    inputRef.current.value = value || ''
+  }, [value])
+
+  return (
+    <div className='relative flex items-center'>
+      <input
+        ref={inputRef}
+        className={`${className}`}
+        type="text"
+        placeholder={placeholder}
+        onInput={handleInput}
+        onKeyDown={handleKeyDown}
+        onBlur={handleToggle}
+        onFocus={handleToggle}
+        style={{ paddingLeft: search ? '24px' : '' }}
+      />
+      {search && <SearchOutlined className='absolute' style={{ left: 8, color: 'var(--color-white)' }} />} 
+    </div>
+  )
 };
 
 export default Input;
