@@ -1,5 +1,5 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import { useAudio } from "./hook/t";
+import React, { useRef } from "react";
+import { useAudio } from "./hook";
 
 type Props = {
   audioClassName: string;
