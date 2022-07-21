@@ -5,7 +5,8 @@
   transform: translateY(-50%);
   transition: all 0.3s;
   cursor: pointer;
-  &:hover .spot {
+  &:hover .spot,
+  .spot:active {
     width: 10px;
     height: 10px;
     border-radius: 50%;

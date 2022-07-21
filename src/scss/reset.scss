@@ -5,6 +5,12 @@
 
 * {
   padding: 0;
+
+  // 设置文字无法选中
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 div,
