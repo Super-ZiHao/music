@@ -1,32 +1,25 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from 'react'
 
-const useDebounce: (
-  fn: Function,
-  delay: number,
-  dep?: any[]
-) => [() => void, boolean] = (fn, delay, dep = []) => {
+const useDebounce: (fn: Function, delay: number, dep?: any[]) => [any, boolean] = (fn, delay, dep = []) => {
   const [state] = useState<{ fn: Function; timer: any }>({
     fn,
-    timer: null,
-  });
-  const [loading, setLoading] = useState<boolean>(false);
-  useEffect(() => {
-    state.fn = fn;
-  }, [fn]);
+    timer: null
+  })
+  const [loading, setLoading] = useState<boolean>(false)
 
   return [
-    useCallback(() => {
-      setLoading(true);
+    useCallback((...n: any[]) => {
+      setLoading(true)
       if (state.timer) {
-        clearTimeout(state.timer);
+        clearTimeout(state.timer)
       }
       state.timer = setTimeout(() => {
-        state.fn();
-        setLoading(false);
-      }, delay);
+        state.fn(...n)
+        setLoading(false)
+      }, delay)
     }, dep),
-    loading,
-  ];
-};
+    loading
+  ]
+}
 
-export default useDebounce;
+export default useDebounce

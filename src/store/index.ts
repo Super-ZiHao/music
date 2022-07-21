@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit'
-import musicSlice, { MusicInterface } from './music'
+import currentPlayMusicSlice, { MusicInterface } from './currentPlayMusicSlice'
 
 export interface StoreInterface {
   music: MusicInterface
@@ -8,7 +8,7 @@ export interface StoreInterface {
 const store = configureStore({
   // 合并多个 slice
   reducer: {
-    music: musicSlice
+    music: currentPlayMusicSlice
   }
 })
 

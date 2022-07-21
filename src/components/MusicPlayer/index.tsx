@@ -4,7 +4,7 @@ import { IconPlaying, IconStopPlaying } from '../Icons'
 import { getMusicUrl } from '@/utils/request/api'
 import useAudio from '@/utils/hooks/useAudio'
 import ProgressBar from './ProgressBar'
-import { MusicInterface } from '@/store/music'
+import { MusicInterface } from '@/store/currentPlayMusicSlice'
 import { StoreInterface } from '@/store'
 
 const MusicPlayer = () => {

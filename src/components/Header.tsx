@@ -1,25 +1,25 @@
-import React from "react";
-import Input from "../components/Input";
-import { getMusic } from "@/utils/request/api";
-import useDebounce from "@/utils/hooks/useDebounce";
+import React from 'react'
+import Input from '../components/Input'
+import { getMusic } from '@/utils/request/api'
+import useDebounce from '@/utils/hooks/useDebounce'
 
-type Props = {};
+type Props = {}
 
 const Header: React.FC<Props> = () => {
   const [searchMusic, loading] = useDebounce(async (value: string) => {
-    const musics = await getMusic(value);
-  }, 1000);
+    const musics = await getMusic(value)
+  }, 1000)
   return (
-    <div className="header">
+    <div className='header'>
       <Input
-        className="search-input no-drag"
-        placeholder="搜索你需要的歌曲~"
-        onEnter={searchMusic}
-        onChange={() => console.log(loading)}
+        className='search-input no-drag'
+        placeholder='搜索你需要的歌曲~'
+        onEnter={(value) => searchMusic(value)}
+        onChange={() => a()}
         search
       />
     </div>
-  );
-};
+  )
+}
 
-export default Header;
+export default Header
