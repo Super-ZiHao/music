@@ -1,12 +1,16 @@
-import { getMusicUrl } from '@/utils/request/api'
+import { useSelector } from 'react-redux'
 import Icon from '@ant-design/icons'
-import { useEffect, useRef, useState } from 'react'
 import { IconPlaying, IconStopPlaying } from '../Icons'
+import { getMusicUrl } from '@/utils/request/api'
 import useAudio from '@/utils/hooks/useAudio'
 import ProgressBar from './ProgressBar'
+import { MusicInterface } from '@/store/music'
+import { StoreInterface } from '@/store'
 
 const MusicPlayer = () => {
   const { isPlaying, changeAudioToggle } = useAudio('music')
+
+  const music = useSelector<StoreInterface, MusicInterface>((store) => store.music)
   // // 全局空格
   // useEffect(() => {
   //   const audio = audioRef.current;
@@ -34,9 +38,9 @@ const MusicPlayer = () => {
         {/* 名字 and 作者 */}
         <div className='ml-16'>
           <div className='fs-18 fw-bold ellipsis' style={{ maxWidth: 200 }}>
-            云烟成雨云烟成雨云烟成雨云烟成雨云烟成雨云烟成雨云烟成雨云烟成雨云烟成雨
+            {music.musicName}
           </div>
-          <div>房东的猫</div>
+          <div>{music.singerName}</div>
         </div>
       </div>
       {/* 右侧 */}
