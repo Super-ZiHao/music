@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
+import { useAudio } from "./hook/t";
 
 type Props = {
   audioClassName: string;
@@ -11,56 +12,30 @@ type Props = {
 
 const ProgressBar: React.FC<Props> = ({ audioClassName, height, onClick }) => {
   const progressBarRef = useRef<HTMLDivElement>(null);
-  const [totalDuration, setTotalDuration] = useState<number>(0); // 总时长
-  const [currentDuration, setCurrentDuration] = useState<number>(0); // 当前时长
-  const [audioElement, setAudioElement] = useState<HTMLAudioElement | null>(
-    null
-  );
-  const [length, setLength] = useState<number>(0);
-  const move = (e: any) => {
-    setLength(e.pageX);
-  };
-  const handleMouseDown = () => {
-    console.log("按下");
-    window.addEventListener("mousemove", move);
-    window.addEventListener("mouseup", handleMouseUp);
-  };
+  const { duration, currentDuration, changeCurrentDuration } =
+    useAudio(audioClassName);
 
-  const handleMouseUp = () => {
-    if (!audioElement) return;
-    console.log("松开", length);
-    window.removeEventListener("mousemove", move);
-    window.removeEventListener("mouseup", handleMouseUp);
-  };
+  // const [audioElement, setAudioElement] = useState<HTMLAudioElement | null>(
+  //   null
+  // );
+  // const [length, setLength] = useState<number>(0);
+  // const move = (e: any) => {
+  //   setLength(e.pageX);
+  // };
+  // const handleMouseDown = () => {
+  //   console.log("按下");
+  //   window.addEventListener("mousemove", move);
+  //   window.addEventListener("mouseup", handleMouseUp);
+  // };
+
+  // const handleMouseUp = () => {
+  //   if (!audioElement) return;
+  //   console.log("松开", length);
+  //   window.removeEventListener("mousemove", move);
+  //   window.removeEventListener("mouseup", handleMouseUp);
+  // };
 
   // 设置进度
-  const setMusicRateOfProgress = useCallback(
-    (cDuration: number) => {
-      if (!audioElement) return;
-      audioElement.currentTime = cDuration;
-      audioElement.play();
-    },
-    [audioElement]
-  );
-
-  useEffect(() => {
-    setAudioElement(
-      document.getElementsByClassName(audioClassName)[0] as HTMLAudioElement
-    ); // audio 标签
-    if (!audioElement) return;
-    const getTotalDuration = (e: any) => {
-      setTotalDuration(e.target.duration);
-    }; // 获取总时长
-    const getCurrentDuration = (e: any) => {
-      setCurrentDuration(e.target.currentTime);
-    }; // 添加监听
-    audioElement.addEventListener("play", getTotalDuration);
-    audioElement.addEventListener("timeupdate", getCurrentDuration);
-    return () => {
-      audioElement.removeEventListener("play", getTotalDuration);
-      audioElement.removeEventListener("timeupdate", getCurrentDuration);
-    };
-  }, [audioElement]);
 
   return (
     <div
@@ -69,9 +44,9 @@ const ProgressBar: React.FC<Props> = ({ audioClassName, height, onClick }) => {
       // @ts-ignore
       style={{ "--musicPlayer-progressBar-height": height }}
       onClick={(e: any) => {
-        setMusicRateOfProgress(
+        changeCurrentDuration(
           (e.pageX / (progressBarRef.current as HTMLDivElement).offsetWidth) *
-            totalDuration
+            duration
         );
       }}
     >
@@ -79,13 +54,13 @@ const ProgressBar: React.FC<Props> = ({ audioClassName, height, onClick }) => {
         className="line relative"
         style={{
           // @ts-ignore
-          width: `${(currentDuration / totalDuration) * 100}%`,
+          width: `${(currentDuration / duration) * 100}%`,
         }}
       />
       <div
         className="spot"
-        onMouseDown={handleMouseDown}
-        onMouseUp={handleMouseUp}
+        // onMouseDown={handleMouseDown}
+        // onMouseUp={handleMouseUp}
       />
     </div>
   );
