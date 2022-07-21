@@ -3,7 +3,7 @@
 export const IconMusice = () => (
   <svg
     t="1658324786118"
-    class="icon"
+    
     viewBox="0 0 1024 1024"
     version="1.1"
     xmlns="http://www.w3.org/2000/svg"
@@ -20,7 +20,7 @@ export const IconMusice = () => (
 export const IconMusice1 = () => (
   <svg
     t="1658316938010"
-    class="icon"
+    
     viewBox="0 0 1024 1024"
     version="1.1"
     xmlns="http://www.w3.org/2000/svg"
@@ -38,7 +38,7 @@ export const IconMusice1 = () => (
 export const IconAlbum = () => (
   <svg
     t="1658317619944"
-    class="icon"
+    
     viewBox="0 0 1024 1024"
     version="1.1"
     xmlns="http://www.w3.org/2000/svg"
@@ -72,7 +72,7 @@ export const IconAlbum = () => (
 export const IconSongSheet = () => (
   <svg
     t="1658317827514"
-    class="icon"
+    
     viewBox="0 0 1024 1024"
     version="1.1"
     xmlns="http://www.w3.org/2000/svg"
@@ -86,11 +86,19 @@ export const IconSongSheet = () => (
   </svg>
 );
 
+// 歌手
+export const IconSinger = () => (
+  <svg t="1658382337005"  viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2333">
+    <path d="M260.196721 537.180328h503.606558a251.803279 251.803279 0 0 1 251.803278 251.803279v134.295082a100.721311 100.721311 0 0 1-100.721311 100.721311H109.114754a100.721311 100.721311 0 0 1-100.721311-100.721311V788.983607a251.803279 251.803279 0 0 1 251.803278-251.803279zM516.196721 0h209.836066a50.360656 50.360656 0 0 1 50.360656 50.360656v209.836065a243.409836 243.409836 0 0 1-243.409836 243.409836h-16.786886a243.409836 243.409836 0 0 1-243.409836-243.409836v-16.786885a243.409836 243.409836 0 0 1 243.409836-243.409836z" fill="currentColor" p-id="2334"></path>
+    <path d="M532.983607 512h-8.393443A96.776393 96.776393 0 0 0 428.065574 608.52459v92.327869a96.944262 96.944262 0 0 0 58.754098 88.802623V1024h83.934426V789.655082a96.944262 96.944262 0 0 0 58.754099-88.802623v-92.327869A96.776393 96.776393 0 0 0 532.983607 512z" fill="#F5834A" p-id="2335"></path>
+  </svg>
+)
+
 // 收藏
 export const IconCollection = () => (
   <svg
     t="1658324070346"
-    class="icon"
+    
     viewBox="0 0 1027 1024"
     version="1.1"
     xmlns="http://www.w3.org/2000/svg"
@@ -109,7 +117,7 @@ export const IconCollection = () => (
 export const IconList = () => (
   <svg
     t="1658324496441"
-    class="icon"
+    
     viewBox="0 0 1024 1024"
     version="1.1"
     xmlns="http://www.w3.org/2000/svg"
@@ -127,7 +135,7 @@ export const IconList = () => (
 export const IconRankingList = () => (
   <svg
     t="1658324343647"
-    class="icon"
+    
     viewBox="0 0 1097 1024"
     version="1.1"
     xmlns="http://www.w3.org/2000/svg"
@@ -148,26 +156,15 @@ export const IconRankingList = () => (
 
 // 停止播放
 export const IconStopPlaying = () => (
-  <svg
-    t="1658329771673"
-    class="icon"
-    viewBox="0 0 1024 1024"
-    version="1.1"
-    xmlns="http://www.w3.org/2000/svg"
-    p-id="6509"
-    fill="currentColor"
-  >
-    <path
-      d="M722.9375 933.875H301.0625a210.9375 210.9375 0 0 1-210.9375-210.9375V301.0625a210.9375 210.9375 0 0 1 210.9375-210.9375h421.875a210.9375 210.9375 0 0 1 210.9375 210.9375v421.875a210.9375 210.9375 0 0 1-210.9375 210.9375z"
-      p-id="6510"
-    ></path>
+  <svg t="1658367351558"  viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3094" fill="currentColor">
+    <path d="M268.97201558 114.31784297c73.21218086 0 132.56071902 59.34853814 132.56071901 132.560719v530.24287606c0 73.21218086-59.34853814 132.56071902-132.56071901 132.560719s-132.56071902-59.34853814-132.56071901-132.560719V246.87856197c0-73.21218086 59.34853814-132.56071902 132.56071901-132.560719z m486.05596884 0c73.21218086 0 132.56071902 59.34853814 132.56071901 132.560719v530.24287606c0 73.21218086-59.34853814 132.56071902-132.56071901 132.560719s-132.56071902-59.34853814-132.56071901-132.560719V246.87856197c0-73.21218086 59.34853814-132.56071902 132.56071901-132.560719z" p-id="3095"></path>
   </svg>
 );
 
 export const IconPlaying = () => (
   <svg
     t="1658329868687"
-    class="icon"
+    
     viewBox="0 0 1024 1024"
     version="1.1"
     xmlns="http://www.w3.org/2000/svg"

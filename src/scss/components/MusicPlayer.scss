@@ -1,0 +1,26 @@
+.musicPlayer-progressBar {
+  top: 0;
+  left: 0;
+  height: var(--musicPlayer-progressBar-height, 2px);
+  background-color: var(--color-white-2);
+  transform: translateY(-50%);
+  transition: all 0.3s;
+  cursor: pointer;
+  .line {
+    background-image: linear-gradient(to right, #399ec0, #368abc, #4974b2, #5f5ca0, #704285);
+    opacity: 0.8;
+    transition: all 0.3;
+    &::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: 50%;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: white;
+      transform: translate(50%, -50%);
+      cursor: pointer;
+    }
+  }
+}

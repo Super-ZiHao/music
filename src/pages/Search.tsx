@@ -1,4 +1,4 @@
-import { IconAlbum, IconMusice1, IconSongSheet } from "@/components/Icons";
+import { IconAlbum, IconMusice1, IconSinger, IconSongSheet } from "@/components/Icons";
 import { SearchMenuKeys } from "@/types";
 import Icon, { UserOutlined } from "@ant-design/icons";
 import { Menu, MenuProps } from "antd";
@@ -22,7 +22,7 @@ const Search: React.FC<Props> = () => {
     {
       label: "歌手",
       key: SearchMenuKeys.SINGER_MENU,
-      icon: <UserOutlined />,
+      icon: <Icon component={IconSinger} />,
     },
     {
       label: "歌单",

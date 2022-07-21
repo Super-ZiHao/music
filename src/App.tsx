@@ -20,7 +20,12 @@ function App() {
       </div>
       {/* 播放器 */}
       <div className="w-full" style={{ height: 68 }}>
-        <MusicPlayer />
+        <MusicPlayer
+        // 数据
+        // 点击上一首
+        // 点击下一首
+        // 下载
+        />
       </div>
     </div>
   );
