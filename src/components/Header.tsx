@@ -8,6 +8,7 @@ type Props = {}
 const Header: React.FC<Props> = () => {
   const [searchMusic, loading] = useDebounce<(value: string) => void>(async (value) => {
     const musics = await getMusic(value)
+    console.log(musics);
   }, 1000)
   return (
     <div className='header'>

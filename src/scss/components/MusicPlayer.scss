@@ -1,10 +1,13 @@
 .musicPlayer-progressBar {
   top: 0;
   left: 0;
-  height: var(--musicPlayer-progressBar-height, 8px);
+  height: var(--musicPlayer-progressBar-height, 12px);
   transform: translateY(-50%);
   transition: all 0.3s;
   cursor: pointer;
+  &:hover .bg-line {
+    opacity: 0.3;
+  }
   &:hover .spot,
   .spot:active {
     width: 10px;
@@ -13,12 +16,22 @@
     background-color: white;
     transform: translate(-50%, -25%);
     cursor: pointer;
+    transition: background-color 0.3s;
   }
   .line {
     pointer-events: none;
     height: 4px;
     background-image: linear-gradient(to right, #399ec0, #368abc, #4974b2, #5f5ca0, #704285);
     opacity: 0.8;
-    transition: all 0.3;
+  }
+  .bg-line {
+    position: absolute;
+    z-index: -1;
+    background-color: #fff;
+    opacity: 0.1;
+    width: 100%;
+    height: 4px;
+    pointer-events: none;
+    transition: all 0.3s;
   }
 }

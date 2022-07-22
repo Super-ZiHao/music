@@ -28,7 +28,7 @@ const MusicPlayer = () => {
       {/* 进度条 */}
       <ProgressBar audioClassName='music' />
       {/* 左侧 */}
-      <div className='flex items-center'>
+      <div className='flex items-center' style={{ color: 'var(--color-white)' }}>
         {/* 播放按钮 */}
         <Icon style={{ width: 32, height: 32 }} component={isPlaying ? IconStopPlaying : IconPlaying} onClick={changeAudioToggle} />
         {/* 名字 and 作者 */}

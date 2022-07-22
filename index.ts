@@ -19,7 +19,7 @@ function createWindow() {
   });
   if (mode === "dev") {
     mainWindow.loadURL("http://localhost:4000/");
-    mainWindow.webContents.openDevTools()
+    // mainWindow.webContents.openDevTools()
   } else {
     mainWindow.loadURL(
       url.format({

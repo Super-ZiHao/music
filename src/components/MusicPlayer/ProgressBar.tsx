@@ -12,6 +12,7 @@ const ProgressBar: React.FC<Props> = ({ audioClassName, height, onClick }) => {
   const spotRef = useRef<HTMLDivElement>(null)
   const { audio, duration, currentDuration, changeCurrentDuration } = useAudio(audioClassName)
 
+  // 点击按钮滑动切换时间
   const move = (e: any) => {
     if (!spotRef.current || !progressBarRef.current) return
     audio.pause()
@@ -21,7 +22,6 @@ const ProgressBar: React.FC<Props> = ({ audioClassName, height, onClick }) => {
     window.addEventListener('mousemove', move)
     window.addEventListener('mouseup', handleMouseUp)
   }
-
   const handleMouseUp = () => {
     window.removeEventListener('mousemove', move)
     window.removeEventListener('mouseup', handleMouseUp)
@@ -37,6 +37,7 @@ const ProgressBar: React.FC<Props> = ({ audioClassName, height, onClick }) => {
         changeCurrentDuration((e.pageX / (progressBarRef.current as HTMLDivElement).offsetWidth) * duration)
       }}
     >
+      
       <div
         className='line relative'
         style={{
@@ -44,7 +45,9 @@ const ProgressBar: React.FC<Props> = ({ audioClassName, height, onClick }) => {
           width: `${(currentDuration / duration) * 100}%`
         }}
       />
+      {/* 圆点 */}
       <div ref={spotRef} className='spot' onMouseDown={handleMouseDown} onMouseUp={handleMouseUp} />
+      <div className='bg-line'></div>
     </div>
   )
 }
