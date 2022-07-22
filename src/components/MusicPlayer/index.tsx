@@ -30,11 +30,7 @@ const MusicPlayer = () => {
       {/* 左侧 */}
       <div className='flex items-center'>
         {/* 播放按钮 */}
-        <Icon
-          style={{ width: 32, height: 32 }}
-          component={isPlaying ? IconStopPlaying : IconPlaying}
-          onClick={changeAudioToggle}
-        />
+        <Icon style={{ width: 32, height: 32 }} component={isPlaying ? IconStopPlaying : IconPlaying} onClick={changeAudioToggle} />
         {/* 名字 and 作者 */}
         <div className='ml-16'>
           <div className='fs-18 fw-bold ellipsis' style={{ maxWidth: 200 }}>
