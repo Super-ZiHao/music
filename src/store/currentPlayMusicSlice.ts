@@ -6,13 +6,15 @@ export interface MusicInterface {
   singerName: string // 歌手名称
   coverUrl: string // 封面地址
   album: string // 专辑名称
+  duration: number // 歌曲的总时长
 }
 const initCurrentPlayMusicSlice: MusicInterface = {
   musicId: 513360721,
   musicName: '云烟成雨',
   singerName: '房东的猫',
   coverUrl: 'https://p2.music.126.net/6y-UleORITEDbvrOLV0Q8A==/5639395138885805.jpg',
-  album: '母鸡'
+  album: '母鸡',
+  duration: 240782,
 }
 
 // 创建一个 slice

@@ -5,7 +5,6 @@ const useAudio = (listenerTimeUpdate = false, audioClassName = 'music-player') =
   const [isPlaying, setIsPlaying] = useState<boolean>(false) // 是否播放
   const [duration, setDuration] = useState<number>(0) // 总时长
   const [currentDuration, setCurrentDuration] = useState<number>(0) // 当前时长
-
   // 设置进度条
   const changeCurrentDuration = useCallback(
     (num: number, isPlay = true) => {

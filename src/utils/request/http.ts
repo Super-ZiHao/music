@@ -7,7 +7,7 @@ const getApiBaseUrl = () => {
     case '网易云':
       return 'https://netease-cloud-music-api-nu-one.vercel.app'
     case 'QQ':
-      return 'https://netease-cloud-music-api-nu-one.vercel.app'
+      return 'https://netease-cloud-music-api-nu-one.vercel.appqq'
   }
 }
 

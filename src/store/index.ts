@@ -1,10 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit'
 import currentPlayMusicSlice, { MusicInterface } from './currentPlayMusicSlice'
-import searchedMusicListSlice from './searchedMusicListSlice'
+import searchedMusicListSlice, { SearchedMusicListInterface } from './searchedMusicListSlice'
 
 export interface StoreInterface {
   currentPlayerMusic: MusicInterface
-  searchedMusicList: MusicInterface[]
+  searchedMusicList: SearchedMusicListInterface
 }
 
 const store = configureStore({
