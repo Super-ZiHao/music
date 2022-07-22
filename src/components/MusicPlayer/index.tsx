@@ -1,16 +1,16 @@
 import { useSelector } from 'react-redux'
 import Icon from '@ant-design/icons'
 import { IconPlaying, IconStopPlaying } from '../Icons'
-import { getMusicUrl } from '@/utils/request/api'
 import useAudio from '@/utils/hooks/useAudio'
 import ProgressBar from './ProgressBar'
 import { MusicInterface } from '@/store/currentPlayMusicSlice'
 import { StoreInterface } from '@/store'
+import { getMusicUrlString } from '@/utils/function'
 
 const MusicPlayer = () => {
-  const { isPlaying, changeAudioToggle } = useAudio('music')
+  const { isPlaying, changeAudioToggle } = useAudio()
 
-  const music = useSelector<StoreInterface, MusicInterface>((store) => store.music)
+  const music = useSelector<StoreInterface, MusicInterface>((store) => store.currentPlayerMusic)
   // // 全局空格
   // useEffect(() => {
   //   const audio = audioRef.current;
@@ -24,9 +24,9 @@ const MusicPlayer = () => {
   // }, []);
   return (
     <div className='flex items-center justify-between h-full pl-24 pr-24 relative'>
-      <audio className='music' src={getMusicUrl(513360721)}></audio>
+      <audio className='music-player' src={getMusicUrlString(music.musicId)}></audio>
       {/* 进度条 */}
-      <ProgressBar audioClassName='music' />
+      <ProgressBar />
       {/* 左侧 */}
       <div className='flex items-center' style={{ color: 'var(--color-white)' }}>
         {/* 播放按钮 */}

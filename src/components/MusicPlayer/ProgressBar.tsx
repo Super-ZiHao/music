@@ -2,15 +2,14 @@ import React, { useRef } from 'react'
 import useAudio from '@/utils/hooks/useAudio'
 
 type Props = {
-  audioClassName: string
   height?: string
   onClick?: (e: React.MouseEvent<HTMLDivElement, MouseEvent>, proportion: number) => void
 }
 
-const ProgressBar: React.FC<Props> = ({ audioClassName, height, onClick }) => {
+const ProgressBar: React.FC<Props> = ({ height, onClick }) => {
   const progressBarRef = useRef<HTMLDivElement>(null)
   const spotRef = useRef<HTMLDivElement>(null)
-  const { audio, duration, currentDuration, changeCurrentDuration } = useAudio(audioClassName)
+  const { audio, duration, currentDuration, changeCurrentDuration } = useAudio(true)
 
   // 点击按钮滑动切换时间
   const move = (e: any) => {
@@ -37,7 +36,6 @@ const ProgressBar: React.FC<Props> = ({ audioClassName, height, onClick }) => {
         changeCurrentDuration((e.pageX / (progressBarRef.current as HTMLDivElement).offsetWidth) * duration)
       }}
     >
-      
       <div
         className='line relative'
         style={{
