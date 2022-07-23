@@ -13,17 +13,14 @@
   .ant-menu-item-selected:nth-child(2),
   .ant-menu-item-active:nth-child(2) {
     color: #ffedda !important;
-
   }
   .ant-menu-item-selected:nth-child(3),
   .ant-menu-item-active:nth-child(3) {
     color: #ffb830 !important;
-
   }
   .ant-menu-item-selected:nth-child(4),
   .ant-menu-item-active:nth-child(4) {
     color: #ff2442 !important;
-    
   }
 }
 
@@ -31,3 +28,34 @@
   border-color: var(--color-white-2);
 }
 
+.search-page {
+  .search-page-item {
+    height: calc(100% - 46px);
+  }
+}
+
+.music-list {
+  width: 100%;
+  .title {
+    position: sticky;
+    top: 0px;
+    padding-top: 4px;
+    height: 36px;
+    border-radius: 9px;
+    color: rgba($color: orange, $alpha: 0.4);
+  }
+  .music-list-main {
+    color: var(--color-white-2);
+    height: calc(100% - 36px);
+    overflow-y: overlay;
+    .item {
+      height: 30px;
+      .ranking-top {
+        padding-left: 8px;
+      }
+      &:hover {
+        background-color: rgba($color: #34d894, $alpha: 0.3);
+      }
+    }
+  }
+}

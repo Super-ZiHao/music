@@ -1,16 +1,10 @@
-import { useDispatch, useSelector } from 'react-redux'
 import { BrowserRouter } from 'react-router-dom'
 import Header from './components/Header'
 import Menu from './components/Menu'
 import MusicPlayer from './components/MusicPlayer'
 import RouteView from './route'
-import { StoreInterface } from './store'
-import { MusicInterface } from './store/currentPlayMusicSlice'
 
 function App() {
-  const dispatch = useDispatch()
-  const music = useSelector<StoreInterface, MusicInterface>((store) => store.currentPlayerMusic)
-  const musicList = useSelector<StoreInterface, MusicInterface[]>((store) => store.searchedMusicList)
   return (
     // @ts-ignore
     <div className='App shell'>

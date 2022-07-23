@@ -12,7 +12,6 @@ const Header: React.FC<Props> = () => {
   return (
     <div className='header'>
       <Search />
-      <button onClick={() => console.log(musicList)}>{musicList.musics[0].musicName}</button>
     </div>
   )
 }

@@ -4,27 +4,12 @@ import { MusicInterface } from './currentPlayMusicSlice'
 
 export interface SearchedMusicListInterface {
   musics: MusicInterface[]
+  loading: false
 }
 
 const initSearchedMusicListSlice: SearchedMusicListInterface = {
-  musics: [
-    {
-      musicId: 513360721,
-      musicName: '云烟成雨',
-      singerName: '房东的猫',
-      coverUrl: 'https://p2.music.126.net/6y-UleORITEDbvrOLV0Q8A==/5639395138885805.jpg',
-      album: '母鸡',
-      duration: 240782
-    },
-    {
-      musicId: 513360721,
-      musicName: '云烟成雨',
-      singerName: '房东的猫',
-      coverUrl: 'https://p2.music.126.net/6y-UleORITEDbvrOLV0Q8A==/5639395138885805.jpg',
-      album: '母鸡',
-      duration: 240782
-    }
-  ]
+  musics: [],
+  loading: false
 }
 
 // 创建一个 slice
@@ -46,8 +31,8 @@ const searchedMusicListSlice = createSlice({
             const musicObj: MusicInterface = {
               musicName: item.name,
               musicId: item.id,
-              singerName: item.artists.name,
-              coverUrl: item.artists.img1v1Url,
+              singerName: item.artists[0].name,
+              coverUrl: item.album.artist.img1v1Url,
               duration: item.duration,
               album: item.name
             }
@@ -58,13 +43,15 @@ const searchedMusicListSlice = createSlice({
         case 'QQ': {
         }
       }
-      console.log(musicList)
       data.musics = musicList
+    },
+    setMusicListLoading(data, { payload }) {
+      data.loading = payload
     }
   }
 })
 
 // 导出定义的方法
-export const { setMusicList } = searchedMusicListSlice.actions
+export const { setMusicList, setMusicListLoading } = searchedMusicListSlice.actions
 // 默认导出
 export default searchedMusicListSlice.reducer
