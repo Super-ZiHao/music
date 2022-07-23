@@ -8,8 +8,9 @@
   "scripts": {
     "dev": "vite --port 4000",
     "dev:app": "electron . dev",
+    "app": "electron .",
     "build": "tsc && vite build",
-    "build:mac": "electron-builder",
+    "build:mac": "npm build && electron-builder",
     "build:win": "electron-builder --win --x64",
     "preview": "vite preview"
   },
@@ -27,10 +28,8 @@
     "@reduxjs/toolkit": "^1.8.3",
     "antd": "^4.21.6",
     "axios": "^0.27.2",
-    "dayjs": "^1.11.4",
-    
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
+    "react": "18.0.0",
+    "react-dom": "18.0.0",
     "react-redux": "^8.0.2",
     "react-router-dom": "^6.3.0"
   },
@@ -39,8 +38,8 @@
     "@types/react": "^18.0.15",
     "@types/react-dom": "^18.0.6",
     "@vitejs/plugin-react": "^2.0.0",
-    "electron-builder": "^23.1.0",
     "electron": "^19.0.8",
+    "electron-builder": "^23.1.0",
     "sass": "^1.53.0",
     "typescript": "^4.6.4",
     "vite": "^3.0.0"

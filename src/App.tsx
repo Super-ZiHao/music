@@ -1,4 +1,4 @@
-import { BrowserRouter } from 'react-router-dom'
+import { HashRouter } from 'react-router-dom'
 import Header from './components/Header'
 import Menu from './components/Menu'
 import MusicPlayer from './components/MusicPlayer'
@@ -13,9 +13,9 @@ function App() {
           <Menu />
           <div className='flex-1 flex column pl-16 pr-16'>
             <Header />
-            <BrowserRouter>
+            <HashRouter>
               <RouteView />
-            </BrowserRouter>
+            </HashRouter>
           </div>
         </div>
         {/* 播放器 */}

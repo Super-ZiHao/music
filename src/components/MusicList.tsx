@@ -1,7 +1,6 @@
 import { MusicInterface, setMusic } from '@/store/currentPlayMusicSlice'
 import { getTotalDuration } from '@/utils/function/time'
 import useAudio from '@/utils/hooks/useAudio'
-import { Suspense } from 'react'
 import { useDispatch } from 'react-redux'
 
 type Props = {
@@ -10,7 +9,8 @@ type Props = {
   data: MusicInterface[]
 }
 
-const MusicList: React.FC<Props> = ({ className = '', loading = false, data }) => {
+const MusicList: React.FC<Props> = (props) => {
+  const { className = '', loading = false, data } = props
   if (loading) {
     return <div>正在查询歌曲</div>
   }
@@ -53,7 +53,7 @@ const MusicList: React.FC<Props> = ({ className = '', loading = false, data }) =
             {/* 专辑 */}
             <div className='ellipsis flex-1'>{item.album}</div>
             {/* 时长 */}
-            <div style={{ width: 120 }}>{getTotalDuration(item.duration)}</div>
+            <div style={{ width: 120 }}>{getTotalDuration(item.duration || 0)}</div>
           </div>
         ))}
       </div>

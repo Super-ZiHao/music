@@ -3,7 +3,7 @@ const { app, BrowserWindow } = require('electron')
 const path = require('path')
 const url = require('url')
 // 获取在 package.json 中命令脚本传入的参数，来判断是开发还是生产环境
-// const mode = process.argv[2]
+const mode = process.argv[2]
 
 function createWindow() {
   // 创建浏览器窗口。
@@ -19,20 +19,18 @@ function createWindow() {
     transparent: true,
     frame: false
   })
-  // if (mode === 'dev') {
-  //   mainWindow.loadURL('http://localhost:4000/')
-  //   // mainWindow.webContents.openDevTools()
-  // } else {
-  //   mainWindow.loadURL(
-  //     url.format({
-  //       pathname: path.join(__dirname, './dist/index.html'),
-  //       protocol: 'file:',
-  //       slashes: true
-  //     })
-  //   )
-  // }
-
-  mainWindow.loadFile(path.join(__dirname, 'index.html'))
+  // mainWindow.webContents.openDevTools()
+  if (mode === 'dev') {
+    mainWindow.loadURL('http://localhost:4000/')
+  } else {
+    mainWindow.loadURL(
+      url.format({
+        pathname: path.join(__dirname, './dist/index.html'),
+        protocol: 'file:',
+        slashes: true
+      })
+    )
+  }
 }
 
 // 当电子完成时，将调用此方法

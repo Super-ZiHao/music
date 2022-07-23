@@ -13,7 +13,6 @@ const Header: React.FC<Props> = () => {
   const [searchMusic] = useDebounce<(value: string) => void>(async (value) => {
     dispatch(setMusicListLoading(true))
     const musics = await searchMusicApi(value)
-    dispatch(setMusicListLoading(false))
     dispatch(setMusicList(musics.songs))
     // dispatch(setMusicList(neteaseCloudData.result.songs))
   }, 1000)

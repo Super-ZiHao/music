@@ -44,6 +44,7 @@ const searchedMusicListSlice = createSlice({
         }
       }
       data.musics = musicList
+      data.loading = false
     },
     setMusicListLoading(data, { payload }) {
       data.loading = payload
