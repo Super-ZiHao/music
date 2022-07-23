@@ -9,8 +9,8 @@
     "dev": "vite --port 4000",
     "dev:app": "electron . dev",
     "build": "tsc && vite build",
-    "pack:win": "electron-builder",
-    "dist1": "electron-builder --win --x64",
+    "build:mac": "electron-builder",
+    "build:win": "electron-builder --win --x64",
     "preview": "vite preview"
   },
   "build": {
@@ -20,34 +20,6 @@
     "directories": {
       "buildResources": "./",
       "output": "pack"
-    },
-    "files": [
-      "build/**/*",
-      "node_modules/**/*",
-      "electron.js"
-    ],
-    "nsis": {
-      "oneClick": false,
-      "allowElevation": true,
-      "allowToChangeInstallationDirectory": true,
-      "installerIcon": "./favicon.ico",
-      "uninstallerIcon": "./favicon.ico",
-      "installerHeaderIcon": "./favicon.ico",
-      "createDesktopShortcut": true,
-      "createStartMenuShortcut": true,
-      "perMachine": true,
-      "shortcutName": "elename"
-    },
-    "win": {
-      "icon": "./favicon.ico",
-      "target": [
-        {
-          "target": "nsis",
-          "arch": [
-            "ia32"
-          ]
-        }
-      ]
     }
   },
   "dependencies": {
