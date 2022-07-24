@@ -1,14 +1,18 @@
+import { useSelector } from 'react-redux'
 import { HashRouter } from 'react-router-dom'
 import Header from './components/Header'
 import Menu from './components/Menu'
 import MusicPlayer from './components/MusicPlayer'
 import RouteView from './route'
+import { StoreInterface } from './store'
+import { CurrentPlayerMusicInterface } from './store/currentPlayMusicSlice'
 
 function App() {
+  const currentPlayerMusic = useSelector<StoreInterface, CurrentPlayerMusicInterface>((store) => store.currentPlayerMusic)
   return (
     // @ts-ignore
-    <div className='App shell' style={{ backgroundImage: `url(https://p2.music.126.net/6y-UleORITEDbvrOLV0Q8A==/5639395138885805.jpg)` }}>
-      <div className='h-full' style={{ backdropFilter: 'blur(16px)', backgroundColor: 'rgba(0,0,0, 0.215)' }}>
+    <div className='App shell' style={{ backgroundImage: `url(${currentPlayerMusic.currentMusicAlbum.url})` }}>
+      <div className='h-full' style={{ backdropFilter: 'blur(32px)', backgroundColor: 'rgba(0,0,0, 0.215)' }}>
         <div className='flex' style={{ height: 'calc(100% - 68px)' }}>
           <Menu />
           <div className='flex-1 flex column pl-16 pr-16'>

@@ -3,7 +3,6 @@ import Input from '../Input'
 import { searchMusicApi } from '@/utils/request/api'
 import { useDispatch } from 'react-redux'
 import { setMusicList, setMusicListLoading } from '@/store/searchedMusicListSlice'
-import { neteaseCloudData } from '@/utils/function/mock'
 import useThrottle from '@/utils/hooks/useThrottle'
 
 type Props = {}

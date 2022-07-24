@@ -1,8 +1,7 @@
-import { MusicType } from '@/types/type'
-import { getMusicSourceType } from '@/utils/function'
+import { AlbumType, MusicType } from '@/types/type'
+import { musicSourceActuator } from '@/utils/function'
 import { createSlice } from '@reduxjs/toolkit'
 
-type AlbumType = any
 export interface SearchedMusicListInterface {
   musics: MusicType[]
   albums: AlbumType[]
@@ -27,10 +26,8 @@ const searchedMusicListSlice = createSlice({
       const musicList: MusicType[] = []
       const albumList: AlbumType[] = []
       // 获取当前所处的音乐 api
-      const source = getMusicSourceType()
-      // 区分不同的来源数据，统一整理成该程序可以处理的数据
-      switch (source) {
-        case '网易云': {
+      musicSourceActuator(
+        () => {
           payload.map((item: any) => {
             const musicObj: MusicType = {
               musicName: item.name,
@@ -38,19 +35,20 @@ const searchedMusicListSlice = createSlice({
               singerName: item.artists[0].name,
               coverUrl: item.album.artist.img1v1Url,
               duration: item.duration,
-              albumId: item.id
+              albumId: item.album.id
             }
             const albumsObj: AlbumType = {
-              name: item.album.name
+              id: item.album.id,
+              name: item.album.name,
+              url: ''
             }
             musicList.push(musicObj)
             albumList.push(albumsObj)
           })
-          break
-        }
-        case 'QQ': {
-        }
-      }
+        },
+        () => {}
+      )
+      // 区分不同的来源数据，统一整理成该程序可以处理的数据
       data.musics = musicList
       data.albums = albumList
       data.loading = false

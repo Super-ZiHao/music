@@ -3,7 +3,13 @@ export type MusicType = {
   musicId: number // 音乐 id
   singerName: string // 歌手名称
   coverUrl: string // 封面地址
-  albumId: string // 专辑 id
+  albumId: number // 专辑 id
   duration: number // 歌曲的总时长
   [any: string]: any
+}
+
+export type AlbumType = {
+  id: number // 专辑 id
+  name: string // 专辑名称
+  url: string // 专辑封面
 }

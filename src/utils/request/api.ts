@@ -1,4 +1,4 @@
-import { getMusicSourceType } from '../function'
+import { musicSourceActuator } from '../function'
 import { http } from './http'
 
 /**
@@ -8,15 +8,20 @@ import { http } from './http'
  * @returns
  */
 export const searchMusicApi: (name: string, limit?: number, offset?: number) => any = (name, limit = 25, offset = 0) => {
-  // 判断来源
-  const source = getMusicSourceType()
-  switch (source) {
-    case '网易云': {
+  return musicSourceActuator(
+    () => {
       console.log(`https://netease-cloud-music-api-nu-one.vercel.app/search?keywords=${name}&limit=${limit}&offset=${offset}`)
       return http.get(`search?keywords=${name}&limit=${limit}&offset=${offset}`).then((res: any) => res.result)
-    }
-    case 'QQ': {
+    },
+    () => {
       return http.get(`search?keywords=${name}`).then((res) => {})
     }
-  }
+  )
+}
+
+export const getAlbumApi: (id: number) => any = (id) => {
+  return musicSourceActuator(
+    () => http.get(`/album?id=${id}`).then((res: any) => res.album),
+    () => http.get(`/album?id=${id}`).then((res) => res)
+  )
 }

@@ -1,9 +1,11 @@
-import { MusicType } from '@/types/type'
-import { createSlice } from '@reduxjs/toolkit'
+import { MusicType, AlbumType } from '@/types/type'
+import { musicSourceActuator } from '@/utils/function'
+import { getAlbumApi } from '@/utils/request/api'
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 
 export interface CurrentPlayerMusicInterface {
   currentMusic: MusicType
-  currentMusicAlbum: any
+  currentMusicAlbum: AlbumType
 }
 
 const initCurrentPlayerMusicSlice: CurrentPlayerMusicInterface = {
@@ -12,15 +14,22 @@ const initCurrentPlayerMusicSlice: CurrentPlayerMusicInterface = {
     musicName: '',
     singerName: '',
     coverUrl: '',
-    albumId: '',
+    albumId: -1,
     duration: 0
   },
-  currentMusicAlbum: {}
+  currentMusicAlbum: {
+    id: -2,
+    name: '',
+    url: 'https://p2.music.126.net/6y-UleORITEDbvrOLV0Q8A==/5639395138885805.jpg'
+  }
 }
 
+export const getAlbum = createAsyncThunk('currentPlayMusic/getAlbum', async (id: number, d) => {
+  return await getAlbumApi(id)
+})
 // 创建一个 slice
 const currentPlayMusicSlice = createSlice({
-  name: 'music',
+  name: 'currentPlayMusic',
   // 初始化状态
   initialState: initCurrentPlayerMusicSlice,
   // 内部定义状态的方法
@@ -28,6 +37,24 @@ const currentPlayMusicSlice = createSlice({
     setCurrentMusic(state, { payload }) {
       state.currentMusic = payload
     }
+  },
+  extraReducers(builder) {
+    builder.addCase(getAlbum.fulfilled, (state, { payload }) => {
+      console.log(payload)
+      const albumObj = musicSourceActuator<AlbumType>(
+        () => ({
+          id: payload.id,
+          name: payload.name,
+          url: payload.picUrl
+        }),
+        () => ({
+          id: payload,
+          name: payload,
+          url: payload
+        })
+      )
+      state.currentMusicAlbum = albumObj
+    })
   }
 })
 

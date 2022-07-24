@@ -58,7 +58,10 @@ const useAudio = (audioListenerUpdate = AudioListenerUpdate.NONE, audioClassName
     if (!audio) return
     const play = () => setIsPlaying(true)
     const pause = () => setIsPlaying(false)
-    const handlePlay = () => setDuration(audio.duration)
+    const handlePlay = () => {
+      setDuration(audio.duration)
+      audio.play()
+    }
 
     audio.addEventListener('playing', play) // 开始播放事件
     audio.addEventListener('pause', pause) // 停止播放时间

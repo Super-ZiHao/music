@@ -1,8 +1,12 @@
-import { setCurrentMusic } from '@/store/currentPlayMusicSlice'
+import Icon from '@ant-design/icons'
+import { StoreInterface } from '@/store'
+import { CurrentPlayerMusicInterface, getAlbum, setCurrentMusic } from '@/store/currentPlayMusicSlice'
 import { SearchedMusicListInterface } from '@/store/searchedMusicListSlice'
 import { getTotalDuration } from '@/utils/function/time'
-import useAudio from '@/utils/hooks/useAudio'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { IconEmpty } from './Icons'
+
+const Loading = () => {}
 
 type Props = {
   className?: string
@@ -12,14 +16,19 @@ type Props = {
 
 const MusicList: React.FC<Props> = (props) => {
   const { className = '', loading = false, data } = props
+  const currentPlayerMusic = useSelector<StoreInterface, CurrentPlayerMusicInterface>((store) => store.currentPlayerMusic)
   if (loading) {
     return <div>正在查询歌曲</div>
   }
   if (!(data.musics.length > 0)) {
-    return <div>请先搜索你想听的歌曲</div>
+    return (
+      <div className='flex items-center justify-center column w-full h-full'>
+        <Icon component={IconEmpty} style={{ width: '30%', marginTop: -32 }} />
+        <div className='fs-24 color-white'>请先搜索歌曲</div>
+      </div>
+    )
   }
   const dispatch = useDispatch()
-  const { audio } = useAudio()
   return (
     <div className={`music-list ${className}`}>
       <div className='flex items-center title'>
@@ -36,9 +45,7 @@ const MusicList: React.FC<Props> = (props) => {
             className={`flex items-center item`}
             onDoubleClick={() => {
               dispatch(setCurrentMusic(item))
-              setTimeout(() => {
-                audio.play()
-              }, 0)
+              if (!(item.albumId === currentPlayerMusic.currentMusicAlbum.id)) dispatch(getAlbum(item.albumId) as any)
             }}
           >
             {/* 排名 */}
