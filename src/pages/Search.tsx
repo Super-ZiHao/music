@@ -41,7 +41,7 @@ const Search: React.FC<Props> = () => {
   return (
     <div className='flex column search-page' style={{ height: 'calc(100% - 68px - 8px)' }}>
       <Menu mode='horizontal' onClick={onClick} selectedKeys={[current]} items={items} />
-      {current === SearchMenuKeys.MUSIC_MENU && <MusicList className='search-page-item' data={searchedMusicList.musics} loading={searchedMusicList.loading} />}
+      {current === SearchMenuKeys.MUSIC_MENU && <MusicList className='search-page-item' data={searchedMusicList} loading={searchedMusicList.loading} />}
       {current === SearchMenuKeys.ALBUM_MENU && <div>专辑</div>}
       {current === SearchMenuKeys.SINGER_MENU && <div>歌单</div>}
       {current === SearchMenuKeys.SONGSHEET_MENU && <div>歌手</div>}

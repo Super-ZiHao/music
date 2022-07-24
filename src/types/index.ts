@@ -1,1 +1,1 @@
-export type MusicType = '网易云' | 'QQ'
+export type MusicSource = '网易云' | 'QQ'

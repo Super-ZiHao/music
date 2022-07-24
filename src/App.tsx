@@ -7,7 +7,7 @@ import RouteView from './route'
 function App() {
   return (
     // @ts-ignore
-    <div className='App shell'>
+    <div className='App shell' style={{ backgroundImage: `url(https://p2.music.126.net/6y-UleORITEDbvrOLV0Q8A==/5639395138885805.jpg)` }}>
       <div className='h-full' style={{ backdropFilter: 'blur(16px)', backgroundColor: 'rgba(0,0,0, 0.215)' }}>
         <div className='flex' style={{ height: 'calc(100% - 68px)' }}>
           <Menu />

@@ -1,14 +1,17 @@
+import { MusicType } from '@/types/type'
 import { getMusicSourceType } from '@/utils/function'
 import { createSlice } from '@reduxjs/toolkit'
-import { MusicInterface } from './currentPlayMusicSlice'
 
+type AlbumType = any
 export interface SearchedMusicListInterface {
-  musics: MusicInterface[]
+  musics: MusicType[]
+  albums: AlbumType[]
   loading: false
 }
 
 const initSearchedMusicListSlice: SearchedMusicListInterface = {
-  musics: [],
+  musics: [], // 常用数据
+  albums: [], // 专辑
   loading: false
 }
 
@@ -21,22 +24,27 @@ const searchedMusicListSlice = createSlice({
   reducers: {
     setMusicList(data, { payload }) {
       if (!payload) return
-      const musicList: MusicInterface[] = []
+      const musicList: MusicType[] = []
+      const albumList: AlbumType[] = []
       // 获取当前所处的音乐 api
       const source = getMusicSourceType()
       // 区分不同的来源数据，统一整理成该程序可以处理的数据
       switch (source) {
         case '网易云': {
           payload.map((item: any) => {
-            const musicObj: MusicInterface = {
+            const musicObj: MusicType = {
               musicName: item.name,
               musicId: item.id,
               singerName: item.artists[0].name,
               coverUrl: item.album.artist.img1v1Url,
               duration: item.duration,
-              album: item.name
+              albumId: item.id
+            }
+            const albumsObj: AlbumType = {
+              name: item.album.name
             }
             musicList.push(musicObj)
+            albumList.push(albumsObj)
           })
           break
         }
@@ -44,6 +52,7 @@ const searchedMusicListSlice = createSlice({
         }
       }
       data.musics = musicList
+      data.albums = albumList
       data.loading = false
     },
     setMusicListLoading(data, { payload }) {

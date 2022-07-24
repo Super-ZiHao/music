@@ -1,4 +1,5 @@
-import { MusicInterface, setMusic } from '@/store/currentPlayMusicSlice'
+import { setCurrentMusic } from '@/store/currentPlayMusicSlice'
+import { SearchedMusicListInterface } from '@/store/searchedMusicListSlice'
 import { getTotalDuration } from '@/utils/function/time'
 import useAudio from '@/utils/hooks/useAudio'
 import { useDispatch } from 'react-redux'
@@ -6,7 +7,7 @@ import { useDispatch } from 'react-redux'
 type Props = {
   className?: string
   loading?: boolean
-  data: MusicInterface[]
+  data: SearchedMusicListInterface
 }
 
 const MusicList: React.FC<Props> = (props) => {
@@ -14,7 +15,7 @@ const MusicList: React.FC<Props> = (props) => {
   if (loading) {
     return <div>正在查询歌曲</div>
   }
-  if (!(data?.length > 0)) {
+  if (!(data.musics.length > 0)) {
     return <div>请先搜索你想听的歌曲</div>
   }
   const dispatch = useDispatch()
@@ -29,12 +30,12 @@ const MusicList: React.FC<Props> = (props) => {
         <div style={{ width: 120 }}>时长</div>
       </div>
       <div className='music-list-main'>
-        {data.map((item, index) => (
+        {data.musics.map((item, index) => (
           <div
             key={item.musicId}
             className={`flex items-center item`}
             onDoubleClick={() => {
-              dispatch(setMusic(item))
+              dispatch(setCurrentMusic(item))
               setTimeout(() => {
                 audio.play()
               }, 0)
@@ -51,7 +52,7 @@ const MusicList: React.FC<Props> = (props) => {
             {/* 歌手名称 */}
             <div className='ellipsis flex-1'>{item.singerName}</div>
             {/* 专辑 */}
-            <div className='ellipsis flex-1'>{item.album}</div>
+            <div className='ellipsis flex-1'>{data.albums[index].name}</div>
             {/* 时长 */}
             <div style={{ width: 120 }}>{getTotalDuration(item.duration || 0)}</div>
           </div>

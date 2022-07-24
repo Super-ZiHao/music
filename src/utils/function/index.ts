@@ -1,16 +1,16 @@
-import { MusicType } from '@/types'
+import { MusicSource } from '@/types'
 
 /**
  * 获取音乐来源
  * @returns '网易云' | 'QQ‘
  */
-export const getMusicSourceType: () => MusicType = () => {
-  let musicType: MusicType = sessionStorage.getItem('musicType') as MusicType
-  if (!musicType) {
-    sessionStorage.setItem('musicType', '网易云')
-    musicType = '网易云'
+export const getMusicSourceType: () => MusicSource = () => {
+  let musicSource: MusicSource = sessionStorage.getItem('MusicSource') as MusicSource
+  if (!musicSource) {
+    sessionStorage.setItem('MusicSource', '网易云')
+    musicSource = '网易云'
   }
-  return musicType
+  return musicSource
 }
 
 /**
