@@ -13,7 +13,6 @@ const Header: React.FC<Props> = () => {
     dispatch(setMusicListLoading(true))
     const musics = await searchMusicApi(value)
     dispatch(setMusicList(musics.songs))
-    // dispatch(setMusicList(neteaseCloudData.result.songs))
   }, 2000)
   return <Input className='search-input no-drag' placeholder='搜索你需要的歌曲~' onEnter={(value) => searchMusic(value)} search />
 }

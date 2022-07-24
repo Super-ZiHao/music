@@ -12,7 +12,7 @@ const useAudio = (audioListenerUpdate = AudioListenerUpdate.NONE, audioClassName
   const [duration, setDuration] = useState<number>(0) // 总时长
   const [currentDuration, setCurrentDuration] = useState<number>(0) // 当前时长
   const [muted, setMuted] = useState<boolean>(false) // 是否静音
-  const [volume, setVolume] = useState<number>(1) // 音量
+  const [volume, setVolume] = useState<number>(100)
   // 设置进度条
   const changeCurrentDuration = useCallback(
     (num: number, isPlay = true) => {
@@ -34,17 +34,22 @@ const useAudio = (audioListenerUpdate = AudioListenerUpdate.NONE, audioClassName
   // 静音开关
   const changeAudioMuted = useCallback(() => {
     if (audio.muted) {
-      audio.muted = !audio.muted
+      audio.volume = Number(sessionStorage.getItem('volume'))
+      setVolume(Number(sessionStorage.getItem('volume')) * 100)
     } else {
-      audio.muted = !audio.muted
+      sessionStorage.setItem('volume', String(audio.volume))
+      audio.volume = 0
+      setVolume(0)
     }
-    setMuted(audio.muted)
+    audio.muted = !audio.muted
+    setMuted(!audio.muted)
   }, [audio])
 
   // 设置音量
   const changeAudioVolume = useCallback(
     (num: number) => {
-      audio.volume = num
+      audio.volume = num / 100
+      setVolume(audio?.volume * 100)
     },
     [audio]
   )
@@ -86,14 +91,33 @@ const useAudio = (audioListenerUpdate = AudioListenerUpdate.NONE, audioClassName
   // 是否需要监听音乐音量的变化
   useEffect(() => {
     if (audioListenerUpdate !== AudioListenerUpdate.VOLUME || !audio) return
-    const handleVolumeChange = () => {}
+    const handleVolumeChange = () => {
+      if (audio?.volume <= 0) {
+        setMuted(true)
+        audio.muted = true
+      } else {
+        setMuted(false)
+        audio.muted = false
+      }
+    }
     audio.addEventListener('volumechange', handleVolumeChange) // 音量改变触发
     return () => {
       audio.removeEventListener('volumechange', handleVolumeChange)
     }
   }, [audio])
 
-  return { isPlaying, duration, currentDuration, muted, audio, changeCurrentDuration, changeAudioToggle, changeAudioMuted, changeAudioVolume }
+  return {
+    isPlaying,
+    duration,
+    currentDuration,
+    muted,
+    volume,
+    audio,
+    changeCurrentDuration,
+    changeAudioToggle,
+    changeAudioMuted,
+    changeAudioVolume
+  }
 }
 
 export default useAudio

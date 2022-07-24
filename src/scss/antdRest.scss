@@ -1,0 +1,13 @@
+.ant-spin {
+  color: var(--spin-color, #1890ff);
+  .ant-spin-dot-item {
+    background-color: currentColor;
+  }
+  .ant-spin-text {
+    margin-top: 9px;
+  }
+}
+
+.ant-slider-vertical {
+  margin: 0 6px;
+}

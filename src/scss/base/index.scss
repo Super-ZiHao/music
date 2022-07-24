@@ -132,7 +132,7 @@ $distanceDirection: (
   'b': '-bottom',
   'l': '-left'
 );
-$distance: (4, 6, 8, 12, 16, 24, 32);
+$distance: (4, 8, 10, 12, 16, 24, 32);
 
 @each $key, $value in $distanceDirection {
   @each $number in $distance {
