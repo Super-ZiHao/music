@@ -8,7 +8,7 @@ function App() {
   return (
     // @ts-ignore
     <div className='App shell'>
-      <div className='h-full' style={{ backdropFilter: 'blur(50px)' }}>
+      <div className='h-full' style={{ backdropFilter: 'blur(16px)', backgroundColor: 'rgba(0,0,0, 0.215)' }}>
         <div className='flex' style={{ height: 'calc(100% - 68px)' }}>
           <Menu />
           <div className='flex-1 flex column pl-16 pr-16'>

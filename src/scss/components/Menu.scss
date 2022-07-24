@@ -16,7 +16,7 @@ $time: 0.3s;
     cursor: pointer;
     transition: $time all;
     &:hover {
-      color: orange;
+      color: var(--icon-hover);
     }
   }
 

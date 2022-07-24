@@ -80,7 +80,13 @@ const Input: React.FC<Props> = (props) => {
         onFocus={handleToggle}
         style={{ paddingLeft: search ? '24px' : '' }}
       />
-      {search && <SearchOutlined className='absolute' style={{ left: 8, color: 'var(--color-white)' }} onClick={() => onEnter?.(inputRef.current?.value || '')} />}
+      {search && (
+        <SearchOutlined
+          className='absolute color-white'
+          style={{ left: 8, color: 'var(--color-white)' }}
+          onClick={() => onEnter?.(inputRef.current?.value || '')}
+        />
+      )}
     </div>
   )
 }

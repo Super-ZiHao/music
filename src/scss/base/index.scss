@@ -132,7 +132,7 @@ $distanceDirection: (
   'b': '-bottom',
   'l': '-left'
 );
-$distance: (4, 8, 12, 16, 24, 32);
+$distance: (4, 6, 8, 12, 16, 24, 32);
 
 @each $key, $value in $distanceDirection {
   @each $number in $distance {
@@ -151,7 +151,7 @@ $distance: (4, 8, 12, 16, 24, 32);
  * 4, 12, 16
 *==========================================================================
 */
-$radius: (4, 6, 8, 12, 16);
+$radius: (2, 4, 6, 8, 12, 16);
 @each $radius in $radius {
   .radius-#{$radius} {
     border-radius: #{$radius}px;

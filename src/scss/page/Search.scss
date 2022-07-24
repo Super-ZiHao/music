@@ -25,7 +25,7 @@
 }
 
 .ant-menu-horizontal {
-  border-color: var(--color-white-2);
+  border-color: var(--color-white);
 }
 
 .search-page {
@@ -42,10 +42,10 @@
     padding-top: 4px;
     height: 36px;
     border-radius: 9px;
-    color: rgba($color: orange, $alpha: 0.4);
+    color: peru;
   }
   .music-list-main {
-    color: var(--color-white-2);
+    color: var(--color-white);
     height: calc(100% - 36px);
     overflow-y: overlay;
     .item {

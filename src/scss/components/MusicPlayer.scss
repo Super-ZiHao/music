@@ -35,3 +35,20 @@
     transition: all 0.3s;
   }
 }
+
+.musicPlayer-volumeController {
+  .volumeController {
+    background-color: var(--icon-hover);
+    width: 26px;
+    height: 100px;
+    transform: translateY(-100%);
+  }
+  &:hover {
+    .icon {
+      color: var(--icon-hover);
+    }
+  }
+  .icon {
+    color: var(--color-white);
+  }
+}

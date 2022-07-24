@@ -6,6 +6,8 @@ import ProgressBar from './ProgressBar'
 import { MusicInterface } from '@/store/currentPlayMusicSlice'
 import { StoreInterface } from '@/store'
 import { getMusicUrlString } from '@/utils/function'
+import Time from './Time'
+import VolumeController from './VolumeController'
 
 const MusicPlayer = () => {
   const { isPlaying, changeAudioToggle } = useAudio()
@@ -40,7 +42,12 @@ const MusicPlayer = () => {
         </div>
       </div>
       {/* 右侧 */}
-      <div></div>
+      <div className='flex items-center'>
+        {/* 音量控制 */}
+        <VolumeController />
+        {/* 歌曲时间 */}
+        <Time />
+      </div>
     </div>
   )
 }

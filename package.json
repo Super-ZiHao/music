@@ -10,7 +10,7 @@
     "dev:app": "electron . dev",
     "app": "electron .",
     "build": "tsc && vite build",
-    "build:mac": "npm build && electron-builder",
+    "build:mac": "electron-builder",
     "build:win": "electron-builder --win --x64",
     "preview": "vite preview"
   },

@@ -9,3 +9,13 @@ export enum SearchMenuKeys {
   /** 歌单 */
   SONGSHEET_MENU = 'songSheet_menu'
 }
+
+/**
+ * useAudio 监听对象
+ */
+export enum AudioListenerUpdate {
+  TIME = 'time',
+  VOLUME = 'volume',
+  TIMEANDVOLUME = 'timeAndVolume',
+  NONE = 'null'
+}

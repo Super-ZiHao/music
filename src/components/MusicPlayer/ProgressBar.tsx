@@ -1,15 +1,15 @@
 import React, { useRef } from 'react'
 import useAudio from '@/utils/hooks/useAudio'
+import { AudioListenerUpdate } from '@/types/enum'
 
 type Props = {
   height?: string
-  onClick?: (e: React.MouseEvent<HTMLDivElement, MouseEvent>, proportion: number) => void
 }
 
-const ProgressBar: React.FC<Props> = ({ height, onClick }) => {
+const ProgressBar: React.FC<Props> = ({ height }) => {
   const progressBarRef = useRef<HTMLDivElement>(null)
   const spotRef = useRef<HTMLDivElement>(null)
-  const { audio, duration, currentDuration, changeCurrentDuration } = useAudio(true)
+  const { audio, duration, currentDuration, changeCurrentDuration } = useAudio(AudioListenerUpdate.TIME)
 
   // 点击按钮滑动切换时间
   const move = (e: any) => {
