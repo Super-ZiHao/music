@@ -24,6 +24,7 @@ const useAudio = (audioListenerUpdate = AudioListenerUpdate.NONE, audioClassName
 
   // 播放开关
   const changeAudioToggle = useCallback(() => {
+    if (audio.error) return // 说明资源还未被加载
     if (audio.paused) {
       audio.play()
     } else {
