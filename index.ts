@@ -1,13 +1,14 @@
 // 用于控制应用程序寿命和创建本机浏览器窗口的模块
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow, ipcMain } = require('electron')
 const path = require('path')
 const url = require('url')
 // 获取在 package.json 中命令脚本传入的参数，来判断是开发还是生产环境
 const mode = process.argv[2]
 
+let mainWindow
 function createWindow() {
   // 创建浏览器窗口。
-  const mainWindow = new BrowserWindow({
+  mainWindow = new BrowserWindow({
     width: 1000,
     minWidth: 1000,
     height: 600,
@@ -19,7 +20,7 @@ function createWindow() {
     transparent: true,
     frame: false
   })
-  // mainWindow.webContents.openDevTools()
+  mainWindow.webContents.openDevTools() // 控制台
   if (mode === 'dev') {
     mainWindow.loadURL('http://localhost:4000/')
   } else {
@@ -44,10 +45,14 @@ app.whenReady().then(() => {
     // 单击dock图标，没有其他窗口打开。
     if (BrowserWindow.getAllWindows().length === 0) createWindow()
   })
+
+  ipcMain.on('min', e => mainWindow.minimize()) // 最小化
+  ipcMain.on('max', e => mainWindow.maximize()) // 最大化
+  ipcMain.on('unMax', e => mainWindow.unmaximize()) // 取消最大化
+  ipcMain.on('close', e => mainWindow.close()) // 关闭
 })
 
 // 当所有窗口（macOS上除外）关闭时退出。这很常见
-// 让应用程序及其菜单栏保持活动状态，直到用户退出
 // 使用Cmd+Q显式。
 app.on('window-all-closed', function () {
   if (process.platform !== 'darwin') app.quit()
