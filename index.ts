@@ -39,20 +39,18 @@ function createWindow() {
 // 某些API只能在该事件发生后使用。
 app.whenReady().then(() => {
   createWindow()
-
   app.on('activate', function () {
     // 在macOS上，在应用程序中重新创建窗口是很常见的
     // 单击dock图标，没有其他窗口打开。
     if (BrowserWindow.getAllWindows().length === 0) createWindow()
   })
-
   ipcMain.on('min', e => mainWindow.minimize()) // 最小化
-  ipcMain.on('max', e => mainWindow.maximize()) // 最大化
-  ipcMain.on('unMax', e => mainWindow.unmaximize()) // 取消最大化
-  ipcMain.on('close', e => mainWindow.close()) // 关闭
+  ipcMain.on('onToggleMax', e => (mainWindow.isMaximized() ? mainWindow.unmaximize() : mainWindow.maximize())) // 切换最大化
+  ipcMain.on('close', e => mainWindow.destroy() && (mainWindow = null)) // 关闭
 })
 
 // 当所有窗口（macOS上除外）关闭时退出。这很常见
+// 让应用程序及其菜单栏保持活动状态，直到用户退出
 // 使用Cmd+Q显式。
 app.on('window-all-closed', function () {
   if (process.platform !== 'darwin') app.quit()

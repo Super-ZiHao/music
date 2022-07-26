@@ -16,7 +16,7 @@ type Props = {
 }
 
 const MusicList: React.FC<Props> = ({ className = '', loading = false, data }) => {
-  const currentPlayerMusic = useSelector<StoreInterface, CurrentPlayerMusicInterface>((store) => store.currentPlayerMusic)
+  const currentPlayerMusic = useSelector<StoreInterface, CurrentPlayerMusicInterface>(store => store.currentPlayerMusic)
   const dispatch = useDispatch()
   if (loading) {
     return (
@@ -68,7 +68,7 @@ const MusicList: React.FC<Props> = ({ className = '', loading = false, data }) =
   }
   return (
     <div className='flex items-center justify-center w-full h-full'>
-      <Empty description='请先搜索哟，现在还没有歌曲' image={Empty.PRESENTED_IMAGE_SIMPLE} style={{ color: 'var(--color-white)' }} />
+      <Empty description='请先搜索哟，现在还没有数据' image={Empty.PRESENTED_IMAGE_SIMPLE} style={{ color: 'var(--color-white)' }} />
     </div>
   )
 }

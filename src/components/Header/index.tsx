@@ -1,6 +1,6 @@
 import { StoreInterface } from '@/store'
 import { SearchedMusicListInterface } from '@/store/searchedMusicListSlice'
-import { handleCloseWin, handleMaxWin, handleMinWin, handleUnMaxWin } from '@/utils/electonFuns'
+import { handleCloseWin, handleChangeMaxWin, handleMinWin } from '@/utils/electonFuns'
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import Search from './Search'
@@ -21,7 +21,7 @@ const Header: React.FC<Props> = () => {
         <Icon
           className='ml-4'
           onClick={() => {
-            isMax ? handleUnMaxWin() : handleMaxWin()
+            handleChangeMaxWin()
             setIsMax(!isMax)
           }}
           component={isMax ? IconUnMaxWin : IconMaxWin}
