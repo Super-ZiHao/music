@@ -7,9 +7,7 @@
     padding: 0 15px;
     border-radius: 15px;
     width: 180px;
-    height: 32px;
-    line-height: 38px;
-    font-weight: 500;
+    height: 100%;
     color: rgba($color: #fff, $alpha: 0.4);
     transition: 0.3s all;
     &::placeholder {
@@ -19,8 +17,49 @@
     &:focus {
       width: 230px;
       border-radius: 10px 10px 4px 4px;
-      box-shadow: inset 0px -2px 1px #00b7ff,
-      0px -2px 5px rgba($color: #fff, $alpha: 0.2),
+      box-shadow: inset 0px -2px 1px #00b7ff, 0px -2px 5px rgba($color: #fff, $alpha: 0.2);
     }
+  }
+  .search-input-box {
+    width: 260px;
+    min-height: 200px;
+    max-height: 455px;
+    color: whitesmoke;
+    overflow-y: overlay;
+    overflow-x: hidden;
+    border-radius: 6px;
+    overscroll-behavior: none;
+    backdrop-filter: blur(20px);
+    background-color: rgba(82, 175, 199, 0.1);
+    box-shadow: rgba(0, 0, 0, 0.3) 2px 8px 8px;
+    border: 1px rgba(255, 255, 255, 0.4) solid;
+    border-bottom: 1px rgba(40, 40, 40, 0.35) solid;
+    border-right: 1px rgba(40, 40, 40, 0.35) solid;
+    transform: translateX(-14px);
+    animation: opacity 0.3s linear forwards;
+    .item {
+      &:nth-child(1) .ranking {
+        color: #d61c4e;
+      }
+      &:nth-child(2) .ranking {
+        color: #f77e21;
+      }
+      &:nth-child(3) .ranking {
+        color: #fac213;
+      }
+
+      &:hover {
+        background-color: rgba($color: #34d894, $alpha: 0.3);
+      }
+    }
+  }
+}
+
+@keyframes opacity {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
   }
 }

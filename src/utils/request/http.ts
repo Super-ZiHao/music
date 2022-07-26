@@ -4,7 +4,7 @@ import { musicSourceActuator } from '../function'
 const getApiBaseUrl = () => {
   return musicSourceActuator(
     () => 'https://netease-cloud-music-api-nu-one.vercel.app',
-    () => 'https://netease-cloud-music-api-nu-one.vercel.appqq'
+    () => 'https://qq-music-api-coral.vercel.app/'
   )
 }
 
@@ -14,15 +14,15 @@ export const http = axios.create({
 })
 
 http.interceptors.request.use(
-  (config) => {
+  config => {
     return config
   },
-  (err) => {
+  err => {
     return Promise.reject(err)
   }
 )
 
 http.interceptors.response.use(
-  (res) => res.data,
-  (err) => Promise.reject(err)
+  res => res.data,
+  err => Promise.reject(err)
 )
