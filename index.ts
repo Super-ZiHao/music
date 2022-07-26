@@ -9,7 +9,7 @@ let mainWindow
 function createWindow() {
   // 创建浏览器窗口。
   mainWindow = new BrowserWindow({
-    width: 1000,
+    width: 1300,
     minWidth: 1000,
     height: 600,
     minHeight: 600,

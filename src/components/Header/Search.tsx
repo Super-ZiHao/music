@@ -6,18 +6,24 @@ import { setMusicList, setMusicListLoading } from '@/store/searchedMusicListSlic
 import useThrottle from '@/utils/hooks/useThrottle'
 import useDebounce from '@/utils/hooks/useDebounce'
 
-const SearchBoxComponent: React.FC<{ title: string; searchData: any; onClick: (value: string) => void }> = ({ title, searchData, onClick }) => {
+type hotSearchDataType = {
+  searchWord: string
+  score: string
+  iconUrl?: string
+  content?: string
+}[]
+/** 热门搜索组件 */
+const HotSearchComponent: React.FC<{ searchData: hotSearchDataType; onClick: (value: string) => void }> = ({ searchData, onClick }) => {
   return (
     <div className='pt-4 pb-4'>
       <div className='fs-14 ml-8' style={{ marginBottom: -2 }}>
-        {title}
+        热搜榜单
       </div>
       <div className='mt-4'>
         {searchData.map((item: any, index: number) => (
           <div
             className='flex items-center item p-8'
             onClick={() => {
-              console.log(item.searchWord)
               onClick(item.searchWord)
             }}
             key={index}
@@ -40,21 +46,27 @@ const SearchBoxComponent: React.FC<{ title: string; searchData: any; onClick: (v
   )
 }
 
+/** 搜索建议组件 */
+const SuggestComponent = () => <div>123</div>
 type Props = {}
 
 const Header: React.FC<Props> = () => {
   const dispatch = useDispatch()
   const [inputValue, setInputValue] = useState<string>('')
-  const [hotSearch, setHotSearch] = useState<any>() // 热门搜索
+  const [hotSearch, setHotSearch] = useState<hotSearchDataType>() // 热门搜索
   const [suggest, setSuggest] = useState<any>() // 搜索建议
 
-  // const getSuggest = useDebounce(async (value: string) => {
-  //   const suggest = await getSuggestApi(value)
-  //   console.log(suggest)
-  // }, 500)
+  const getSuggest = useDebounce(async (value: string) => {
+    if (value.trim().length < 1) return
+    setSuggest(await getSuggestApi(value))
+  }, 1000)
   useEffect(() => {
-    // getSuggest(inputValue)
+    getSuggest(inputValue)
   }, [inputValue])
+
+  useEffect(() => {
+    console.log(suggest)
+  }, [suggest])
 
   // 获取搜索到的值
   const searchMusic = useThrottle<(value: string) => void>(async value => {
@@ -88,7 +100,7 @@ const Header: React.FC<Props> = () => {
       onChange={value => setInputValue(value)}
       search
       searchBoxClassName='search-input-box'
-      searchBoxComponent={hotSearch && <SearchBoxComponent title='热搜榜单' searchData={hotSearch} onClick={handleSearch} />}
+      searchBoxComponent={suggest ? <SuggestComponent /> : hotSearch && <HotSearchComponent searchData={hotSearch} onClick={handleSearch} />}
     />
   )
 }

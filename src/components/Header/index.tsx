@@ -23,9 +23,14 @@ const Header: React.FC<Props> = () => {
     <div className='header relative' onDoubleClick={toggleMaxWin}>
       <Search />
       <div className='absolute flex items-center justify-center' style={{ right: 0 }}>
-        <Icon onClick={() => handleMinWin()} component={IconMinWin} style={{ width: 28, color: 'var(--color-white)' }} />
-        <Icon className='ml-4' onClick={toggleMaxWin} component={isMax ? IconUnMaxWin : IconMaxWin} style={{ width: 20, color: 'var(--color-white)' }} />
-        <Icon className='ml-4' onClick={() => handleCloseWin()} component={IconClose} style={{ width: 24, color: 'var(--color-white)' }} />
+        <Icon className='no-drag cp' onClick={() => handleMinWin()} component={IconMinWin} style={{ width: 28, color: 'var(--color-white)' }} />
+        <Icon
+          className='ml-4 no-drag cp'
+          onClick={toggleMaxWin}
+          component={isMax ? IconUnMaxWin : IconMaxWin}
+          style={{ width: 20, color: 'var(--color-white)' }}
+        />
+        <Icon className='ml-4 no-drag cp' onClick={() => handleCloseWin()} component={IconClose} style={{ width: 24, color: 'var(--color-white)' }} />
       </div>
     </div>
   )

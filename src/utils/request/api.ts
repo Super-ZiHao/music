@@ -26,7 +26,14 @@ export const getHotSearchApi: (detail?: boolean) => any = (detail = false) => {
   return musicSourceActuator(
     () => {
       if (detail) {
-        return http.get('search/hot/detail').then((res: any) => res.data)
+        return http.get('search/hot/detail').then((res: any) =>
+          res.data.map((item: any) => ({
+            searchWord: item.searchWord, // 搜索词
+            score: item.score, // 搜索数量
+            iconUrl: item.iconUrl, // 搜索icon
+            content: item.content // 搜索上下文
+          }))
+        )
       }
       return http.get('search/hot').then((res: any) => res.result.hots)
     },
@@ -42,7 +49,7 @@ export const getHotSearchApi: (detail?: boolean) => any = (detail = false) => {
  */
 export const getSuggestApi: (value: string) => any = value => {
   return musicSourceActuator(
-    () => http.get(`search/suggest?keywords=${value}`).then(res => res),
+    () => http.get(`search/suggest?keywords=${value}`).then((res: any) => res.result),
     () => http.get(`search/suggest?keywords=${value}`).then(res => res)
   )
 }
