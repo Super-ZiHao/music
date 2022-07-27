@@ -49,8 +49,12 @@ const Input: React.FC<Props> = ({
   // value改变触发事件
   const handleInput = (e: any) => {
     onChange?.(e.target.value)
-    if (!!value) e.target.value = value
   }
+
+  useEffect(() => {
+    if (!inputRef.current) return
+    inputRef.current.value = value as string
+  }, [value])
 
   // 回车事件
   const handleKeyDown = (e: any) => {
