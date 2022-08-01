@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import useAudio from '@/utils/hooks/useAudio'
 import { AudioListenerUpdate } from '@/types/enum'
 
@@ -10,22 +10,30 @@ const ProgressBar: React.FC<Props> = ({ height }) => {
   const progressBarRef = useRef<HTMLDivElement>(null)
   const spotRef = useRef<HTMLDivElement>(null)
   const { audio, duration, currentDuration, changeCurrentDuration } = useAudio(AudioListenerUpdate.TIME)
+  const [progress, setProgress] = useState<number>(0) // 进度
+  const [flg, setFlg] = useState<boolean>(false)
 
   // 点击按钮滑动切换时间
   const move = (e: any) => {
     if (!spotRef.current || !progressBarRef.current) return
-    audio.pause()
-    changeCurrentDuration((e.pageX / progressBarRef.current?.offsetWidth) * duration, false)
+    setProgress((e.pageX / progressBarRef.current?.offsetWidth) * duration)
   }
   const handleMouseDown = () => {
     window.addEventListener('mousemove', move)
     window.addEventListener('mouseup', handleMouseUp)
+    setFlg(true)
   }
-  const handleMouseUp = () => {
+  const handleMouseUp = (e: any) => {
     window.removeEventListener('mousemove', move)
     window.removeEventListener('mouseup', handleMouseUp)
-    audio.play()
+    if (!spotRef.current || !progressBarRef.current) return
+    changeCurrentDuration((e.pageX / progressBarRef.current?.offsetWidth) * duration)
+    setFlg(false)
   }
+  // 监听变化
+  useEffect(() => {
+    if (!flg) setProgress(currentDuration)
+  }, [currentDuration])
   return (
     <div
       ref={progressBarRef}
@@ -40,7 +48,7 @@ const ProgressBar: React.FC<Props> = ({ height }) => {
         className='line relative'
         style={{
           // @ts-ignore
-          width: `${(currentDuration / duration) * 100}%`
+          width: `${(progress / duration) * 100}%`
         }}
       />
       {/* 圆点 */}

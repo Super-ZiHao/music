@@ -11,19 +11,7 @@ import VolumeController from './VolumeController'
 
 const MusicPlayer = () => {
   const { isPlaying, changeAudioToggle } = useAudio()
-
   const currentPlayerMusic = useSelector<StoreInterface, CurrentPlayerMusicInterface>((store) => store.currentPlayerMusic)
-  // // 全局空格
-  // useEffect(() => {
-  //   const audio = audioRef.current;
-  //   if (!audio) return;
-  //   const handleKeyDonw = (e: any) => {
-  //     if (e.code === "Space") handleToggle();
-  //   };
-  //   // 增加全局空格控制音乐
-  //   window.addEventListener("keydown", handleKeyDonw);
-  //   return () => window.removeEventListener("keydown", handleKeyDonw);
-  // }, []);
   return (
     <div className='flex items-center justify-between h-full pl-24 pr-24 relative'>
       <audio className='music-player' src={getMusicUrlString(currentPlayerMusic.currentMusic.musicId)}></audio>

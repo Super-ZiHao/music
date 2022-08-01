@@ -15,7 +15,7 @@ const useAudio = (audioListenerUpdate = AudioListenerUpdate.NONE, audioClassName
   const [volume, setVolume] = useState<number>(100)
   // 设置进度条
   const changeCurrentDuration = useCallback(
-    (num: number, isPlay = true) => {
+    (num: number, isPlay = false) => {
       isPlay && audio.play()
       audio.currentTime = num
     },
@@ -66,6 +66,7 @@ const useAudio = (audioListenerUpdate = AudioListenerUpdate.NONE, audioClassName
     const pause = () => setIsPlaying(false)
     const handlePlay = () => {
       setDuration(audio.duration)
+      if (audio.currentTime > 0) return
       audio.play()
     }
 
