@@ -1,10 +1,17 @@
 import React from "react";
 import Icon from "@ant-design/icons";
 import { IconCollection, IconList, IconMusice, IconRankingList } from "./Icons";
+import { useNavigate } from "react-router-dom";
 
 type Props = {};
 
 const Menu: React.FC<Props> = () => {
+  const navigate = useNavigate()
+  const pushPath = (path: string) => {
+    navigate(path, {
+      replace: true
+    })
+  }
   return (
     <div className="menu">
       <div className="flex justify-center">
@@ -12,6 +19,7 @@ const Menu: React.FC<Props> = () => {
           className="icon"
           component={IconMusice}
           style={{ width: 28, height: 28 }}
+          onClick={() => pushPath('/')}
         />
       </div>
       <div className="flex justify-center">

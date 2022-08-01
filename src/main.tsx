@@ -6,11 +6,14 @@ import './scss/index.scss'
 // redux toolkit
 import { Provider } from 'react-redux'
 import store from './store'
+import { HashRouter } from 'react-router-dom'
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 // root.render(<React.StrictMode><App /></React.StrictMode>)
 root.render(
   <Provider store={store}>
-    <App />
+    <HashRouter>
+      <App />
+    </HashRouter>
   </Provider>
 )
