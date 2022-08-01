@@ -1,10 +1,10 @@
 import { StoreInterface } from '@/store'
 import { SearchedMusicListInterface } from '@/store/searchedMusicListSlice'
-import { handleCloseWin, handleChangeMaxWin, handleMinWin } from '@/utils/electonFuns'
+// import { handleCloseWin, handleChangeMaxWin, handleMinWin } from '@/utils/electonFuns'
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import Search from './Search'
-import Icon, { MinusOutlined } from '@ant-design/icons'
+import Icon from '@ant-design/icons'
 import { IconClose, IconMaxWin, IconMinWin, IconUnMaxWin } from '../Icons'
 
 type Props = {}
@@ -15,7 +15,6 @@ const Header: React.FC<Props> = () => {
 
   // 最大化 ｜ 取消最大化
   const toggleMaxWin = () => {
-    handleChangeMaxWin()
     setIsMax(!isMax)
   }
 
@@ -23,14 +22,13 @@ const Header: React.FC<Props> = () => {
     <div className='header relative' onDoubleClick={toggleMaxWin}>
       <Search />
       <div className='absolute flex items-center justify-center' style={{ right: 0 }}>
-        <Icon className='no-drag cp' onClick={() => handleMinWin()} component={IconMinWin} style={{ width: 28, color: 'var(--color-white)' }} />
+        <Icon className='no-drag cp' component={IconMinWin} style={{ width: 28, color: 'var(--color-white)' }} />
         <Icon
           className='ml-4 no-drag cp'
-          onClick={toggleMaxWin}
           component={isMax ? IconUnMaxWin : IconMaxWin}
           style={{ width: 20, color: 'var(--color-white)' }}
         />
-        <Icon className='ml-4 no-drag cp' onClick={() => handleCloseWin()} component={IconClose} style={{ width: 24, color: 'var(--color-white)' }} />
+        <Icon className='ml-4 no-drag cp'component={IconClose} style={{ width: 24, color: 'var(--color-white)' }} />
       </div>
     </div>
   )

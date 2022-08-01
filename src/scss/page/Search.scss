@@ -36,26 +36,37 @@
 
 .music-list {
   width: 100%;
-  .title {
-    position: sticky;
-    top: 0px;
-    padding-top: 4px;
-    height: 36px;
-    border-radius: 9px;
-    color: peru;
-  }
-  .music-list-main {
-    color: var(--color-white);
-    height: calc(100% - 36px);
-    overflow-y: overlay;
-    .item {
-      height: 30px;
+  height: 100%;
+  overflow: overlay;
+  display: grid;
+  grid-auto-rows: 58px;
+  .music-list-item {
+    transition: all .1s;
+    height: 100%;
+    overflow: hidden;
+    &:hover {
+      background-color: rgba($color: #000000, $alpha: 0.3);
       .ranking-top {
-        padding-left: 8px;
+        transform: translateY(10%);
       }
-      &:hover {
-        background-color: rgba($color: #34d894, $alpha: 0.3);
-      }
+    }
+    // 排名
+    .ranking-top {
+      margin-left: 18px;
+      font-size: 34px;
+      color: var(--color-gray);
+      font-weight: bolder;
+      text-align: center;
+      transform: translateY(25%);
+      transition: all .2s;
+    }
+    // 控件
+    .control {
+      display: grid;
+      gap: 24px;
+      grid-template-columns: repeat(4, 1fr);
+      justify-items: center;
+      align-items: center;
     }
   }
 }

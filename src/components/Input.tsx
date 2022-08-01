@@ -60,6 +60,7 @@ const Input: React.FC<Props> = ({
   const handleKeyDown = (e: any) => {
     if (!onEnter) return
     if (e.code === 'NumpadEnter' || e.code === 'Enter') {
+      search && setShowSearchBox(false)
       setTimeout(() => {
         onEnter((inputRef.current as HTMLInputElement).value)
       }, 0)

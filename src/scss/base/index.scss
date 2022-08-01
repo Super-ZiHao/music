@@ -132,7 +132,7 @@ $distanceDirection: (
   'b': '-bottom',
   'l': '-left'
 );
-$distance: (4, 8, 10, 12, 16, 24, 32);
+$distance: (4, 6, 8, 10, 12, 16, 24, 32);
 
 @each $key, $value in $distanceDirection {
   @each $number in $distance {
@@ -190,7 +190,7 @@ $fontWeights: (400, 500, 600, 700, bold);
  * 40, 44, 48
 *==========================================================================
 */
-$lineHeights: ();
+$lineHeights: (14, 18);
 @each $lineHeight in $lineHeights {
   .lh-#{$lineHeight} {
     line-height: #{$lineHeight}px;
