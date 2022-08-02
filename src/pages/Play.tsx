@@ -3,15 +3,23 @@ import { IconAlbum, IconComment, IconLyric, IconMusice1, IconSinger } from '@/co
 import { StoreInterface } from '@/store'
 import { CurrentPlayerMusicInterface, getLyric } from '@/store/currentPlayMusicSlice'
 import { useDispatch, useSelector } from 'react-redux'
-import { useEffect } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import useAudio from '@/utils/hooks/useAudio'
+import { AudioListenerUpdate } from '@/types/enum'
 
 type Props = {}
 
 const MusicPlay: React.FC<Props> = () => {
-  const dispatch = useDispatch();
   const currentPlayerMusic = useSelector<StoreInterface, CurrentPlayerMusicInterface>(store => store.currentPlayerMusic)
+  const { currentDuration } = useAudio(AudioListenerUpdate.TIME)
+  const [selectedLyric, setSelectedLyric] = useState<number>(40)
+  const lyricMainRef = useRef<HTMLDivElement>(null)
+  useEffect(() => {
+    if (!lyricMainRef.current) return
+    lyricMainRef.current.children[selectedLyric].scrollIntoView({ block: 'center', behavior: 'smooth' })
+  }, [currentDuration])
   return (
-    <div className='w-full h-full relative'>
+    <div className='w-full h-full music-play relative'>
       <div className='absolute' style={{ left: 0, top: 0 }}>
         <img className='radius-12' style={{ width: 226, height: 226 }} src={currentPlayerMusic.currentMusicAlbum.url} alt='' />
         <div className='absolute flex column items-start' style={{ top: 24, left: 180 }}>
@@ -36,8 +44,12 @@ const MusicPlay: React.FC<Props> = () => {
           </span>
         </div>
       </div>
-      <div className='absolute' style={{ width: 400, top: 0, right: 0 }}>
-        {currentPlayerMusic.currentMusic.lyric}
+      <div className='absolute flex justify-center lyric text-center'>
+        <div className='cp lyric-main' ref={lyricMainRef}>
+          {currentPlayerMusic.currentMusic.lyric.map((item, index) => (
+            <div className={`lyric-item color-white-transparent-0 ${selectedLyric === index ? 'selected' : ''}`}>{item.text}</div>
+          ))}
+        </div>
       </div>
     </div>
   )

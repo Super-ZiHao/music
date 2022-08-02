@@ -71,7 +71,15 @@ export const getAlbumApi: (id: number) => any = id => {
  */
 export const getLyricApi: (id: number) => any = id => {
   return musicSourceActuator(
-    () => http.get(`lyric?id=${id}`).then((res: any) => res.lrc),
+    () => http.get(`lyric?id=${id}`).then((res: any) => {
+      return res.lrc.lyric.split('[').map((item: string) => {
+        const dataArr = item.split(']')
+        return {
+          time: dataArr[0],
+          text: dataArr[1]
+        }
+      }).filter((item: any) => (item.time || item.text))
+    }),
     () => http.get(`lyric?id=${id}`)
   )
 }

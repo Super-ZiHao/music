@@ -16,7 +16,7 @@ const initCurrentPlayerMusicSlice: CurrentPlayerMusicInterface = {
     coverUrl: '',
     albumId: -1,
     duration: 0,
-    lyric: ''
+    lyric: []
   },
   currentMusicAlbum: {
     id: -2,
@@ -61,7 +61,7 @@ const currentPlayMusicSlice = createSlice({
       state.currentMusicAlbum = albumObj
     }),
       builder.addCase(getLyric.fulfilled, (state, { payload }) => {
-        state.currentMusic.lyric = payload.lyric
+        state.currentMusic.lyric = payload
       })
   }
 })
