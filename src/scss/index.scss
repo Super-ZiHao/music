@@ -10,6 +10,7 @@
 
 // 页面样式
 @import './page/Search.scss';
+@import './page/Play.scss';
 
 body {
   background-color: rgba($color: #000000, $alpha: 0);
@@ -28,9 +29,25 @@ body {
   background-size: 100% 100%;
 }
 
+.transition {
+  transition: all .2s;
+}
+
+.color-white-transparent-0 {
+  color: var(--color-white-0)
+}
 .color-white-transparent {
   color: var(--color-white);
 }
+.color-white-transparent-2 {
+  color: var(--color-white-2);
+}
+.hover\:color-white-transparent-2:hover {
+  color: var(--color-white-2);
+}
 .color-gray-transparent {
   color: var(--color-gray);
+}
+.bg-black-transparent {
+  background-color: var(--color-black);
 }

@@ -1,0 +1,7 @@
+.music-label {
+  transition: all .2s;
+  &:hover {
+    transform: translateX(6px);
+    box-shadow: 0 0 4px #000;
+  }
+}

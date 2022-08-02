@@ -24,9 +24,9 @@ const MusicPlayer = () => {
         {/* 名字 and 作者 */}
         <div className='ml-16'>
           <div className='fs-18 fw-bold ellipsis' style={{ maxWidth: 400 }}>
-            {currentPlayerMusic.currentMusic.musicName}
+            {currentPlayerMusic.currentMusic.musicName || '未知'}
           </div>
-          <div>{currentPlayerMusic.currentMusic.singerName}</div>
+          <div>{currentPlayerMusic.currentMusic.singerName || '未知'}</div>
         </div>
       </div>
       {/* 右侧 */}

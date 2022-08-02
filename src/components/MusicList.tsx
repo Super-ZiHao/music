@@ -40,7 +40,7 @@ const MusicList: React.FC<Props> = ({ className = '', loading = false, data }) =
           >
             <div className='flex items-center'>
               {/* 排名 */}
-              <div className='ranking-top' style={{ width: 50 }}>
+              <div className='ranking-top transition' style={{ width: 50 }}>
                 {index + 1}
               </div>
               {/* 音乐名称 */}

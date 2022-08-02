@@ -9,7 +9,7 @@ type Props = {
 const ProgressBar: React.FC<Props> = ({ height }) => {
   const progressBarRef = useRef<HTMLDivElement>(null)
   const spotRef = useRef<HTMLDivElement>(null)
-  const { audio, duration, currentDuration, changeCurrentDuration } = useAudio(AudioListenerUpdate.TIME)
+  const { duration, currentDuration, changeCurrentDuration } = useAudio(AudioListenerUpdate.TIME)
   const [progress, setProgress] = useState<number>(0) // 进度
   const [flg, setFlg] = useState<boolean>(false)
 

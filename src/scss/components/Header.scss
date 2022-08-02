@@ -1,6 +1,6 @@
 .header {
   -webkit-app-region: drag;
-  height: 68px;
+  min-height: 68px;
   display: flex;
   align-items: center;
   .search-input {
