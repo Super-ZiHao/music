@@ -18,6 +18,10 @@ $time: 0.3s;
     &:hover {
       color: var(--icon-hover);
     }
+    &.active {
+      color: var(--icon-hover);
+      transform: scale(1.2);
+    }
   }
 
   &:hover {

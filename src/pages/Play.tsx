@@ -1,23 +1,23 @@
 import Icon from '@ant-design/icons'
 import { IconAlbum, IconComment, IconLyric, IconMusice1, IconSinger } from '@/components/Icons'
 import { StoreInterface } from '@/store'
-import { CurrentPlayerMusicInterface, getLyric } from '@/store/currentPlayMusicSlice'
-import { useDispatch, useSelector } from 'react-redux'
+import { CurrentPlayerMusicInterface } from '@/store/currentPlayMusicSlice'
+import { useSelector } from 'react-redux'
 import { useEffect, useRef, useState } from 'react'
 import useAudio from '@/utils/hooks/useAudio'
-import { AudioListenerUpdate } from '@/types/enum'
 
 type Props = {}
 
 const MusicPlay: React.FC<Props> = () => {
   const currentPlayerMusic = useSelector<StoreInterface, CurrentPlayerMusicInterface>(store => store.currentPlayerMusic)
-  const { currentDuration } = useAudio(AudioListenerUpdate.TIME)
-  const [selectedLyric, setSelectedLyric] = useState<number>(40)
+  const { isPlaying } = useAudio()
+  const [selectedLyric, setSelectedLyric] = useState<number>(0)
   const lyricMainRef = useRef<HTMLDivElement>(null)
+
   useEffect(() => {
     if (!lyricMainRef.current) return
-    lyricMainRef.current.children[selectedLyric].scrollIntoView({ block: 'center', behavior: 'smooth' })
-  }, [currentDuration])
+    // lyricMainRef.current.children[selectedLyric]?.scrollIntoView({ block: 'center', behavior: 'smooth' })
+  }, [isPlaying])
   return (
     <div className='w-full h-full music-play relative'>
       <div className='absolute' style={{ left: 0, top: 0 }}>
