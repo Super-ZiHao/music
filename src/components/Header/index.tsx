@@ -1,7 +1,7 @@
 import { StoreInterface } from '@/store'
 import { SearchedMusicListInterface } from '@/store/searchedMusicListSlice'
 // import { handleCloseWin, handleChangeMaxWin, handleMinWin } from '@/utils/electonFuns'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import Search from './Search'
 import Icon from '@ant-design/icons'
@@ -20,10 +20,6 @@ const Header: React.FC<Props> = () => {
 
   return (
     <div className='header relative' onDoubleClick={toggleMaxWin}>
-      <div className='flex items-center'>
-        <Icon className='cp no-drag color-gray-transparent' component={IconBack} style={{ width: 22, height: 22 }} />
-        <Icon className='cp ml-16 no-drag color-gray-transparent' component={IconForward} style={{ width: 22, height: 22 }} />
-      </div>
       <div className='ml-16'>
         <Search />
       </div>

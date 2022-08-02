@@ -5,6 +5,7 @@ export type MusicType = {
   coverUrl: string // 封面地址
   albumId: number // 专辑 id
   duration: number // 歌曲的总时长
+  lyric: any // 歌词
   [any: string]: any
 }
 

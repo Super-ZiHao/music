@@ -14,7 +14,7 @@
       color: rgba($color: #fff, $alpha: 0.4);
     }
     background-color: rgba($color: #fff, $alpha: 0.15);
-    &:focus {
+    &.is-search-page {
       width: 230px;
       border-radius: 10px 10px 4px 4px;
       box-shadow: inset 0px -2px 1px #00b7ff, 0px -2px 5px rgba($color: #fff, $alpha: 0.2);

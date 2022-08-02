@@ -44,8 +44,8 @@ export const getHotSearchApi: (detail?: boolean) => any = (detail = false) => {
 }
 
 /**
+ * 获取搜索建议
  * @param 值value
- * @returns 获取搜索建议
  */
 export const getSuggestApi: (value: string) => any = value => {
   return musicSourceActuator(
@@ -55,12 +55,23 @@ export const getSuggestApi: (value: string) => any = value => {
 }
 
 /**
+ * 获取详情专辑详情
  * @param 专辑id
- * @returns 专辑详情
  */
 export const getAlbumApi: (id: number) => any = id => {
   return musicSourceActuator(
     () => http.get(`album?id=${id}`).then((res: any) => res.album),
     () => http.get(`album?id=${id}`).then(res => res)
+  )
+}
+
+/**
+ * 获取歌词
+ * @param 歌曲id
+ */
+export const getLyricApi: (id: number) => any = id => {
+  return musicSourceActuator(
+    () => http.get(`lyric?id=${id}`).then((res: any) => res.lrc),
+    () => http.get(`lyric?id=${id}`)
   )
 }

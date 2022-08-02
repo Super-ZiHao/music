@@ -1,6 +1,6 @@
 import Icon, { HeartOutlined, PlusOutlined } from '@ant-design/icons'
 import { StoreInterface } from '@/store'
-import { CurrentPlayerMusicInterface, getAlbum, setCurrentMusic } from '@/store/currentPlayMusicSlice'
+import { CurrentPlayerMusicInterface, getAlbum, getLyric, setCurrentMusic } from '@/store/currentPlayMusicSlice'
 import { SearchedMusicListInterface } from '@/store/searchedMusicListSlice'
 import { getTotalDuration } from '@/utils/function/time'
 import { useDispatch, useSelector } from 'react-redux'
@@ -35,6 +35,7 @@ const MusicList: React.FC<Props> = ({ className = '', loading = false, data }) =
             className={`flex items-center justify-between music-list-item`}
             onDoubleClick={() => {
               dispatch(setCurrentMusic(item))
+              dispatch(getLyric(item.musicId) as any)
               if (!(item.albumId === currentPlayerMusic.currentMusicAlbum.id)) dispatch(getAlbum(item.albumId) as any)
             }}
           >
@@ -55,7 +56,9 @@ const MusicList: React.FC<Props> = ({ className = '', loading = false, data }) =
               <Icon component={IconAdd} className='cp color-white-transparent' style={{ width: 14, height: 14 }} />
               <Icon component={IconDownLoad} className='cp color-white-transparent' style={{ width: 14, height: 14 }} />
             </div>
-            <div className='color-white-transparent' style={{ width: 100 }}>{ getTotalDuration(item.duration) }</div>
+            <div className='color-white-transparent' style={{ width: 100 }}>
+              {getTotalDuration(item.duration)}
+            </div>
           </div>
         ))}
       </div>

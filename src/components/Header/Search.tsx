@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux'
 import { setMusicList, setMusicListLoading } from '@/store/searchedMusicListSlice'
 import useThrottle from '@/utils/hooks/useThrottle'
 import useDebounce from '@/utils/hooks/useDebounce'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 
 type hotSearchDataType = {
   searchWord: string
@@ -53,6 +53,7 @@ type Props = {}
 
 const Header: React.FC<Props> = () => {
   const navigate = useNavigate()
+  const location = useLocation()
   const dispatch = useDispatch()
   const [inputValue, setInputValue] = useState<string>('')
   const [hotSearch, setHotSearch] = useState<hotSearchDataType>() // 热门搜索
@@ -82,10 +83,13 @@ const Header: React.FC<Props> = () => {
   // 聚焦获取热门搜索
   const handleFocus = useThrottle(
     async () => {
+      navigate('/search', {
+        replace: true
+      })
       if (hotSearch) return
       setHotSearch(await getHotSearchApi(true))
     },
-    2000,
+    500,
     [hotSearch]
   )
 
@@ -101,7 +105,7 @@ const Header: React.FC<Props> = () => {
 
   return (
     <Input
-      className='search-input no-drag'
+      className={`search-input ${location.pathname === '/search' ? 'is-search-page' : ''} no-drag`}
       placeholder='搜索你需要的歌曲~'
       onEnter={handleSeach}
       onFocus={handleFocus}
@@ -109,7 +113,7 @@ const Header: React.FC<Props> = () => {
       onChange={value => setInputValue(value)}
       search
       searchBoxClassName='search-input-box'
-      searchBoxComponent={suggest ? <SuggestComponent /> : hotSearch && <HotSearchComponent searchData={hotSearch} onClick={handleSearch} />}
+      searchBoxComponent={suggest && inputValue ? <SuggestComponent /> : hotSearch && <HotSearchComponent searchData={hotSearch} onClick={handleSearch} />}
     />
   )
 }
