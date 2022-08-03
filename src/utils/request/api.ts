@@ -51,7 +51,6 @@ export const getSuggestApi: (value: string) => any = value => {
   return musicSourceActuator(
     () =>
       http.get(`search/suggest?keywords=${value}`).then((res: any) => {
-        console.log(res.result)
         const resetName = (names: string[]) => {
           let newName = ''
           names.forEach(item => (newName += ` ${item}`))
@@ -99,13 +98,13 @@ export const getLyricApi: (id: number) => any = id => {
             const dataArr = item.split(']')
             // 格式化时间
             const date = dataArr[0].split(':')
-            const second = Number((Number(date[0]) * 60 + Number(date[1])).toFixed(2))
+            const second = Number(date[0]) * 60 + Number(date[1])
             return {
               time: second,
               text: dataArr[1]
             }
           })
-          .filter((item: any) => item.text)
+          .filter((item: any) => item.time && item.text !== '\n')
       }),
     () => http.get(`lyric?id=${id}`)
   )

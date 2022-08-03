@@ -12,7 +12,7 @@ function App() {
     // @ts-ignore
     <div className='App shell relative'>
       <img className='absolute w-full h-full' src={currentPlayerMusic.currentMusicAlbum.url} alt='' />
-      <div className='h-full' style={{ backdropFilter: 'blur(32px)', backgroundColor: 'rgba(0,0,0, 0.35)' }}>
+      <div className='h-full' style={{ backdropFilter: 'blur(32px)', backgroundColor: 'rgba(0,0,0, 0.3)' }}>
         <div className='flex' style={{ height: 'calc(100% - 68px)' }}>
           <Menu />
           <div className='flex-1 flex column pl-16 pr-16'>

@@ -19,7 +19,7 @@ const MusicPlay: React.FC<Props> = () => {
 
   // 每次加载都获取播放器当前播放长度
   useEffect(() => {
-    setCurrentTime(Number(audio?.currentTime.toFixed(2)))
+    setCurrentTime(audio?.currentTime)
   }, [isPlaying, selectedLyric, globalState.progressBarChange])
   // 监听当前歌词的index变化并滚动
   useEffect(() => {
@@ -34,13 +34,13 @@ const MusicPlay: React.FC<Props> = () => {
       const currentPlayerTime = currentTime + elapsedTime
       currentPlayerMusic.currentMusic.lyric.some((item, index, arr) => {
         if (arr[index + 1]) {
-          if (currentPlayerTime > Number(item.time) - 0.1 && currentPlayerTime < arr[index + 1]?.time) {
+          if (currentPlayerTime > Number(item.time) && currentPlayerTime < arr[index + 1]?.time) {
             if (selectedLyric === index) return true
             setSelectedLyric(index)
             return true
           }
         } else {
-          if (currentPlayerTime > Number(item.time) - 0.1) {
+          if (currentPlayerTime > Number(item.time)) {
             if (selectedLyric === index) return true
             setSelectedLyric(index)
             return true
@@ -48,15 +48,17 @@ const MusicPlay: React.FC<Props> = () => {
         }
         return false
       })
-      elapsedTime += 0.1
-    }, 100)
+      elapsedTime += 0.05
+    }, 50)
 
     return () => {
       clearInterval(timer)
     }
   }, [isPlaying, currentTime])
 
-  
+  useEffect(() => {
+    console.log(currentPlayerMusic.currentMusic.lyric)
+  }, [])
   return (
     <div className='w-full h-full music-play relative'>
       <div className='absolute' style={{ left: 0, top: 0 }}>
