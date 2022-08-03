@@ -1,12 +1,15 @@
 import React, { useEffect, useRef, useState } from 'react'
 import useAudio from '@/utils/hooks/useAudio'
 import { AudioListenerUpdate } from '@/types/enum'
+import { useDispatch } from 'react-redux'
+import { changeProgressBar } from '@/store/globalStateSlice'
 
 type Props = {
   height?: string
 }
 
 const ProgressBar: React.FC<Props> = ({ height }) => {
+  const dispatch = useDispatch()
   const progressBarRef = useRef<HTMLDivElement>(null)
   const spotRef = useRef<HTMLDivElement>(null)
   const { duration, currentDuration, changeCurrentDuration } = useAudio(AudioListenerUpdate.TIME)
@@ -28,6 +31,7 @@ const ProgressBar: React.FC<Props> = ({ height }) => {
     window.removeEventListener('mouseup', handleMouseUp)
     if (!spotRef.current || !progressBarRef.current) return
     changeCurrentDuration((e.pageX / progressBarRef.current?.offsetWidth) * duration)
+    dispatch(changeProgressBar())
     setFlg(false)
   }
   // 监听变化
@@ -42,6 +46,7 @@ const ProgressBar: React.FC<Props> = ({ height }) => {
       style={{ '--musicPlayer-progressBar-height': height }}
       onClick={(e: any) => {
         changeCurrentDuration((e.pageX / (progressBarRef.current as HTMLDivElement).offsetWidth) * duration)
+        dispatch(changeProgressBar())
       }}
     >
       <div

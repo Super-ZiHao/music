@@ -5,11 +5,13 @@ import { CurrentPlayerMusicInterface } from '@/store/currentPlayMusicSlice'
 import { useSelector } from 'react-redux'
 import { useEffect, useRef, useState } from 'react'
 import useAudio from '@/utils/hooks/useAudio'
+import { GlobalStateInterface } from '@/store/globalStateSlice'
 
 type Props = {}
 
 const MusicPlay: React.FC<Props> = () => {
   const currentPlayerMusic = useSelector<StoreInterface, CurrentPlayerMusicInterface>(store => store.currentPlayerMusic)
+  const globalState = useSelector<StoreInterface, GlobalStateInterface>(store => store.globalState)
   const { audio, isPlaying } = useAudio()
   const [selectedLyric, setSelectedLyric] = useState<number>(0)
   const [currentTime, setCurrentTime] = useState<number>(0)
@@ -17,7 +19,7 @@ const MusicPlay: React.FC<Props> = () => {
 
   useEffect(() => {
     setCurrentTime(Number(audio?.currentTime.toFixed(2)))
-  }, [isPlaying, selectedLyric])
+  }, [isPlaying, selectedLyric, globalState.progressBarChange])
 
   useEffect(() => {
     if (!isPlaying || currentTime === 0) return
@@ -26,23 +28,23 @@ const MusicPlay: React.FC<Props> = () => {
       const currentPlayerTime = currentTime + elapsedTime
       // 获取符合的数组
       currentPlayerMusic.currentMusic.lyric.some((item, index, arr) => {
-        if (selectedLyric === index) return
         if (arr[index + 1]) {
-          if (currentPlayerTime > Number(item.time) && currentPlayerTime < arr[index + 1]?.time) {
+          if (currentPlayerTime > Number(item.time) - 0.1 && currentPlayerTime < arr[index + 1]?.time) {
+            if (selectedLyric === index) return true
             setSelectedLyric(index)
             return true
           }
         } else {
-          if (currentPlayerTime > Number(item.time)) {
-            if (selectedLyric === index) return
+          if (currentPlayerTime > Number(item.time) - 0.1) {
+            if (selectedLyric === index) return true
             setSelectedLyric(index)
             return true
           }
         }
         return false
       })
-      elapsedTime += 0.005
-    }, 5)
+      elapsedTime += 0.1
+    }, 100)
 
     return () => {
       clearInterval(timer)
