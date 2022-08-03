@@ -10,14 +10,41 @@ type Props = {}
 
 const MusicPlay: React.FC<Props> = () => {
   const currentPlayerMusic = useSelector<StoreInterface, CurrentPlayerMusicInterface>(store => store.currentPlayerMusic)
-  const { isPlaying } = useAudio()
+  const { audio, isPlaying } = useAudio()
   const [selectedLyric, setSelectedLyric] = useState<number>(0)
+  const [currentTime, setCurrentTime] = useState<number>(0)
   const lyricMainRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    if (!lyricMainRef.current) return
-    // lyricMainRef.current.children[selectedLyric]?.scrollIntoView({ block: 'center', behavior: 'smooth' })
+    setCurrentTime(Number(audio?.currentTime.toFixed(2)))
   }, [isPlaying])
+
+  useEffect(() => {
+    console.log(isPlaying, currentTime)
+    if (!isPlaying || currentTime === 0) return
+    let elapsedTime = 0
+    let timer: any = setInterval(() => {
+      // 获取符合的数组
+      currentPlayerMusic.currentMusic.lyric.some((item, index, arr) => {
+        let currentPlayerTime = currentTime + elapsedTime
+        if (currentPlayerTime > Number(item.time) - 0.5 && currentPlayerTime < arr[index + 1].time) {
+          setSelectedLyric(index)
+          return true
+        }
+        return false
+      })
+      elapsedTime += 0.01
+    }, 10)
+
+    return () => {
+      clearInterval(timer)
+    }
+  }, [isPlaying, currentTime])
+
+  useEffect(() => {
+    if (!lyricMainRef.current) return
+    lyricMainRef.current.children[selectedLyric]?.scrollIntoView({ block: 'center', behavior: 'smooth' })
+  }, [selectedLyric])
   return (
     <div className='w-full h-full music-play relative'>
       <div className='absolute' style={{ left: 0, top: 0 }}>
@@ -47,7 +74,9 @@ const MusicPlay: React.FC<Props> = () => {
       <div className='absolute flex justify-center lyric text-center'>
         <div className='cp lyric-main' ref={lyricMainRef}>
           {currentPlayerMusic.currentMusic.lyric.map((item, index) => (
-            <div className={`lyric-item color-white-transparent-0 ${selectedLyric === index ? 'selected' : ''}`}>{item.text}</div>
+            <div key={index} className={`lyric-item color-white-transparent-0 ${selectedLyric === index ? 'selected' : ''}`}>
+              {item.text}
+            </div>
           ))}
         </div>
       </div>

@@ -41,7 +41,6 @@ const currentPlayMusicSlice = createSlice({
   reducers: {
     setCurrentMusic(state, { payload }) {
       state.currentMusic = payload
-      getLyric(payload.musicId)
     }
   },
   extraReducers(builder) {
@@ -60,9 +59,9 @@ const currentPlayMusicSlice = createSlice({
       )
       state.currentMusicAlbum = albumObj
     }),
-      builder.addCase(getLyric.fulfilled, (state, { payload }) => {
-        state.currentMusic.lyric = payload
-      })
+    builder.addCase(getLyric.fulfilled, (state, { payload }) => {
+      state.currentMusic.lyric = payload
+    })
   }
 })
 

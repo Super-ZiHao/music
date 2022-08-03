@@ -8,7 +8,7 @@ import { AudioListenerUpdate } from '@/types/enum'
  */
 const useAudio = (audioListenerUpdate = AudioListenerUpdate.NONE, audioClassName = 'music-player') => {
   const [audio, setAudio] = useState<HTMLAudioElement>(document.getElementsByClassName(audioClassName)[0] as HTMLAudioElement)
-  const [isPlaying, setIsPlaying] = useState<boolean>(false) // 是否播放
+  const [isPlaying, setIsPlaying] = useState<boolean>(!audio?.paused) // 是否播放
   const [duration, setDuration] = useState<number>(0) // 总时长
   const [currentDuration, setCurrentDuration] = useState<number>(0) // 当前时长
   const [muted, setMuted] = useState<boolean>(false) // 是否静音
