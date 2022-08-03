@@ -12,7 +12,8 @@ const useAudio = (audioListenerUpdate = AudioListenerUpdate.NONE, audioClassName
   const [duration, setDuration] = useState<number>(0) // 总时长
   const [currentDuration, setCurrentDuration] = useState<number>(0) // 当前时长
   const [muted, setMuted] = useState<boolean>(false) // 是否静音
-  const [volume, setVolume] = useState<number>(100)
+  const [volume, setVolume] = useState<number>(100) // 音量
+  const [audioData, setAduioData] = useState<any>([]) // 音频数据
   // 设置进度条
   const changeCurrentDuration = useCallback(
     (num: number, isPlay = false) => {
@@ -108,6 +109,35 @@ const useAudio = (audioListenerUpdate = AudioListenerUpdate.NONE, audioClassName
     }
   }, [audio])
 
+  // 监听音频数据
+  useEffect(() => {
+    if (audioListenerUpdate !== AudioListenerUpdate.DATA || !audio) return
+    const context = new AudioContext()
+    const analyser = context.createAnalyser()
+    analyser.fftSize = 512
+    const source = context.createMediaElementSource(audio)
+
+    source.connect(analyser)
+    analyser.connect(context.destination)
+
+    const bufferLength = analyser.frequencyBinCount
+    const dataArray = new Uint8Array(bufferLength)
+
+    function renderFrame() {
+      requestAnimationFrame(renderFrame)
+
+      analyser.getByteFrequencyData(dataArray)
+      console.log(dataArray)
+    }
+
+    // const timer = setInterval(() => {
+    //   renderFrame()
+    // }, 100)
+    // return () => {
+    //   clearInterval(timer)
+    // }
+  }, [audio])
+
   return {
     isPlaying,
     duration,
@@ -115,6 +145,7 @@ const useAudio = (audioListenerUpdate = AudioListenerUpdate.NONE, audioClassName
     muted,
     volume,
     audio,
+    audioData,
     changeCurrentDuration,
     changeAudioToggle,
     changeAudioMuted,

@@ -17,5 +17,6 @@ export enum AudioListenerUpdate {
   TIME = 'time',
   VOLUME = 'volume',
   TIMEANDVOLUME = 'timeAndVolume',
+  DATA = 'data',
   NONE = 'null'
 }

@@ -6,13 +6,14 @@ import { useSelector } from 'react-redux'
 import { useEffect, useRef, useState } from 'react'
 import useAudio from '@/utils/hooks/useAudio'
 import { GlobalStateInterface } from '@/store/globalStateSlice'
+import { AudioListenerUpdate } from '@/types/enum'
 
 type Props = {}
 
 const MusicPlay: React.FC<Props> = () => {
   const currentPlayerMusic = useSelector<StoreInterface, CurrentPlayerMusicInterface>(store => store.currentPlayerMusic)
   const globalState = useSelector<StoreInterface, GlobalStateInterface>(store => store.globalState)
-  const { audio, isPlaying } = useAudio()
+  const { audio, isPlaying } = useAudio(AudioListenerUpdate.DATA)
   const [selectedLyric, setSelectedLyric] = useState<number>(-1)
   const [currentTime, setCurrentTime] = useState<number>(0)
   const lyricMainRef = useRef<HTMLDivElement>(null)
