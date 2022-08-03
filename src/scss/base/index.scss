@@ -190,7 +190,7 @@ $fontWeights: (400, 500, 600, 700, bold);
  * 40, 44, 48
 *==========================================================================
 */
-$lineHeights: (14, 18);
+$lineHeights: (12, 14, 18);
 @each $lineHeight in $lineHeights {
   .lh-#{$lineHeight} {
     line-height: #{$lineHeight}px;

@@ -47,8 +47,39 @@ const HotSearchComponent: React.FC<{ searchData: hotSearchDataType; onClick: (va
   )
 }
 
+type SuggestDataType = {
+  songs: {musicName: string, singerName: string, id: number}[]
+  artists: {singerName: string, id: number}[]
+  albums: {albumName: string, singerName: string, id: number}[]
+}
 /** 搜索建议组件 */
-const SuggestComponent = () => <div>123</div>
+const SuggestComponent: React.FC<{data: SuggestDataType; onClick: (value: string) => void}> = ({data, onClick}) => {
+  return (
+    <div className='suggest p-4'>
+      {/* 单曲 */}
+      {data.songs.length > 0 && <>
+        <div className='fw-bold' style={{ color: '#3db2ff' }}>单曲</div>
+        <div>
+          {data.songs.map(item => <div className='suggest-item item pl-10 radius-4 cp fs-12 flex items-center' key={item.id} onClick={() => onClick(item.musicName)}>{item.musicName} - {item.singerName}</div>)}
+        </div>
+      </>}
+      {/* 歌手 */}
+      {data.artists.length > 0 && <>
+        <div className='fw-bold' style={{ color: '#ffb830' }}>歌手</div>
+        <div>
+          {data.artists.map(item => <div className='suggest-item item pl-10 radius-4 cp fs-12 flex items-center' key={item.id}>{item.singerName}</div>)}
+        </div>
+      </>}
+      {/* 专辑 */}
+      {data.albums.length > 0 && <>
+        <div className='fw-bold' style={{ color: '#ffedda' }}>专辑</div>
+        <div>
+          {data.albums.map(item => <div className='suggest-item item pl-10 radius-4 cp fs-12 flex items-center' key={item.id}>{item.albumName} - {item.singerName}</div>)}
+        </div>
+      </>}
+    </div>
+  )
+}
 type Props = {}
 
 const Header: React.FC<Props> = () => {
@@ -57,7 +88,7 @@ const Header: React.FC<Props> = () => {
   const dispatch = useDispatch()
   const [inputValue, setInputValue] = useState<string>('')
   const [hotSearch, setHotSearch] = useState<hotSearchDataType>() // 热门搜索
-  const [suggest, setSuggest] = useState<any>() // 搜索建议
+  const [suggest, setSuggest] = useState<SuggestDataType>() // 搜索建议
 
   // 搜索
   const handleSeach = (value: string) => {
@@ -99,10 +130,6 @@ const Header: React.FC<Props> = () => {
     handleSeach(value)
   }
 
-  useEffect(() => {
-    getSuggest(inputValue)
-  }, [inputValue])
-
   return (
     <Input
       className={`search-input ${location.pathname === '/search' ? 'is-search-page' : ''} no-drag`}
@@ -110,10 +137,14 @@ const Header: React.FC<Props> = () => {
       onEnter={handleSeach}
       onFocus={handleFocus}
       value={inputValue}
-      onChange={value => setInputValue(value)}
+      onChange={value => {
+        setInputValue(value)
+        setSuggest(undefined)
+        getSuggest(inputValue)
+      }}
       search
       searchBoxClassName='search-input-box'
-      searchBoxComponent={suggest && inputValue ? <SuggestComponent /> : hotSearch && <HotSearchComponent searchData={hotSearch} onClick={handleSearch} />}
+      searchBoxComponent={suggest && inputValue ? <SuggestComponent data={suggest} onClick={handleSearch} /> : hotSearch && <HotSearchComponent searchData={hotSearch} onClick={handleSearch} />}
     />
   )
 }

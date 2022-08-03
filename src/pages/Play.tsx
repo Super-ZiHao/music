@@ -13,20 +13,25 @@ const MusicPlay: React.FC<Props> = () => {
   const currentPlayerMusic = useSelector<StoreInterface, CurrentPlayerMusicInterface>(store => store.currentPlayerMusic)
   const globalState = useSelector<StoreInterface, GlobalStateInterface>(store => store.globalState)
   const { audio, isPlaying } = useAudio()
-  const [selectedLyric, setSelectedLyric] = useState<number>(0)
+  const [selectedLyric, setSelectedLyric] = useState<number>(-1)
   const [currentTime, setCurrentTime] = useState<number>(0)
   const lyricMainRef = useRef<HTMLDivElement>(null)
 
+  // 每次加载都获取播放器当前播放长度
   useEffect(() => {
     setCurrentTime(Number(audio?.currentTime.toFixed(2)))
   }, [isPlaying, selectedLyric, globalState.progressBarChange])
-
+  // 监听当前歌词的index变化并滚动
+  useEffect(() => {
+    if (!lyricMainRef.current) return
+    lyricMainRef.current.children[selectedLyric]?.scrollIntoView({ block: 'center', behavior: 'smooth' })
+  }, [selectedLyric])
+  // 获取符合的那一段歌词的 index
   useEffect(() => {
     if (!isPlaying || currentTime === 0) return
     let elapsedTime = 0
     let timer: any = setInterval(() => {
       const currentPlayerTime = currentTime + elapsedTime
-      // 获取符合的数组
       currentPlayerMusic.currentMusic.lyric.some((item, index, arr) => {
         if (arr[index + 1]) {
           if (currentPlayerTime > Number(item.time) - 0.1 && currentPlayerTime < arr[index + 1]?.time) {
@@ -51,10 +56,7 @@ const MusicPlay: React.FC<Props> = () => {
     }
   }, [isPlaying, currentTime])
 
-  useEffect(() => {
-    if (!lyricMainRef.current) return
-    lyricMainRef.current.children[selectedLyric]?.scrollIntoView({ block: 'center', behavior: 'smooth' })
-  }, [selectedLyric])
+  
   return (
     <div className='w-full h-full music-play relative'>
       <div className='absolute' style={{ left: 0, top: 0 }}>

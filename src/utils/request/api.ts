@@ -49,7 +49,27 @@ export const getHotSearchApi: (detail?: boolean) => any = (detail = false) => {
  */
 export const getSuggestApi: (value: string) => any = value => {
   return musicSourceActuator(
-    () => http.get(`search/suggest?keywords=${value}`).then((res: any) => res.result),
+    () =>
+      http.get(`search/suggest?keywords=${value}`).then((res: any) => {
+        console.log(res.result)
+        const resetName = (names: string[]) => {
+          let newName = ''
+          names.forEach(item => (newName += ` ${item}`))
+          return newName
+        }
+        const songs = res.result?.songs.map((item: any) => ({
+          id: item.id,
+          musicName: item.name,
+          singerName: resetName(item.artists.map((item: any) => item.name))
+        }))
+        const artists = res.result.artists?.map((item: any) => ({ id: item.id, singerName: item.name }))
+        const albums = res.result?.albums.map((item: any) => ({ id: item.id, albumName: item.name, singerName: item.artist.name }))
+        return {
+          songs: songs ? songs : [],
+          artists: artists ? artists : [],
+          albums: albums ? albums : []
+        }
+      }),
     () => http.get(`search/suggest?keywords=${value}`).then(res => res)
   )
 }
