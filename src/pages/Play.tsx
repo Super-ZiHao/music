@@ -17,24 +17,32 @@ const MusicPlay: React.FC<Props> = () => {
 
   useEffect(() => {
     setCurrentTime(Number(audio?.currentTime.toFixed(2)))
-  }, [isPlaying])
+  }, [isPlaying, selectedLyric])
 
   useEffect(() => {
-    console.log(isPlaying, currentTime)
     if (!isPlaying || currentTime === 0) return
     let elapsedTime = 0
     let timer: any = setInterval(() => {
+      const currentPlayerTime = currentTime + elapsedTime
       // 获取符合的数组
       currentPlayerMusic.currentMusic.lyric.some((item, index, arr) => {
-        let currentPlayerTime = currentTime + elapsedTime
-        if (currentPlayerTime > Number(item.time) - 0.5 && currentPlayerTime < arr[index + 1].time) {
-          setSelectedLyric(index)
-          return true
+        if (selectedLyric === index) return
+        if (arr[index + 1]) {
+          if (currentPlayerTime > Number(item.time) && currentPlayerTime < arr[index + 1]?.time) {
+            setSelectedLyric(index)
+            return true
+          }
+        } else {
+          if (currentPlayerTime > Number(item.time)) {
+            if (selectedLyric === index) return
+            setSelectedLyric(index)
+            return true
+          }
         }
         return false
       })
-      elapsedTime += 0.01
-    }, 10)
+      elapsedTime += 0.005
+    }, 5)
 
     return () => {
       clearInterval(timer)
