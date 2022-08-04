@@ -10,18 +10,21 @@ import Time from './Time'
 import VolumeController from './VolumeController'
 import { useEffect } from 'react'
 
-const MusicPlayer = () => {
-  const { isPlaying, changeAudioToggle } = useAudio()
+type Props = {
+  el?: string
+}
+
+const MusicPlayer = ({}) => {
+  const { changeAudioToggle, audio } = useAudio()
   const currentPlayerMusic = useSelector<StoreInterface, CurrentPlayerMusicInterface>((store) => store.currentPlayerMusic)
   return (
     <div className='flex items-center justify-between h-full pl-24 pr-24 relative'>
-      <audio className='music-player' src={currentPlayerMusic.currentMusic.musicUrl}></audio>
       {/* 进度条 */}
       <ProgressBar />
       {/* 左侧 */}
       <div className='flex items-center' style={{ color: 'var(--color-white)' }}>
         {/* 播放按钮 */}
-        <Icon style={{ width: 32, height: 32 }} component={isPlaying ? IconStopPlaying : IconPlaying} onClick={changeAudioToggle} />
+        <Icon style={{ width: 32, height: 32 }} component={!audio?.paused ? IconStopPlaying : IconPlaying} onClick={changeAudioToggle} />
         {/* 名字 and 作者 */}
         <div className='ml-16'>
           <div className='fs-18 fw-bold ellipsis' style={{ maxWidth: 400 }}>

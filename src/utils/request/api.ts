@@ -1,3 +1,4 @@
+import axios from 'axios'
 import { getMusicUrlString, musicSourceActuator } from '../function'
 import { http } from './http'
 
@@ -112,21 +113,19 @@ export const getLyricApi: (id: number) => any = id => {
 /**
  * 获取歌曲 url
  */
-// export const getMusicUrlApi: (id: number) => any = id => {
-//   return musicSourceActuator(
-//     () => http.get(`song/url?id=${id}&br=320000`).then((res: any) => {
-//       // http://m701.music.126.net/20220804131109/60572ce621d9544bbbd8a78b529030c1/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/14096469374/99cf/d5ca/bd53/0ebc3bc6cdb984d880ba58be8c5934af.mp3
-//       console.log(res.data[0].url, 123)
-//       if (res.data[0].url === null) return getMusicUrlString(id)
-//       return res.data[0].url
-//     }),
-//     () => http.get(`song/url?id=${id}`).then((res: any) => res.data.url)
-//   )
-// }
-
 export const getMusicUrlApi: (id: number) => any = id => {
   return musicSourceActuator(
-    () => getMusicUrlString(id),
-    () => getMusicUrlString(id)
+    () => axios.get(`/api/song/media/outer/url?id=${id}&br=320000`).then((res: any) => {
+      console.log(res.request.responseURL)
+      return res.request.responseURL
+    }),
+    () => http.get(`song/url?id=${id}`).then((res: any) => res.data.url)
   )
 }
+
+// export const getMusicUrlApi: (id: number) => any = id => {
+//   return musicSourceActuator(
+//     () => getMusicUrlString(id),
+//     () => getMusicUrlString(id)
+//   )
+// }

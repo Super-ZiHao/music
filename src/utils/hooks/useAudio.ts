@@ -6,14 +6,13 @@ import { AudioListenerUpdate } from '@/types/enum'
  * @param listenerVolumeUpdate 是否监听音量 default —— false
  * @param audioClassName 播放器的类名 default —— music-player
  */
-const useAudio = (audioListenerUpdate = AudioListenerUpdate.NONE, audioClassName = 'music-player') => {
-  const [audio, setAudio] = useState<HTMLAudioElement>(document.getElementsByClassName(audioClassName)[0] as HTMLAudioElement)
+const useAudio = (audioListenerUpdate = AudioListenerUpdate.NONE, selector = '#audio') => {
+  const [audio, setAudio] = useState<HTMLAudioElement>(document.querySelector(selector) as HTMLAudioElement)
   const [isPlaying, setIsPlaying] = useState<boolean>(!audio?.paused) // 是否播放
   const [duration, setDuration] = useState<number>(0) // 总时长
   const [currentDuration, setCurrentDuration] = useState<number>(0) // 当前时长
   const [muted, setMuted] = useState<boolean>(false) // 是否静音
   const [volume, setVolume] = useState<number>(100) // 音量
-  const [audioData, setAduioData] = useState<any>([]) // 音频数据
   // 设置进度条
   const changeCurrentDuration = useCallback(
     (num: number, isPlay = false) => {
@@ -58,7 +57,7 @@ const useAudio = (audioListenerUpdate = AudioListenerUpdate.NONE, audioClassName
 
   useEffect(() => {
     if (audio) return
-    setAudio(document.getElementsByClassName(audioClassName)[0] as HTMLAudioElement)
+    setAudio(document.querySelector(selector) as HTMLAudioElement)
   }, [])
 
   useEffect(() => {
@@ -116,7 +115,6 @@ const useAudio = (audioListenerUpdate = AudioListenerUpdate.NONE, audioClassName
     muted,
     volume,
     audio,
-    audioData,
     changeCurrentDuration,
     changeAudioToggle,
     changeAudioMuted,

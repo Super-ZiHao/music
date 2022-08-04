@@ -60,21 +60,21 @@ const SuggestComponent: React.FC<{data: SuggestDataType; onClick: (value: string
       {data.songs.length > 0 && <>
         <div className='fw-bold' style={{ color: '#3db2ff' }}>单曲</div>
         <div>
-          {data.songs.map(item => <div className='suggest-item item pl-10 radius-4 cp fs-12 flex items-center' key={item.id} onClick={() => onClick(item.musicName)}>{item.musicName} - {item.singerName}</div>)}
+          {data.songs.map(item => <div className='suggest-item item pl-10 radius-4 cp fs-12 flex items-center ellipsis' key={item.id} onClick={() => onClick(item.musicName)}>{item.musicName} - {item.singerName}</div>)}
         </div>
       </>}
       {/* 歌手 */}
       {data.artists.length > 0 && <>
         <div className='fw-bold' style={{ color: '#ffb830' }}>歌手</div>
         <div>
-          {data.artists.map(item => <div className='suggest-item item pl-10 radius-4 cp fs-12 flex items-center' key={item.id}>{item.singerName}</div>)}
+          {data.artists.map(item => <div className='suggest-item item pl-10 radius-4 cp fs-12 flex items-center ellipsis' key={item.id}>{item.singerName}</div>)}
         </div>
       </>}
       {/* 专辑 */}
       {data.albums.length > 0 && <>
         <div className='fw-bold' style={{ color: '#ffedda' }}>专辑</div>
         <div>
-          {data.albums.map(item => <div className='suggest-item item pl-10 radius-4 cp fs-12 flex items-center' key={item.id}>{item.albumName} - {item.singerName}</div>)}
+          {data.albums.map(item => <div className='suggest-item item pl-10 radius-4 cp fs-12 flex items-center ellipsis' key={item.id}>{item.albumName} - {item.singerName}</div>)}
         </div>
       </>}
     </div>
