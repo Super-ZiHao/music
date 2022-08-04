@@ -11,7 +11,9 @@ import { http } from './http'
 export const searchMusicApi: (name: string, limit?: number, offset?: number) => any = (name, limit = 25, offset = 0) => {
   return musicSourceActuator(
     () => {
-      return http.get(`search?keywords=${name}&limit=${limit}&offset=${offset}`).then((res: any) => res.result)
+      return http.get(`search?keywords=${name}&limit=${limit}&offset=${offset}`).then((res: any) => res.result).catch((error) => {
+        return new Error('error')
+      })
     },
     () => {
       return http.get(`search?keywords=${name}`).then(res => {})
@@ -33,9 +35,15 @@ export const getHotSearchApi: (detail?: boolean) => any = (detail = false) => {
             iconUrl: item.iconUrl, // 搜索icon
             content: item.content // 搜索上下文
           }))
-        )
+        ).catch(err => {
+          console.log('可能是网络出现问题，获取热门搜索失败')
+          return undefined
+        })
       }
-      return http.get('search/hot').then((res: any) => res.result.hots)
+      return http.get('search/hot').then((res: any) => res.result.hots).catch(err => {
+        console.log('可能是网络出现问题，获取热门搜索失败')
+        return undefined
+      })
     },
     () => {
       return http.get('search/hot')

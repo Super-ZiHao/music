@@ -9,9 +9,9 @@ let mainWindow
 function createWindow() {
   // 创建浏览器窗口。
   mainWindow = new BrowserWindow({
-    width: 1300,
-    minWidth: 1300,
-    maxWidth: 1300,
+    width: 900,
+    minWidth: 900,
+    maxWidth: 900,
     height: 600,
     minHeight: 600,
     webPreferences: {
@@ -21,7 +21,7 @@ function createWindow() {
     transparent: true,
     frame: false
   })
-  mainWindow.webContents.openDevTools() // 控制台
+  // mainWindow.webContents.openDevTools() // 控制台
   if (mode === 'dev') {
     mainWindow.loadURL('http://localhost:4000/')
   } else {

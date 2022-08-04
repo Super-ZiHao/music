@@ -6,6 +6,7 @@ import { setMusicList, setMusicListLoading } from '@/store/searchedMusicListSlic
 import useThrottle from '@/utils/hooks/useThrottle'
 import useDebounce from '@/utils/hooks/useDebounce'
 import { useNavigate, useLocation } from 'react-router-dom'
+import { message } from 'antd'
 
 type hotSearchDataType = {
   searchWord: string
@@ -108,6 +109,11 @@ const Header: React.FC<Props> = () => {
   const searchMusic = useThrottle<(value: string) => void>(async value => {
     dispatch(setMusicListLoading(true))
     const musics = await searchMusicApi(value)
+    if (musics.message === 'error') {
+      dispatch(setMusicListLoading(false))
+      message.error('网络开小差啦，请重试一下嘞')
+      return
+    } 
     dispatch(setMusicList(musics.songs))
   }, 2000)
 

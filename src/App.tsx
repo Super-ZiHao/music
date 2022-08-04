@@ -16,28 +16,28 @@ function App() {
     onLoadAudio()
   }, [])
   const onLoadAudio = () => {
-    var context = new AudioContext() // 音频上下文
-    var analyser = context.createAnalyser() // 分析器
+    const context = new AudioContext() // 音频上下文
+    const analyser = context.createAnalyser() // 分析器
     analyser.fftSize = 256 // 设置数据长度
-    var source = context.createMediaElementSource(document.querySelector('#audio') as HTMLMediaElement) // 获取音频
+    const source = context.createMediaElementSource(document.querySelector('#audio') as HTMLMediaElement) // 获取音频
 
     source.connect(analyser) 
     analyser.connect(context.destination) 
 
-    var bufferLength = analyser.frequencyBinCount
-    var dataArray = new Uint8Array(bufferLength)
+    const bufferLength = analyser.frequencyBinCount
+    const dataArray = new Uint8Array(bufferLength)
 
 
-    var canvas = document.getElementById('canvas') as any
+    const canvas = document.getElementById('canvas') as any
     canvas.width = window.innerWidth
     canvas.height = window.innerHeight
 
-    var ctx = canvas.getContext('2d')
-    var WIDTH = canvas.width
-    var HEIGHT = canvas.height
+    const ctx = canvas.getContext('2d')
+    const WIDTH = canvas.width
+    const HEIGHT = canvas.height
 
-    var barWidth = (WIDTH / bufferLength) * 1.5
-    var barHeight
+    const barWidth = (WIDTH / bufferLength) * 1.5
+    let barHeight
     const render =  () => {
       analyser.getByteFrequencyData(dataArray)
       ctx.clearRect(0, 0, WIDTH, HEIGHT)
@@ -46,8 +46,8 @@ function App() {
       for (var i = 0, x = 0; i < bufferLength; i++) {
         barHeight = dataArray[i]
         var r = barHeight + 25 * (i / bufferLength)
-        var g = 250 * (i / bufferLength)
-        var b = 50
+        var g = 255 * (i / bufferLength)
+        var b = 10
 
         ctx.fillStyle = 'rgb(' + r + ',' + g + ',' + b + ')'
         ctx.fillRect(x, HEIGHT - barHeight, barWidth, barHeight)
