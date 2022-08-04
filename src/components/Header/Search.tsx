@@ -93,10 +93,8 @@ const Header: React.FC<Props> = () => {
 
   // 搜索
   const handleSeach = (value: string) => {
+    if (value.length === 0) return
     searchMusic(value)
-    navigate('/search', {
-      replace: true
-    })
   }
 
   // 获取建议
@@ -133,6 +131,9 @@ const Header: React.FC<Props> = () => {
   // 点击搜索展示框内的值
   const handleSearch = (value: string) => {
     setInputValue(value)
+    navigate('/search', {
+      replace: true
+    })
     handleSeach(value)
   }
 
