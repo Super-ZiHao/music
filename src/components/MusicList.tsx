@@ -1,11 +1,12 @@
-import Icon, { HeartOutlined, PlusOutlined } from '@ant-design/icons'
+import Icon, { HeartOutlined } from '@ant-design/icons'
 import { StoreInterface } from '@/store'
-import { CurrentPlayerMusicInterface, getAlbum, getLyric, setCurrentMusic } from '@/store/currentPlayMusicSlice'
+import { CurrentPlayerMusicInterface } from '@/store/currentPlayMusicSlice'
 import { SearchedMusicListInterface } from '@/store/searchedMusicListSlice'
 import { getTotalDuration } from '@/utils/function/time'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { IconAdd, IconCollection2, IconDownLoad } from './Icons'
 import { Empty, Spin } from 'antd'
+import useGetCurrentMusicAllData from '@/utils/hooks/useGetCurrentMusicAllData'
 
 const Loading = () => {}
 
@@ -17,7 +18,7 @@ type Props = {
 
 const MusicList: React.FC<Props> = ({ className = '', loading = false, data }) => {
   const currentPlayerMusic = useSelector<StoreInterface, CurrentPlayerMusicInterface>(store => store.currentPlayerMusic)
-  const dispatch = useDispatch()
+  const getCurrentMusicAllData = useGetCurrentMusicAllData()
   if (loading) {
     return (
       <div className='flex items-center justify-center w-full h-full'>
@@ -34,9 +35,8 @@ const MusicList: React.FC<Props> = ({ className = '', loading = false, data }) =
             key={item.musicId}
             className={`flex items-center justify-between music-list-item`}
             onDoubleClick={() => {
-              dispatch(setCurrentMusic(item))
-              dispatch(getLyric(item.musicId) as any)
-              if (!(item.albumId === currentPlayerMusic.currentMusicAlbum.id)) dispatch(getAlbum(item.albumId) as any)
+              if (item.musicId === currentPlayerMusic.currentMusic.musicId) return
+              getCurrentMusicAllData(item)
             }}
           >
             <div className='flex items-center'>

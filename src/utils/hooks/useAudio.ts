@@ -109,35 +109,6 @@ const useAudio = (audioListenerUpdate = AudioListenerUpdate.NONE, audioClassName
     }
   }, [audio])
 
-  // 监听音频数据
-  useEffect(() => {
-    if (audioListenerUpdate !== AudioListenerUpdate.DATA || !audio) return
-    const context = new AudioContext()
-    const analyser = context.createAnalyser()
-    analyser.fftSize = 512
-    const source = context.createMediaElementSource(audio)
-
-    source.connect(analyser)
-    analyser.connect(context.destination)
-
-    const bufferLength = analyser.frequencyBinCount
-    const dataArray = new Uint8Array(bufferLength)
-
-    function renderFrame() {
-      requestAnimationFrame(renderFrame)
-
-      analyser.getByteFrequencyData(dataArray)
-      console.log(dataArray)
-    }
-
-    // const timer = setInterval(() => {
-    //   renderFrame()
-    // }, 100)
-    // return () => {
-    //   clearInterval(timer)
-    // }
-  }, [audio])
-
   return {
     isPlaying,
     duration,

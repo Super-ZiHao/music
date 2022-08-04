@@ -8,13 +8,14 @@ import { StoreInterface } from '@/store'
 import { getMusicUrlString } from '@/utils/function'
 import Time from './Time'
 import VolumeController from './VolumeController'
+import { useEffect } from 'react'
 
 const MusicPlayer = () => {
   const { isPlaying, changeAudioToggle } = useAudio()
   const currentPlayerMusic = useSelector<StoreInterface, CurrentPlayerMusicInterface>((store) => store.currentPlayerMusic)
   return (
     <div className='flex items-center justify-between h-full pl-24 pr-24 relative'>
-      <audio className='music-player' src={getMusicUrlString(currentPlayerMusic.currentMusic.musicId)}></audio>
+      <audio className='music-player' src={currentPlayerMusic.currentMusic.musicUrl}></audio>
       {/* 进度条 */}
       <ProgressBar />
       {/* 左侧 */}

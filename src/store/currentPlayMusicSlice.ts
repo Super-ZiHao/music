@@ -1,6 +1,6 @@
 import { MusicType, AlbumType } from '@/types/type'
 import { musicSourceActuator } from '@/utils/function'
-import { getAlbumApi, getLyricApi } from '@/utils/request/api'
+import { getAlbumApi, getLyricApi, getMusicUrlApi } from '@/utils/request/api'
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 
 export interface CurrentPlayerMusicInterface {
@@ -12,6 +12,7 @@ const initCurrentPlayerMusicSlice: CurrentPlayerMusicInterface = {
   currentMusic: {
     musicId: -1,
     musicName: '',
+    musicUrl: '',
     singerName: '',
     coverUrl: '',
     albumId: -1,
@@ -30,6 +31,9 @@ export const getAlbum = createAsyncThunk('currentPlayMusic/getAlbum', async (id:
 })
 export const getLyric = createAsyncThunk('currentPlayMusic/getLyric', async (id: number, d) => {
   return await getLyricApi(id)
+})
+export const getMusicUrl = createAsyncThunk('currentPlayMusic/getUrl', async (id: number, d) => {
+  return await getMusicUrlApi(id)
 })
 
 // 创建一个 slice
@@ -61,6 +65,9 @@ const currentPlayMusicSlice = createSlice({
     }),
     builder.addCase(getLyric.fulfilled, (state, { payload }) => {
       state.currentMusic.lyric = payload
+    }),
+    builder.addCase(getMusicUrl.fulfilled, (state, { payload }) => {
+      state.currentMusic.musicUrl = payload
     })
   }
 })

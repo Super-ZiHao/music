@@ -57,9 +57,6 @@ const MusicPlay: React.FC<Props> = () => {
     }
   }, [isPlaying, currentTime])
 
-  useEffect(() => {
-    console.log(currentPlayerMusic.currentMusic.lyric)
-  }, [])
   return (
     <div className='w-full h-full music-play relative'>
       <div className='absolute' style={{ left: 0, top: 0 }}>

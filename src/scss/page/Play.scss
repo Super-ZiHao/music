@@ -12,6 +12,7 @@
     height: calc(100% - 30px);
     overflow: overlay;
     overscroll-behavior: contain;
+    pointer-events: none;
     &::-webkit-scrollbar {
       width: 0;
     }

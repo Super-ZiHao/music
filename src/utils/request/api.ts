@@ -1,4 +1,4 @@
-import { musicSourceActuator } from '../function'
+import { getMusicUrlString, musicSourceActuator } from '../function'
 import { http } from './http'
 
 /**
@@ -10,7 +10,6 @@ import { http } from './http'
 export const searchMusicApi: (name: string, limit?: number, offset?: number) => any = (name, limit = 25, offset = 0) => {
   return musicSourceActuator(
     () => {
-      console.log(`https://netease-cloud-music-api-nu-one.vercel.app/search?keywords=${name}&limit=${limit}&offset=${offset}`)
       return http.get(`search?keywords=${name}&limit=${limit}&offset=${offset}`).then((res: any) => res.result)
     },
     () => {
@@ -107,5 +106,27 @@ export const getLyricApi: (id: number) => any = id => {
           .filter((item: any) => item.time && item.text !== '\n')
       }),
     () => http.get(`lyric?id=${id}`)
+  )
+}
+
+/**
+ * 获取歌曲 url
+ */
+// export const getMusicUrlApi: (id: number) => any = id => {
+//   return musicSourceActuator(
+//     () => http.get(`song/url?id=${id}&br=320000`).then((res: any) => {
+//       // http://m701.music.126.net/20220804131109/60572ce621d9544bbbd8a78b529030c1/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/14096469374/99cf/d5ca/bd53/0ebc3bc6cdb984d880ba58be8c5934af.mp3
+//       console.log(res.data[0].url, 123)
+//       if (res.data[0].url === null) return getMusicUrlString(id)
+//       return res.data[0].url
+//     }),
+//     () => http.get(`song/url?id=${id}`).then((res: any) => res.data.url)
+//   )
+// }
+
+export const getMusicUrlApi: (id: number) => any = id => {
+  return musicSourceActuator(
+    () => getMusicUrlString(id),
+    () => getMusicUrlString(id)
   )
 }

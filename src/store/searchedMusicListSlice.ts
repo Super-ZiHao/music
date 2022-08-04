@@ -35,7 +35,9 @@ const searchedMusicListSlice = createSlice({
               singerName: item.artists[0].name,
               coverUrl: item.album.artist.img1v1Url,
               duration: item.duration,
-              albumId: item.album.id
+              albumId: item.album.id,
+              musicUrl: '', // 无
+              lyric: [] // 无
             }
             const albumsObj: AlbumType = {
               id: item.album.id,
