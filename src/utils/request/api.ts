@@ -11,9 +11,12 @@ import { http } from './http'
 export const searchMusicApi: (name: string, limit?: number, offset?: number) => any = (name, limit = 25, offset = 0) => {
   return musicSourceActuator(
     () => {
-      return http.get(`search?keywords=${name}&limit=${limit}&offset=${offset}`).then((res: any) => res.result).catch((error) => {
-        return new Error('error')
-      })
+      return http
+        .get(`search?keywords=${name}&limit=${limit}&offset=${offset}`)
+        .then((res: any) => res.result)
+        .catch(error => {
+          return new Error('error')
+        })
     },
     () => {
       return http.get(`search?keywords=${name}`).then(res => {})
@@ -28,22 +31,28 @@ export const getHotSearchApi: (detail?: boolean) => any = (detail = false) => {
   return musicSourceActuator(
     () => {
       if (detail) {
-        return http.get('search/hot/detail').then((res: any) =>
-          res.data.map((item: any) => ({
-            searchWord: item.searchWord, // 搜索词
-            score: item.score, // 搜索数量
-            iconUrl: item.iconUrl, // 搜索icon
-            content: item.content // 搜索上下文
-          }))
-        ).catch(err => {
+        return http
+          .get('search/hot/detail')
+          .then((res: any) =>
+            res.data.map((item: any) => ({
+              searchWord: item.searchWord, // 搜索词
+              score: item.score, // 搜索数量
+              iconUrl: item.iconUrl, // 搜索icon
+              content: item.content // 搜索上下文
+            }))
+          )
+          .catch(err => {
+            console.log('可能是网络出现问题，获取热门搜索失败')
+            return undefined
+          })
+      }
+      return http
+        .get('search/hot')
+        .then((res: any) => res.result.hots)
+        .catch(err => {
           console.log('可能是网络出现问题，获取热门搜索失败')
           return undefined
         })
-      }
-      return http.get('search/hot').then((res: any) => res.result.hots).catch(err => {
-        console.log('可能是网络出现问题，获取热门搜索失败')
-        return undefined
-      })
     },
     () => {
       return http.get('search/hot')
@@ -123,10 +132,11 @@ export const getLyricApi: (id: number) => any = id => {
  */
 export const getMusicUrlApi: (id: number) => any = id => {
   return musicSourceActuator(
-    () => axios.get(`/api/song/media/outer/url?id=${id}&br=320000`).then((res: any) => {
-      console.log(res.request.responseURL)
-      return res.request.responseURL
-    }),
+    () =>
+      axios.get(`/api/song/media/outer/url?id=${id}&br=320000`).then((res: any) => {
+        console.log(res.request.responseURL)
+        return res.request.responseURL
+      }),
     () => http.get(`song/url?id=${id}`).then((res: any) => res.data.url)
   )
 }
@@ -137,3 +147,22 @@ export const getMusicUrlApi: (id: number) => any = id => {
 //     () => getMusicUrlString(id)
 //   )
 // }
+
+/**
+ * 获取所有排行榜
+ */
+export const getAllRankingListApi: () => any = () => {
+  return musicSourceActuator(
+    () =>
+      http.get('toplist').then((res: any) => {
+        return res.list.map((item: any) => ({
+          id: item.id,
+          name: item.name,
+          desc: item.description,
+          updateFrequency: item.updateFrequency,
+          updateTime: item.updateTime
+        }))
+      }),
+    () => http.get('')
+  )
+}

@@ -14,12 +14,9 @@ const initSearchedMusicListSlice: SearchedMusicListInterface = {
   loading: false
 }
 
-// 创建一个 slice
 const searchedMusicListSlice = createSlice({
-  name: 'music',
-  // 初始化状态
+  name: 'searched-music-list',
   initialState: initSearchedMusicListSlice,
-  // 内部定义状态的方法
   reducers: {
     setMusicList(data, { payload }) {
       if (!payload) return
@@ -61,7 +58,6 @@ const searchedMusicListSlice = createSlice({
   }
 })
 
-// 导出定义的方法
 export const { setMusicList, setMusicListLoading } = searchedMusicListSlice.actions
-// 默认导出
+
 export default searchedMusicListSlice.reducer

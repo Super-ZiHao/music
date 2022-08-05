@@ -39,9 +39,10 @@ const Menu: React.FC<Props> = () => {
       </div>
       <div className="flex justify-center">
         <Icon
-          className="icon"
+          className={`icon ${location.pathname === '/ranking-list' ? 'active' : ''}`}
           component={IconRankingList}
           style={{ width: 28, height: 28 }}
+          onClick={() => pushPath('/ranking-list')}
         />
       </div>
     </div>

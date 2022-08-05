@@ -36,7 +36,6 @@
     border-bottom: 1px rgba(40, 40, 40, 0.35) solid;
     border-right: 1px rgba(40, 40, 40, 0.35) solid;
     transform: translateX(-14px);
-    animation: opacity 0.3s linear forwards;
     .item {
       &:nth-child(1) .ranking {
         color: #d61c4e;
@@ -52,15 +51,6 @@
         background-color: rgba($color: #34d894, $alpha: 0.3);
       }
     }
-  }
-}
-
-@keyframes opacity {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
   }
 }
 

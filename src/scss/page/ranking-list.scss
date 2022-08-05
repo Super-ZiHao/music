@@ -1,0 +1,60 @@
+.ranking-list {
+  height: 100%;
+  .left,
+  .right {
+    height: calc(100% - 6px);
+    overflow: overlay;
+    &::-webkit-scrollbar {
+      width: 0;
+    }
+  }
+  .left {
+    .ranking-grid {
+      padding: 24px 48px 0 24px;
+      gap: 32px;
+      .item {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 12px;
+        color: var(--color-white);
+        background-color: var(--color-white);
+        aspect-ratio: 1/1; // 比较好玩的是一个属性，控制 width/height 的比例
+        cursor: pointer;
+        transition: all .3s linear;
+        &:hover {
+          border-radius: 6px;
+          & > span {
+            transform: scale(1.2);
+          }
+        }
+        & > div {
+          content: var(--ranking-grid-item-title, 飙升榜);
+          position: absolute;
+          top: 0;
+          right: 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: var(--color-white);
+          width: 70px;
+          height: 28px;
+          border-radius: 6px;
+          font-size: 14px;
+          background-color: var(--color-black);
+          transform: translate(20%, 4px);
+        }
+        & > span {
+          font-size: 28px;
+          line-height: 28px;
+          font-weight: bold;
+          transition: all .3s linear;
+        }
+      }
+    }
+  }
+  .right {
+    border-left: 1px solid #fff;
+  }
+}

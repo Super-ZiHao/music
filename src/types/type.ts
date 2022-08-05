@@ -15,3 +15,11 @@ export type AlbumType = {
   name: string // 专辑名称
   url: string // 专辑封面
 }
+
+export type RankingListType = {
+  id: number // 排行榜id
+  name: string // 排行榜名称
+  desc: string // 排行榜描述
+  updateFrequency: string // 排行榜更新频率
+  updateTime: number // 排行榜最近更新时间
+}

@@ -38,7 +38,7 @@ export const getMusicUrl = createAsyncThunk('currentPlayMusic/getUrl', async (id
 
 // 创建一个 slice
 const currentPlayMusicSlice = createSlice({
-  name: 'currentPlayMusic',
+  name: 'current-play-music',
   // 初始化状态
   initialState: initCurrentPlayerMusicSlice,
   // 内部定义状态的方法
