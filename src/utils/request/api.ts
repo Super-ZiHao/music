@@ -1,5 +1,6 @@
+import { message } from 'antd'
 import axios from 'axios'
-import { getMusicUrlString, musicSourceActuator } from '../function'
+import { musicSourceActuator } from '../function'
 import { http } from './http'
 
 /**
@@ -13,7 +14,10 @@ export const searchMusicApi: (name: string, limit?: number, offset?: number) => 
     () => {
       return http
         .get(`search?keywords=${name}&limit=${limit}&offset=${offset}`)
-        .then((res: any) => res.result)
+        .then((res: any) => {
+          console.log(res.result)
+          return res.result
+        })
         .catch(error => {
           return new Error('error')
         })
@@ -91,7 +95,7 @@ export const getSuggestApi: (value: string) => any = value => {
 }
 
 /**
- * 获取详情专辑详情
+ * 获取专辑详情
  * @param 专辑id
  */
 export const getAlbumApi: (id: number) => any = id => {
@@ -141,13 +145,6 @@ export const getMusicUrlApi: (id: number) => any = id => {
   )
 }
 
-// export const getMusicUrlApi: (id: number) => any = id => {
-//   return musicSourceActuator(
-//     () => getMusicUrlString(id),
-//     () => getMusicUrlString(id)
-//   )
-// }
-
 /**
  * 获取所有排行榜
  */
@@ -162,7 +159,19 @@ export const getAllRankingListApi: () => any = () => {
           updateFrequency: item.updateFrequency,
           updateTime: item.updateTime
         }))
-      }),
+      }).catch(err => message.error('获取排行榜数据出错，请确认是否连接网络')),
     () => http.get('')
   )
+}
+
+/**
+ * 获取歌单详情
+ */
+export const getSongSheetDetailApi: (id: number) => any = id => {
+  return musicSourceActuator(() => {
+    http.get(`playlist/detail?id=${id}`).then((res: any) => {
+      console.log(res.playlist.tracks)
+      return res.playlist.tracks
+    }).catch(err => message.error('当前网络不佳，请检查网络是否有效。'))
+  }, () => {})
 }

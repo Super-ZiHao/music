@@ -7,7 +7,7 @@ export interface RankingListInterface {
 }
 
 const initRankingListSlice: RankingListInterface = {
-  rankingList: []
+  rankingList: [],
 }
 
 export const getAllRankingList = createAsyncThunk('rankingList/getAllRankingList', async () => {
