@@ -22,4 +22,5 @@ export type RankingListType = {
   desc: string // 排行榜描述
   updateFrequency: string // 排行榜更新频率
   updateTime: number // 排行榜最近更新时间
+  coverImgUrl: string // 封面歌单url
 }

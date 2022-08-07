@@ -157,9 +157,13 @@ export const getAllRankingListApi: () => any = () => {
           name: item.name,
           desc: item.description,
           updateFrequency: item.updateFrequency,
-          updateTime: item.updateTime
+          updateTime: item.updateTime,
+          coverImgUrl: item.coverImgUrl
         }))
-      }).catch(err => message.error('获取排行榜数据出错，请确认是否连接网络')),
+      }).catch(err => {
+        message.error('获取排行榜数据出错，请确认是否连接网络')
+        return []
+      }),
     () => http.get('')
   )
 }

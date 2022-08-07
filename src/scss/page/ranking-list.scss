@@ -18,19 +18,21 @@
         align-items: center;
         justify-content: center;
         border-radius: 12px;
-        color: var(--color-white);
-        background-color: var(--color-white);
+        background-size: 100% 100%;
+        background-position: center center;
+        background-color: burlywood;
         aspect-ratio: 1/1; // 比较好玩的是一个属性，控制 width/height 的比例
         cursor: pointer;
-        transition: all .3s linear;
+        transition: all .3s;
         &:hover {
-          border-radius: 6px;
-          & > span {
-            transform: scale(1.2);
-          }
+          border-radius: 8px;
+          background-size: 120% 120%;
+        }
+        &.active {
+          border-radius: 8px;
+          background-size: 120% 120%;
         }
         & > div {
-          content: var(--ranking-grid-item-title, 飙升榜);
           position: absolute;
           top: 0;
           right: 0;
@@ -44,13 +46,6 @@
           font-size: 14px;
           background-color: var(--color-black);
           transform: translate(20%, 4px);
-        }
-        & > span {
-          font-size: 28px;
-          line-height: 28px;
-          font-weight: bold;
-          text-align: center;
-          transition: all .3s linear;
         }
       }
     }
