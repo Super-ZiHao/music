@@ -72,9 +72,8 @@ function App() {
       }} />
       {/* 音乐 */}
       <audio id="audio" className='music-player' src={currentPlayerMusic.currentMusic.musicUrl} crossOrigin="anonymous" />
-      {/* 音频可视化 */}
       <div className='h-full' style={{ backdropFilter: 'blur(32px)', backgroundColor: 'rgba(0,0,0, 0.3)' }}>
-        {/* 可视化音频 */}
+      {/* 可视化音频 */}
         <canvas id='canvas' className='fixed' style={{ left: 0, bottom: 0, zIndex: -1, opacity: 0.3 }} />
         <div className='flex' style={{ height: 'calc(100% - 68px)' }}>
           <Menu />

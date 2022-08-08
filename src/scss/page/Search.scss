@@ -41,7 +41,6 @@
   display: grid;
   grid-auto-rows: 58px;
   .music-list-item {
-    transition: all .1s;
     height: 100%;
     overflow: hidden;
     &:hover {

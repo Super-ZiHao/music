@@ -11,3 +11,7 @@
 .ant-slider-vertical {
   margin: 0 6px;
 }
+
+.ant-skeleton-element {
+  width: var(--skeleton-width, auto);
+}

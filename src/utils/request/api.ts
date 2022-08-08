@@ -1,3 +1,4 @@
+import { MusicType } from '@/types/type'
 import { message } from 'antd'
 import axios from 'axios'
 import { musicSourceActuator } from '../function'
@@ -172,10 +173,25 @@ export const getAllRankingListApi: () => any = () => {
  * 获取歌单详情
  */
 export const getSongSheetDetailApi: (id: number) => any = id => {
-  return musicSourceActuator(() => {
+  return musicSourceActuator(() => (
     http.get(`playlist/detail?id=${id}`).then((res: any) => {
-      console.log(res.playlist.tracks)
-      return res.playlist.tracks
+      return res.playlist.tracks.map((item:any) => ({
+        musicId: item.al.id,
+        musicName: item.al.name,
+        musicUrl: '',
+        singerName: item.ar.reduce((value: string, item: any, index: number) => `${item.name}${index > 0 ? '、' : ''}${value}`, ''),
+        coverUrl: item.al.picUrl,
+      }))
     }).catch(err => message.error('当前网络不佳，请检查网络是否有效。'))
-  }, () => {})
+  ), () => (
+    http.get(`playlist/detail?id=${id}`).then((res: any) => {
+      return res.playlist.tracks.map((item:any) => ({
+        musicId: item.al.id,
+        musicName: item.al.name,
+        musicUrl: '',
+        singerName: item.ar.reduce((value: string, item: any, index: number) => `${item.name}${index > 0 ? '、' : ''}${value}`, ''),
+        coverUrl: item.al.picUrl,
+      }))
+    }).catch(err => message.error('当前网络不佳，请检查网络是否有效。'))
+  ))
 }

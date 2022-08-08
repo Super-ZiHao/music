@@ -13,15 +13,11 @@ type Props = {}
 const MusicPlay: React.FC<Props> = () => {
   const currentPlayerMusic = useSelector<StoreInterface, CurrentPlayerMusicInterface>(store => store.currentPlayerMusic)
   const globalState = useSelector<StoreInterface, GlobalStateInterface>(store => store.globalState)
-  const { audio, isPlaying } = useAudio(AudioListenerUpdate.DATA)
+  const { currentDuration } = useAudio(AudioListenerUpdate.TIME)
   const [selectedLyric, setSelectedLyric] = useState<number>(-1)
   const [currentTime, setCurrentTime] = useState<number>(0)
   const lyricMainRef = useRef<HTMLDivElement>(null)
 
-  // 每次加载都获取播放器当前播放长度
-  useEffect(() => {
-    setCurrentTime(audio?.currentTime)
-  }, [isPlaying, selectedLyric, globalState.progressBarChange])
   // 监听当前歌词的index变化并滚动
   useEffect(() => {
     if (!lyricMainRef.current) return
@@ -29,33 +25,22 @@ const MusicPlay: React.FC<Props> = () => {
   }, [selectedLyric])
   // 获取符合的那一段歌词的 index
   useEffect(() => {
-    if (!isPlaying || currentTime === 0) return
-    let elapsedTime = 0
-    let timer: any = setInterval(() => {
-      const currentPlayerTime = currentTime + elapsedTime
-      currentPlayerMusic.currentMusic.lyric.some((item, index, arr) => {
-        if (arr[index + 1]) {
-          if (currentPlayerTime > Number(item.time) && currentPlayerTime < arr[index + 1]?.time) {
-            if (selectedLyric === index) return true
-            setSelectedLyric(index)
-            return true
-          }
-        } else {
-          if (currentPlayerTime > Number(item.time)) {
-            if (selectedLyric === index) return true
-            setSelectedLyric(index)
-            return true
-          }
+    currentPlayerMusic.currentMusic.lyric.some((item, index, arr) => {
+      if (arr[index + 1]) {
+        if (currentDuration > Number(item.time) && currentDuration < arr[index + 1]?.time) {
+          setSelectedLyric(index)
+          return true
         }
-        return false
-      })
-      elapsedTime += 0.05
-    }, 50)
-
-    return () => {
-      clearInterval(timer)
-    }
-  }, [isPlaying, currentTime])
+      } else {
+        if (currentDuration > Number(item.time)) {
+          if (selectedLyric === index) return true
+          setSelectedLyric(index)
+          return true
+        }
+      }
+      return false
+    })
+  }, [currentTime, currentDuration])
 
   return (
     <div className='w-full h-full music-play relative'>
