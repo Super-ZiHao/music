@@ -23,7 +23,7 @@ const Header: React.FC<Props> = () => {
       <div className='ml-16'>
         <Search />
       </div>
-      <div className='absolute flex items-center justify-center' style={{ right: 0 }}>
+      <div className='absolute flex items-center justify-center' style={{ right: 16 }}>
         <Icon className='no-drag cp' component={IconMinWin} style={{ width: 28, color: 'var(--color-white)' }} />
         <Icon className='ml-4 no-drag cp' component={isMax ? IconUnMaxWin : IconMaxWin} style={{ width: 20, color: 'var(--color-white)' }} />
         <Icon className='ml-4 no-drag cp' component={IconClose} style={{ width: 24, color: 'var(--color-white)' }} />

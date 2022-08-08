@@ -10,47 +10,57 @@
   }
   .left {
     .ranking-grid {
-      padding: 24px 48px 0 24px;
+      padding: 24px 60px 0 36px;
       gap: 32px;
-      .item {
-        position: relative;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 12px;
-        background-size: 100% 100%;
-        background-position: center center;
-        background-color: burlywood;
-        aspect-ratio: 1/1; // 比较好玩的是一个属性，控制 width/height 的比例
-        cursor: pointer;
-        transition: all .3s;
-        &:hover {
-          border-radius: 8px;
-          background-size: 120% 120%;
-        }
-        &.active {
-          border-radius: 8px;
-          background-size: 120% 120%;
-        }
-        & > div {
-          position: absolute;
-          top: 0;
-          right: 0;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          padding: 0 12px;
-          color: var(--color-white);
-          height: 28px;
-          border-radius: 6px;
-          font-size: 14px;
-          background-color: var(--color-black);
-          transform: translate(20%, 4px);
-        }
-      }
+      
     }
   }
   .right {
-    border-left: 1px solid #fff;
+    border-left: 1px solid rgba($color: #fff, $alpha: 0.3);
+    .title {
+      width: 100%;
+      backdrop-filter: blur(20px);
+      background-color: rgba(82, 175, 199, 0.1);
+      box-shadow: rgba(0, 0, 0, 0.3) 2px 8px 8px;
+      border: 1px rgba(255, 255, 255, 0.4) solid;
+      border-bottom: 1px rgba(40, 40, 40, 0.35) solid;
+      border-right: 1px rgba(40, 40, 40, 0.35) solid;
+    }
+  }
+}
+
+.card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-size: 100% 100%;
+  overflow: hidden;
+  background-position: center center;
+  background-color: burlywood;
+  aspect-ratio: 1/1; // 比较好玩的是一个属性，控制 width/height 的比例
+  transition: all .3s;
+  &.hover:hover {
+    background-size: 120% 120%;
+    &::after {
+      background-color: rgba($color: #000000, $alpha: 0.2);
+    }
+    cursor: pointer;
+  }
+  &::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    background-color: rgba($color: #000000, $alpha: 0.3);
+    transition: all .2s;
+  }
+  &.active {
+    background-size: 120% 120%;
+    &::after {
+      background-color: rgba($color: #000000, $alpha: 0);
+    }
   }
 }

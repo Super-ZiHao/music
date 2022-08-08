@@ -65,7 +65,11 @@ function App() {
     // @ts-ignore
     <div className='App shell relative'>
       {/* 背景 */}
-      <img className='absolute w-full h-full' src={currentPlayerMusic.currentMusicAlbum.url} alt='' />
+      <div className='absolute w-full h-full' style={{
+        backgroundImage: `url(${currentPlayerMusic.currentMusicAlbum.url})`,
+        backgroundSize: '100% 100%',
+        transition: 'all .5s',
+      }} />
       {/* 音乐 */}
       <audio id="audio" className='music-player' src={currentPlayerMusic.currentMusic.musicUrl} crossOrigin="anonymous" />
       {/* 音频可视化 */}
@@ -74,7 +78,7 @@ function App() {
         <canvas id='canvas' className='fixed' style={{ left: 0, bottom: 0, zIndex: -1, opacity: 0.3 }} />
         <div className='flex' style={{ height: 'calc(100% - 68px)' }}>
           <Menu />
-          <div className='flex-1 flex column pl-16 pr-16'>
+          <div className='flex-1 flex column pl-16'>
             <Header />
             <RouteView />
           </div>
