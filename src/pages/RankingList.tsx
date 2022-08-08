@@ -72,6 +72,7 @@ const RankingList: React.FC<Props> = () => {
                       height: '96px',
                       backgroundImage: `url(${rankingList.rankingList[active].coverImgUrl})`,
                       backgroundSize: '100% 100%',
+                      backgroundRepeat: 'no-repeat',
                     }}
                   />
                   <div className="ml-16">
@@ -85,7 +86,7 @@ const RankingList: React.FC<Props> = () => {
           }
         </div>
         {!rankingList.rankingListData[selectedSongSheetDetail] && (
-          <div className="flex items-center justify-center w-full" style={{ height: '100%' }}>
+          <div className="flex items-center justify-center w-full" style={{ marginTop: 140 }}>
             {
               active === -1 ? (
                 <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description="暂无歌单内容" style={{ color: 'var(--color-white)' }} />
@@ -110,7 +111,16 @@ const RankingList: React.FC<Props> = () => {
                 }}
               >
                 <div className="fs-24 fw-bold ml-12">{index + 1}</div>
-                <img className="ml-8 mr-8 radius-4" src={item.coverUrl} width={44} alt="" />
+                <div
+                  className="ml-8 mr-8 radius-4"
+                  style={{
+                    width: 44,
+                    height: 44,
+                    background: `url(${item.coverUrl})`,
+                    backgroundSize: '100% 100%',
+                    backgroundRepeat: 'no-repeat',
+                    backgroundPosition: 'center center'
+                  }} />
                 <div>
                   <div>{item.musicName}</div>
                   <div>{item.singerName}</div>

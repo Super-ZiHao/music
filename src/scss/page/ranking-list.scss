@@ -1,5 +1,6 @@
 .ranking-list {
   height: 100%;
+  max-height: calc(100% - 68px);
   .left,
   .right {
     height: calc(100% - 6px);
@@ -15,7 +16,6 @@
     }
   }
   .right {
-    height: calc(100% - 76px);
     border-left: 1px solid rgba($color: #fff, $alpha: 0.3);
     .title {
       width: 100%;
@@ -41,6 +41,7 @@
   background-size: 100% 100%;
   overflow: hidden;
   background-position: center center;
+  background-repeat: no-repeat;
   background-color: burlywood;
   aspect-ratio: 1/1; // 比较好玩的是一个属性，控制 width/height 的比例
   transition: all .3s;
