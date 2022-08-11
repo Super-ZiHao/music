@@ -26,7 +26,7 @@ export const getSongSheetDetail = createAsyncThunk('rankingListData/getSongSheet
 })
 
 const rankingListSlice = createSlice({
-  name: 'ranking-list',
+  name: 'rankingList',
   initialState: initRankingListSlice,
   reducers: {},
   extraReducers(builder) {

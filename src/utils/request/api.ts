@@ -1,4 +1,4 @@
-import { MusicType } from '@/types/type'
+import { AlbumType, MusicType } from '@/types/type'
 import { message } from 'antd'
 import axios from 'axios'
 import { musicSourceActuator } from '../function'
@@ -16,8 +16,31 @@ export const searchMusicApi: (name: string, limit?: number, offset?: number) => 
       return http
         .get(`search?keywords=${name}&limit=${limit}&offset=${offset}`)
         .then((res: any) => {
-          console.log(res.result)
-          return res.result
+          const musicList: MusicType[] = []
+          const albumList: AlbumType[] = []
+          res.result.songs.forEach((item: any) => {
+            const musicObj: MusicType = {
+              musicName: item.name,
+              musicId: item.id,
+              singerName: item.artists[0].name,
+              coverUrl: item.album.artist.img1v1Url,
+              duration: item.duration,
+              albumId: item.album.id,
+              musicUrl: '', // 无
+              lyric: [] // 无
+            }
+            const albumsObj: AlbumType = {
+              id: item.album.id,
+              name: item.album.name,
+              url: ''
+            }
+            musicList.push(musicObj)
+            albumList.push(albumsObj)
+          })
+          return {
+            musicList,
+            albumList
+          }
         })
         .catch(error => {
           return new Error('error')
@@ -47,7 +70,6 @@ export const getHotSearchApi: (detail?: boolean) => any = (detail = false) => {
             }))
           )
           .catch(err => {
-            console.log('可能是网络出现问题，获取热门搜索失败')
             return undefined
           })
       }
@@ -55,7 +77,6 @@ export const getHotSearchApi: (detail?: boolean) => any = (detail = false) => {
         .get('search/hot')
         .then((res: any) => res.result.hots)
         .catch(err => {
-          console.log('可能是网络出现问题，获取热门搜索失败')
           return undefined
         })
     },
@@ -101,8 +122,18 @@ export const getSuggestApi: (value: string) => any = value => {
  */
 export const getAlbumApi: (id: number) => any = id => {
   return musicSourceActuator(
-    () => http.get(`album?id=${id}`).then((res: any) => res.album),
-    () => http.get(`album?id=${id}`).then(res => res)
+    () =>
+      http.get(`album?id=${id}`).then((res: any) => ({
+        id: res.album.id,
+        name: res.album.name,
+        url: res.album.picUrl
+      })),
+    () =>
+      http.get(`album?id=${id}`).then((res: any) => ({
+        id: res.album.id,
+        name: res.album.name,
+        url: res.album.picUrl
+      }))
   )
 }
 
@@ -139,7 +170,6 @@ export const getMusicUrlApi: (id: number) => any = id => {
   return musicSourceActuator(
     () =>
       axios.get(`/api/song/media/outer/url?id=${id}&br=320000`).then((res: any) => {
-        console.log(res.request.responseURL)
         return res.request.responseURL
       }),
     () => http.get(`song/url?id=${id}`).then((res: any) => res.data.url)
@@ -152,19 +182,22 @@ export const getMusicUrlApi: (id: number) => any = id => {
 export const getAllRankingListApi: () => any = () => {
   return musicSourceActuator(
     () =>
-      http.get('toplist').then((res: any) => {
-        return res.list.map((item: any) => ({
-          id: item.id,
-          name: item.name,
-          desc: item.description,
-          updateFrequency: item.updateFrequency,
-          updateTime: item.updateTime,
-          coverImgUrl: item.coverImgUrl
-        }))
-      }).catch(err => {
-        message.error('获取排行榜数据出错，请确认是否连接网络')
-        return []
-      }),
+      http
+        .get('toplist')
+        .then((res: any) => {
+          return res.list.map((item: any) => ({
+            id: item.id,
+            name: item.name,
+            desc: item.description,
+            updateFrequency: item.updateFrequency,
+            updateTime: item.updateTime,
+            coverImgUrl: item.coverImgUrl
+          }))
+        })
+        .catch(err => {
+          message.error('获取排行榜数据出错，请确认是否连接网络')
+          return []
+        }),
     () => http.get('')
   )
 }
@@ -173,25 +206,32 @@ export const getAllRankingListApi: () => any = () => {
  * 获取歌单详情
  */
 export const getSongSheetDetailApi: (id: number) => any = id => {
-  return musicSourceActuator(() => (
-    http.get(`playlist/detail?id=${id}`).then((res: any) => {
-      return res.playlist.tracks.map((item:any) => ({
-        musicId: item.al.id,
-        musicName: item.al.name,
-        musicUrl: '',
-        singerName: item.ar.reduce((value: string, item: any, index: number) => `${item.name}${index > 0 ? '、' : ''}${value}`, ''),
-        coverUrl: item.al.picUrl,
-      }))
-    }).catch(err => message.error('当前网络不佳，请检查网络是否有效。'))
-  ), () => (
-    http.get(`playlist/detail?id=${id}`).then((res: any) => {
-      return res.playlist.tracks.map((item:any) => ({
-        musicId: item.al.id,
-        musicName: item.al.name,
-        musicUrl: '',
-        singerName: item.ar.reduce((value: string, item: any, index: number) => `${item.name}${index > 0 ? '、' : ''}${value}`, ''),
-        coverUrl: item.al.picUrl,
-      }))
-    }).catch(err => message.error('当前网络不佳，请检查网络是否有效。'))
-  ))
+  return musicSourceActuator(
+    () =>
+      http
+        .get(`playlist/detail?id=${id}`)
+        .then((res: any) => {
+          return res.playlist.tracks.map((item: any) => ({
+            musicId: item.al.id,
+            musicName: item.al.name,
+            musicUrl: '',
+            singerName: item.ar.reduce((value: string, item: any, index: number) => `${item.name}${index > 0 ? '、' : ''}${value}`, ''),
+            coverUrl: item.al.picUrl
+          }))
+        })
+        .catch(err => message.error('当前网络不佳，请检查网络是否有效。')),
+    () =>
+      http
+        .get(`playlist/detail?id=${id}`)
+        .then((res: any) => {
+          return res.playlist.tracks.map((item: any) => ({
+            musicId: item.al.id,
+            musicName: item.al.name,
+            musicUrl: '',
+            singerName: item.ar.reduce((value: string, item: any, index: number) => `${item.name}${index > 0 ? '、' : ''}${value}`, ''),
+            coverUrl: item.al.picUrl
+          }))
+        })
+        .catch(err => message.error('当前网络不佳，请检查网络是否有效。'))
+  )
 }

@@ -8,8 +8,6 @@ import { IconAdd, IconCollection2, IconDownLoad } from './Icons'
 import { Empty, Spin } from 'antd'
 import useGetCurrentMusicAllData from '@/utils/hooks/useGetCurrentMusicAllData'
 
-const Loading = () => {}
-
 type Props = {
   className?: string
   loading?: boolean
@@ -18,6 +16,7 @@ type Props = {
 
 const MusicList: React.FC<Props> = ({ className = '', loading = false, data }) => {
   const currentPlayerMusic = useSelector<StoreInterface, CurrentPlayerMusicInterface>(store => store.currentPlayerMusic)
+  const searchedMusicList = useSelector<StoreInterface, SearchedMusicListInterface>(store => store.searchedMusicList)
   const getCurrentMusicAllData = useGetCurrentMusicAllData()
   if (loading) {
     return (
@@ -27,10 +26,10 @@ const MusicList: React.FC<Props> = ({ className = '', loading = false, data }) =
     )
   }
 
-  if (data.musics?.length > 0) {
+  if (data.musics[searchedMusicList.currentSearchName]?.length > 0) {
     return (
       <div className={`music-list ${className}`}>
-        {data.musics.map((item, index) => (
+        {data.musics[searchedMusicList.currentSearchName].map((item, index) => (
           <div
             key={item.musicId}
             className={`flex items-center justify-between music-list-item`}

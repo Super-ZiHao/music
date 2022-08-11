@@ -49,25 +49,12 @@ const currentPlayMusicSlice = createSlice({
   },
   extraReducers(builder) {
     builder.addCase(getAlbum.fulfilled, (state, { payload }) => {
-      const albumObj = musicSourceActuator<AlbumType>(
-        () => ({
-          id: payload.id,
-          name: payload.name,
-          url: payload.picUrl
-        }),
-        () => ({
-          id: payload,
-          name: payload,
-          url: payload
-        })
-      )
-      state.currentMusicAlbum = albumObj
+      state.currentMusicAlbum = payload
     }),
     builder.addCase(getLyric.fulfilled, (state, { payload }) => {
       state.currentMusic.lyric = payload
     }),
     builder.addCase(getMusicUrl.fulfilled, (state, { payload }) => {
-      console.log(payload);
       state.currentMusic.musicUrl = payload
     })
   }

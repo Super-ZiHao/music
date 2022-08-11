@@ -116,7 +116,7 @@ const RankingList: React.FC<Props> = () => {
                   style={{
                     width: 44,
                     height: 44,
-                    background: `url(${item.coverUrl})`,
+                    backgroundImage: `url(${item.coverUrl})`,
                     backgroundSize: '100% 100%',
                     backgroundRepeat: 'no-repeat',
                     backgroundPosition: 'center center'

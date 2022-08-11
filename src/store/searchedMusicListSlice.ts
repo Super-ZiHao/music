@@ -1,63 +1,70 @@
 import { AlbumType, MusicType } from '@/types/type'
-import { musicSourceActuator } from '@/utils/function'
-import { createSlice } from '@reduxjs/toolkit'
+import { searchMusicApi } from '@/utils/request/api'
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { StoreInterface } from '.'
 
 export interface SearchedMusicListInterface {
-  musics: MusicType[]
-  albums: AlbumType[]
+  musics: {
+    [any: string]: MusicType[]
+  }
+  albums: {
+    [any: string]: AlbumType[]
+  }
+  currentSearchName: string
   loading: false
 }
 
 const initSearchedMusicListSlice: SearchedMusicListInterface = {
-  musics: [], // 常用数据
-  albums: [], // 专辑
+  musics: {}, // 常用数据
+  albums: {}, // 专辑
+  currentSearchName: '',
   loading: false
 }
 
+export const getSearchMusicList = createAsyncThunk(
+  'searchedMusicList/getSearchMusicList',
+  async ({ name, limit, offset }: { name: string; limit?: number; offset?: number }, { dispatch, getState }) => {
+    dispatch(setMusicListLoading(true))
+    const state = getState() as StoreInterface
+    if (Object.keys(state.searchedMusicList.albums).some(item => item === name)) {
+      dispatch(setMusicListLoading(false))
+      dispatch(changeCurrentSearchName(name))
+      return
+    }
+    const data = await searchMusicApi(name, limit, offset)
+    dispatch(setMusicListLoading(false))
+    return {
+      musics: { [name]: data.musicList },
+      albums: { [name]: data.albumList },
+      name
+    }
+  }
+)
+
 const searchedMusicListSlice = createSlice({
-  name: 'searched-music-list',
+  name: 'searchedMusicList',
   initialState: initSearchedMusicListSlice,
   reducers: {
-    setMusicList(data, { payload }) {
-      if (!payload) return
-      const musicList: MusicType[] = []
-      const albumList: AlbumType[] = []
-      // 获取当前所处的音乐 api
-      musicSourceActuator(
-        () => {
-          payload.map((item: any) => {
-            const musicObj: MusicType = {
-              musicName: item.name,
-              musicId: item.id,
-              singerName: item.artists[0].name,
-              coverUrl: item.album.artist.img1v1Url,
-              duration: item.duration,
-              albumId: item.album.id,
-              musicUrl: '', // 无
-              lyric: [] // 无
-            }
-            const albumsObj: AlbumType = {
-              id: item.album.id,
-              name: item.album.name,
-              url: ''
-            }
-            musicList.push(musicObj)
-            albumList.push(albumsObj)
-          })
-        },
-        () => {}
-      )
-      // 区分不同的来源数据，统一整理成该程序可以处理的数据
-      data.musics = musicList
-      data.albums = albumList
-      data.loading = false
+    // 内部使用
+    changeCurrentSearchName(state, { payload }) {
+      state.currentSearchName = payload
     },
+    // 外部使用
     setMusicListLoading(data, { payload }) {
       data.loading = payload
     }
+  },
+  extraReducers(builder) {
+    builder.addCase(getSearchMusicList.fulfilled, (state, { payload }) => {
+      if (!payload) return
+      state.musics = { ...state.musics, ...payload.musics }
+      state.albums = { ...state.albums, ...payload.albums }
+      state.currentSearchName = payload.name
+      state.loading = false
+    })
   }
 })
 
-export const { setMusicList, setMusicListLoading } = searchedMusicListSlice.actions
+export const { setMusicListLoading, changeCurrentSearchName } = searchedMusicListSlice.actions
 
 export default searchedMusicListSlice.reducer

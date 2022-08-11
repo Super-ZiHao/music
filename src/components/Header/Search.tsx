@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import Input from '../Input'
-import { getHotSearchApi, getSuggestApi, searchMusicApi } from '@/utils/request/api'
+import { getHotSearchApi, getSuggestApi } from '@/utils/request/api'
 import { useDispatch } from 'react-redux'
-import { setMusicList, setMusicListLoading } from '@/store/searchedMusicListSlice'
+import { getSearchMusicList, setMusicListLoading } from '@/store/searchedMusicListSlice'
 import useThrottle from '@/utils/hooks/useThrottle'
 import useDebounce from '@/utils/hooks/useDebounce'
 import { useNavigate, useLocation } from 'react-router-dom'
-import { message } from 'antd'
 
 type hotSearchDataType = {
   searchWord: string
@@ -49,12 +48,12 @@ const HotSearchComponent: React.FC<{ searchData: hotSearchDataType; onClick: (va
 }
 
 type SuggestDataType = {
-  songs: {musicName: string, singerName: string, id: number}[]
-  artists: {singerName: string, id: number}[]
-  albums: {albumName: string, singerName: string, id: number}[]
+  songs: { musicName: string, singerName: string, id: number }[]
+  artists: { singerName: string, id: number }[]
+  albums: { albumName: string, singerName: string, id: number }[]
 }
 /** 搜索建议组件 */
-const SuggestComponent: React.FC<{data: SuggestDataType; onClick: (value: string) => void}> = ({data, onClick}) => {
+const SuggestComponent: React.FC<{ data: SuggestDataType; onClick: (value: string) => void }> = ({ data, onClick }) => {
   return (
     <div className='suggest p-4'>
       {/* 单曲 */}
@@ -104,15 +103,8 @@ const Header: React.FC<Props> = () => {
   }, 1000)
 
   // 获取搜索到的值
-  const searchMusic = useThrottle<(value: string) => void>(async value => {
-    dispatch(setMusicListLoading(true))
-    const musics = await searchMusicApi(value)
-    if (musics.message === 'error') {
-      dispatch(setMusicListLoading(false))
-      message.error('网络开小差啦，请重试一下嘞')
-      return
-    } 
-    dispatch(setMusicList(musics.songs))
+  const searchMusic = useThrottle<(name: string) => void>(async name => {
+    dispatch(getSearchMusicList({ name }) as any)
   }, 2000)
 
   // 聚焦获取热门搜索
