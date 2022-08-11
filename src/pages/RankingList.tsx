@@ -98,36 +98,35 @@ const RankingList: React.FC<Props> = () => {
             }
           </div>
         )}
-        <ul className="mt-12 pl-6 pr-8">
+        <ul className="flex column gap-6 mt-12 pl-6 pr-8">
           {
             rankingList.rankingListData[selectedSongSheetDetail]?.map((item, index) => (
-              <div
-                key={index}
-                className="ranking-right-item flex items-center color-white-transparent-2 cp"
-                style={{
-                  borderTop: index > 0 ? '1px solid rgba(255, 255, 255, .3)' : '',
-                  marginTop: index > 0 ? 6 : ''
-                }}
-                onDoubleClick={() => {
-                  getCurrentMusicAllData(item)
-                }}
-              >
-                <div className="fs-24 fw-bold ml-12">{index + 1}</div>
+              <>
+                {index > 0 && <div className="w-full" style={{ borderTop: '1px solid rgba(255, 255, 255, .3)' }}></div>}
                 <div
-                  className="ml-8 mr-8 radius-4"
-                  style={{
-                    width: 44,
-                    height: 44,
-                    backgroundImage: `url(${item.coverUrl})`,
-                    backgroundSize: '100% 100%',
-                    backgroundRepeat: 'no-repeat',
-                    backgroundPosition: 'center center'
-                  }} />
-                <div>
-                  <div>{item.musicName}</div>
-                  <div>{item.singerName}</div>
+                  key={index}
+                  className="ranking-right-item flex items-center color-white-transparent-2 cp"
+                  onDoubleClick={() => {
+                    getCurrentMusicAllData(item)
+                  }}
+                >
+                  <div className="fs-24 fw-bold ml-12">{index + 1}</div>
+                  <div
+                    className="ml-8 mr-8 radius-4"
+                    style={{
+                      width: 44,
+                      height: 44,
+                      backgroundImage: `url(${item.coverUrl})`,
+                      backgroundSize: '100% 100%',
+                      backgroundRepeat: 'no-repeat',
+                      backgroundPosition: 'center center'
+                    }} />
+                  <div>
+                    <div>{item.musicName}</div>
+                    <div>{item.singerName}</div>
+                  </div>
                 </div>
-              </div>
+              </>
             ))
           }
         </ul>
