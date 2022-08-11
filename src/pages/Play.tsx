@@ -1,23 +1,26 @@
 import Icon from '@ant-design/icons'
 import { IconAlbum, IconComment, IconLyric, IconMusice1, IconSinger } from '@/components/Icons'
 import { StoreInterface } from '@/store'
-import { CurrentPlayerMusicInterface } from '@/store/currentPlayMusicSlice'
-import { useSelector } from 'react-redux'
+import { CurrentPlayerMusicInterface, getLyric } from '@/store/currentPlayMusicSlice'
+import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useRef, useState } from 'react'
 import useAudio from '@/utils/hooks/useAudio'
-import { GlobalStateInterface } from '@/store/globalStateSlice'
 import { AudioListenerUpdate } from '@/types/enum'
 
 type Props = {}
 
 const MusicPlay: React.FC<Props> = () => {
+  const dispatch = useDispatch()
   const currentPlayerMusic = useSelector<StoreInterface, CurrentPlayerMusicInterface>(store => store.currentPlayerMusic)
-  const globalState = useSelector<StoreInterface, GlobalStateInterface>(store => store.globalState)
   const { currentDuration } = useAudio(AudioListenerUpdate.TIME)
   const [selectedLyric, setSelectedLyric] = useState<number>(-1)
   const [currentTime, setCurrentTime] = useState<number>(0)
   const lyricMainRef = useRef<HTMLDivElement>(null)
-
+  useEffect(() => {
+    if (currentPlayerMusic.currentMusic.lyric.length === 0) {
+      dispatch(getLyric(currentPlayerMusic.currentMusic.musicId) as any)
+    }
+  }, [])
   // 监听当前歌词的index变化并滚动
   useEffect(() => {
     if (!lyricMainRef.current) return

@@ -22,7 +22,7 @@ export const searchMusicApi: (name: string, limit?: number, offset?: number) => 
             const musicObj: MusicType = {
               musicName: item.name,
               musicId: item.id,
-              singerName: item.artists[0].name,
+              singerName: item.artists.reduce((value: string, item: any, index: number) => `${item.name}${index > 0 ? '、' : ''}${value}`, ''),
               coverUrl: item.album.artist.img1v1Url,
               duration: item.duration,
               albumId: item.album.id,
@@ -213,11 +213,13 @@ export const getSongSheetDetailApi: (id: number) => any = id => {
         .then((res: any) => {
           console.log(res.playlist.tracks);
           return res.playlist.tracks.map((item: any) => ({
-            musicId: item.al.id,
-            musicName: item.al.name,
+            musicName: item.name,
+            musicId: item.id,
             musicUrl: '',
             singerName: item.ar.reduce((value: string, item: any, index: number) => `${item.name}${index > 0 ? '、' : ''}${value}`, ''),
-            coverUrl: item.al.picUrl
+            coverUrl: item.al.picUrl,
+            albumId: item.al.id,
+            duration: item.dt
           }))
         })
         .catch(err => message.error('当前网络不佳，请检查网络是否有效。')),

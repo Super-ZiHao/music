@@ -9,7 +9,7 @@ const initGlobalState: GlobalStateInterface = {
 }
 
 const globalStateSlice = createSlice({
-  name: 'global-state',
+  name: 'globalState',
   initialState: initGlobalState,
   reducers: {
     changeProgressBar(state) {

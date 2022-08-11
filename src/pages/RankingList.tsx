@@ -109,7 +109,7 @@ const RankingList: React.FC<Props> = () => {
                   marginTop: index > 0 ? 6 : ''
                 }}
                 onDoubleClick={() => {
-                  console.log(item)
+                  getCurrentMusicAllData(item)
                 }}
               >
                 <div className="fs-24 fw-bold ml-12">{index + 1}</div>

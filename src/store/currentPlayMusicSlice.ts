@@ -22,7 +22,7 @@ const initCurrentPlayerMusicSlice: CurrentPlayerMusicInterface = {
   currentMusicAlbum: {
     id: -2,
     name: '',
-    url: 'https://p2.music.126.net/6y-UleORITEDbvrOLV0Q8A==/5639395138885805.jpg'
+    url: 'https://p2.music.126.net/u7AqOOVQ1DDl38M8LOzFXw==/109951166221876266.jpg'
   }
 }
 
@@ -30,6 +30,7 @@ export const getAlbum = createAsyncThunk('currentPlayMusic/getAlbum', async (id:
   return await getAlbumApi(id)
 })
 export const getLyric = createAsyncThunk('currentPlayMusic/getLyric', async (id: number, d) => {
+  if (id < 0) return
   return await getLyricApi(id)
 })
 export const getMusicUrl = createAsyncThunk('currentPlayMusic/getUrl', async (id: number, d) => {
@@ -44,7 +45,6 @@ const currentPlayMusicSlice = createSlice({
   // 内部定义状态的方法
   reducers: {
     setCurrentMusic(state, { payload }) {
-      console.log(this);
       state.currentMusic = payload
     }
   },
@@ -53,6 +53,7 @@ const currentPlayMusicSlice = createSlice({
       state.currentMusicAlbum = payload
     }),
       builder.addCase(getLyric.fulfilled, (state, { payload }) => {
+        if (!payload) return
         state.currentMusic.lyric = payload
       }),
       builder.addCase(getMusicUrl.fulfilled, (state, { payload }) => {
