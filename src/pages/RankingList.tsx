@@ -1,5 +1,6 @@
 import { StoreInterface } from "@/store"
 import { getAllRankingList, getSongSheetDetail, RankingListInterface } from "@/store/rankingListSlice"
+import useGetCurrentMusicAllData from "@/utils/hooks/useGetCurrentMusicAllData"
 import { Empty, Skeleton, Spin } from "antd"
 import { useLayoutEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
@@ -13,6 +14,7 @@ const RankingList: React.FC<Props> = () => {
   const rankingList = useSelector<StoreInterface, RankingListInterface>((store) => store.rankingList)
   const [active, setActive] = useState<number>(-1);
   const [selectedSongSheetDetail, setSelectedSongSheetDetail] = useState<number>(-1);
+  const getCurrentMusicAllData = useGetCurrentMusicAllData()
   // 获取榜单
   useLayoutEffect(() => {
     if (rankingList.rankingList.length > 0) return 

@@ -211,6 +211,7 @@ export const getSongSheetDetailApi: (id: number) => any = id => {
       http
         .get(`playlist/detail?id=${id}`)
         .then((res: any) => {
+          console.log(res.playlist.tracks);
           return res.playlist.tracks.map((item: any) => ({
             musicId: item.al.id,
             musicName: item.al.name,

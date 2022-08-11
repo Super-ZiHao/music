@@ -44,6 +44,7 @@ const currentPlayMusicSlice = createSlice({
   // 内部定义状态的方法
   reducers: {
     setCurrentMusic(state, { payload }) {
+      console.log(this);
       state.currentMusic = payload
     }
   },
@@ -51,12 +52,12 @@ const currentPlayMusicSlice = createSlice({
     builder.addCase(getAlbum.fulfilled, (state, { payload }) => {
       state.currentMusicAlbum = payload
     }),
-    builder.addCase(getLyric.fulfilled, (state, { payload }) => {
-      state.currentMusic.lyric = payload
-    }),
-    builder.addCase(getMusicUrl.fulfilled, (state, { payload }) => {
-      state.currentMusic.musicUrl = payload
-    })
+      builder.addCase(getLyric.fulfilled, (state, { payload }) => {
+        state.currentMusic.lyric = payload
+      }),
+      builder.addCase(getMusicUrl.fulfilled, (state, { payload }) => {
+        state.currentMusic.musicUrl = payload
+      })
   }
 })
 
