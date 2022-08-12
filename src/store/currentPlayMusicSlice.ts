@@ -1,3 +1,4 @@
+import { MusicPlayerModel } from '@/types/enum'
 import { MusicType, AlbumType } from '@/types/type'
 import { musicSourceActuator } from '@/utils/function'
 import { getAlbumApi, getLyricApi, getMusicUrlApi } from '@/utils/request/api'
@@ -6,6 +7,11 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 export interface CurrentPlayerMusicInterface {
   currentMusic: MusicType
   currentMusicAlbum: AlbumType
+  currentMusicList: {
+    id: number,
+    model: MusicPlayerModel,
+    data: MusicType[]
+  }
 }
 
 const initCurrentPlayerMusicSlice: CurrentPlayerMusicInterface = {
@@ -23,6 +29,12 @@ const initCurrentPlayerMusicSlice: CurrentPlayerMusicInterface = {
     id: -2,
     name: '',
     url: 'https://p2.music.126.net/u7AqOOVQ1DDl38M8LOzFXw==/109951166221876266.jpg'
+  },
+  currentMusicList: {
+    model: MusicPlayerModel.SHUNXU,
+    id: 0,
+    name: '',
+    data: []
   }
 }
 
@@ -46,6 +58,11 @@ const currentPlayMusicSlice = createSlice({
   reducers: {
     setCurrentMusic(state, { payload }) {
       state.currentMusic = payload
+    },
+    // 设置当前音乐列表
+    setCurrentMusicList(state, { payload }) {
+      state.currentMusicList.id = payload.id
+      state.currentMusicList.data = payload.data
     }
   },
   extraReducers(builder) {
@@ -64,7 +81,7 @@ const currentPlayMusicSlice = createSlice({
 })
 
 // 导出定义的方法
-export const { setCurrentMusic } = currentPlayMusicSlice.actions
+export const { setCurrentMusic, setCurrentMusicList } = currentPlayMusicSlice.actions
 
 // 默认导出
 export default currentPlayMusicSlice.reducer

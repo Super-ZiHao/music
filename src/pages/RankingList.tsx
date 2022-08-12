@@ -1,4 +1,5 @@
 import { StoreInterface } from "@/store"
+import { CurrentPlayerMusicInterface, setCurrentMusicList } from "@/store/currentPlayMusicSlice"
 import { getAllRankingList, getSongSheetDetail, RankingListInterface } from "@/store/rankingListSlice"
 import useGetCurrentMusicAllData from "@/utils/hooks/useGetCurrentMusicAllData"
 import { Empty, Skeleton, Spin } from "antd"
@@ -11,17 +12,18 @@ type Props = {
 
 const RankingList: React.FC<Props> = () => {
   const dispath = useDispatch()
-  const rankingList = useSelector<StoreInterface, RankingListInterface>((store) => store.rankingList)
+  const { rankingList, rankingListData } = useSelector<StoreInterface, RankingListInterface>((store) => store.rankingList)
+  const { currentMusicList } = useSelector<StoreInterface, CurrentPlayerMusicInterface>((store) => store.currentPlayerMusic)
   const [active, setActive] = useState<number>(-1);
   const [selectedSongSheetDetail, setSelectedSongSheetDetail] = useState<number>(-1);
   const getCurrentMusicAllData = useGetCurrentMusicAllData()
   // 获取榜单
   useLayoutEffect(() => {
-    if (rankingList.rankingList.length > 0) return 
+    if (rankingList.length > 0) return 
     dispath(getAllRankingList() as any)
   }, [])
   // loading
-  if (rankingList.rankingList.length === 0) {
+  if (rankingList.length === 0) {
     return <div className="grid ranking-list" style={{ gridTemplateColumns: '1fr 1fr' }}>
     <div className="left">
       <Skeleton.Button className="ml-6" style={{ width: 148, height: 37.7 }} active />
@@ -46,7 +48,7 @@ const RankingList: React.FC<Props> = () => {
         {/* 特色 */}
         <div className="fs-24 fw-bold color-white-transparent ml-12">网易云特色榜</div>
         <ul className="grid ranking-grid" style={{ gridTemplateColumns: '1fr 1fr' }}>
-          {rankingList.rankingList.filter((item, index) => index < 4).map((item, index) => (
+          {rankingList.filter((item, index) => index < 4).map((item, index) => (
             <li
               key={item.id}
               className={`card hover radius-12 ${active === index ? 'active' : ''}`}
@@ -54,7 +56,7 @@ const RankingList: React.FC<Props> = () => {
               onClick={() => {
                 setActive(index)
                 setSelectedSongSheetDetail(item.id)
-                if (rankingList.rankingListData[item.id]) return
+                if (rankingListData[item.id]) return
                 dispath(getSongSheetDetail(item.id) as any)
               }}
             />
@@ -72,22 +74,22 @@ const RankingList: React.FC<Props> = () => {
                     style={{
                       width: '96px',
                       height: '96px',
-                      backgroundImage: `url(${rankingList.rankingList[active].coverImgUrl})`,
+                      backgroundImage: `url(${rankingList[active].coverImgUrl})`,
                       backgroundSize: '100% 100%',
                       backgroundRepeat: 'no-repeat',
                     }}
                   />
                   <div className="ml-16">
-                    <div className="fs-18 fw-bold">{rankingList.rankingList[active].name}</div>
+                    <div className="fs-18 fw-bold">{rankingList[active].name}</div>
                     <div>By ~ {sessionStorage.getItem('MusicSource')}</div>
-                    <div>{rankingList.rankingList[active].desc}</div>
+                    <div>{rankingList[active].desc}</div>
                   </div>
                 </div>
               </div>
             ) : <div className="flex justify-center">点击左侧歌单集，查看所需要的歌单一😁</div>
           }
         </div>
-        {!rankingList.rankingListData[selectedSongSheetDetail] && (
+        {!rankingListData[selectedSongSheetDetail] && (
           <div className="flex items-center justify-center w-full" style={{ marginTop: 140 }}>
             {
               active === -1 ? (
@@ -100,7 +102,7 @@ const RankingList: React.FC<Props> = () => {
         )}
         <ul className="flex column gap-6 mt-12 pl-6 pr-8">
           {
-            rankingList.rankingListData[selectedSongSheetDetail]?.map((item, index) => (
+            rankingListData[selectedSongSheetDetail]?.map((item, index, data) => (
               <>
                 {index > 0 && <div className="w-full" style={{ borderTop: '1px solid rgba(255, 255, 255, .3)' }}></div>}
                 <div
@@ -108,6 +110,11 @@ const RankingList: React.FC<Props> = () => {
                   className="ranking-right-item flex items-center color-white-transparent-2 cp"
                   onDoubleClick={() => {
                     getCurrentMusicAllData(item)
+                    if (currentMusicList.id === selectedSongSheetDetail) return
+                    dispath(setCurrentMusicList({
+                      id: selectedSongSheetDetail,
+                      data
+                    }))
                   }}
                 >
                   <div className="fs-24 fw-bold ml-12">{index + 1}</div>

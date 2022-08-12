@@ -15,3 +15,17 @@
 .ant-skeleton-element {
   width: var(--skeleton-width, auto);
 }
+
+// 列表
+.ant-popover-content {
+  transform: translateX(114px);
+  .ant-popover-arrow {
+    display: none;
+  }
+  .ant-popover-inner {
+    background-color: rgba($color: #000000, $alpha: .4);
+    border-radius: 12px 0 0 12px;
+    max-height: 400px;
+    overflow: overlay;
+  }
+}

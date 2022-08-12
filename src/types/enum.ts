@@ -19,3 +19,14 @@ export enum AudioListenerUpdate {
   TIMEANDVOLUME = 'timeAndVolume',
   NONE = 'null'
 }
+
+/**
+ * 音乐播放模式
+ */
+export enum MusicPlayerModel {
+  XINDON = '心动模式',
+  SHUNXU = '顺序模式',
+  DANQU = '单曲循环模式',
+  SUIJI = '随机模式',
+  LIEBIAO = '列表循环',
+}
