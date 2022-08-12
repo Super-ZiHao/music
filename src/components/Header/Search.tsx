@@ -92,6 +92,9 @@ const Header: React.FC<Props> = () => {
 
   // 搜索
   const handleSeach = (value: string) => {
+    navigate('/search', {
+      replace: true
+    })
     if (value.length === 0) return
     searchMusic(value)
   }
@@ -110,9 +113,6 @@ const Header: React.FC<Props> = () => {
   // 聚焦获取热门搜索
   const handleFocus = useThrottle(
     async () => {
-      navigate('/search', {
-        replace: true
-      })
       if (hotSearch) return
       setHotSearch(await getHotSearchApi(true))
     },

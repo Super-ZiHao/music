@@ -57,6 +57,7 @@ const currentPlayMusicSlice = createSlice({
         state.currentMusic.lyric = payload
       }),
       builder.addCase(getMusicUrl.fulfilled, (state, { payload }) => {
+        console.log(payload)
         state.currentMusic.musicUrl = payload
       })
   }

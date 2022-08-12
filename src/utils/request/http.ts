@@ -9,7 +9,7 @@ const getApiBaseUrl = () => {
 }
 
 export const http = axios.create({
-  timeout: 10000,
+  timeout: 20000,
   baseURL: getApiBaseUrl()
 })
 
