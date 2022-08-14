@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { musicSourceActuator } from '../function'
+import { history } from '@/main'
 
 const getApiBaseUrl = () => {
   return musicSourceActuator(
@@ -23,6 +24,8 @@ http.interceptors.request.use(
 )
 
 http.interceptors.response.use(
-  res => res.data,
+  res => {
+    return res.data
+  },
   err => Promise.reject(err)
 )

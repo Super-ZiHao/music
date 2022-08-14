@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import Header from './components/Header'
 import Menu from './components/Menu'
@@ -7,7 +7,6 @@ import MusicPlayer from './components/MusicPlayer'
 import RouteView from './route'
 import { StoreInterface } from './store'
 import { CurrentPlayerMusicInterface } from './store/currentPlayMusicSlice'
-import useAudio from './utils/hooks/useAudio'
 
 function App() {
   const currentPlayerMusic = useSelector<StoreInterface, CurrentPlayerMusicInterface>(store => store.currentPlayerMusic)
