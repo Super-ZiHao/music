@@ -41,7 +41,7 @@ const MusicPlayer = ({}) => {
       {/* 右侧 */}
       <div className='flex items-center gap-12'>
         {/* 列表 */}
-        <SongList />
+        <SongList data={currentPlayerMusic.currentMusicList.data} />
         {/* 音量控制 */}
         <VolumeController />
         {/* 歌曲时间 */}

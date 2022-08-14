@@ -1,17 +1,13 @@
-import store, { StoreInterface } from '@/store';
-import { CurrentPlayerMusicInterface } from '@/store/currentPlayMusicSlice';
 import { MusicType } from '@/types/type';
-import { getTotalDuration, getTotalDuration2 } from '@/utils/function/time';
+import { getTotalDuration } from '@/utils/function/time';
 import Icon from '@ant-design/icons'
 import { Popover } from 'antd';
-import { useSelector } from 'react-redux';
 import { IconList2 } from '../Icons';
 
 type ListProps = {
   data: MusicType[]
 }
 const ListComponent: React.FC<ListProps> = ({ data }) => {
-  console.log(data);
   return (
     <ul>
       {data.map(item => <li className='flex items-cenrer no-wrap color-white-transparent gap-14'>
@@ -24,14 +20,13 @@ const ListComponent: React.FC<ListProps> = ({ data }) => {
 }
 
 type Props = {
-
+  data: MusicType[]
 }
 
 const SongList: React.FC<Props> = (props) => {
-  const { } = props;
-  const { currentMusicList } = useSelector<StoreInterface, CurrentPlayerMusicInterface>((store) => store.currentPlayerMusic)
+  const { data } = props;
   return (
-    <Popover content={<ListComponent data={currentMusicList.data} />} placement="topRight" trigger='click' style={{ maxHeight: 400 }}>
+    <Popover content={<ListComponent data={data} />} placement="topRight" trigger='click' style={{ maxHeight: 400 }}>
       <Icon style={{ color: '#a1a8a2', width: 24, height: 24 }} component={IconList2} />
     </Popover>
   )

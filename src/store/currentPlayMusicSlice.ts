@@ -33,7 +33,6 @@ const initCurrentPlayerMusicSlice: CurrentPlayerMusicInterface = {
   currentMusicList: {
     model: MusicPlayerModel.SHUNXU,
     id: 0,
-    name: '',
     data: []
   }
 }

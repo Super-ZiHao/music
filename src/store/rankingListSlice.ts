@@ -32,7 +32,6 @@ const rankingListSlice = createSlice({
   extraReducers(builder) {
     // 获取所有排行榜数据
     builder.addCase(getAllRankingList.fulfilled, (state, { payload }) => {
-      console.log(payload);
       state.rankingList = payload
     }),
       // 获取歌单数据
