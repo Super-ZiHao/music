@@ -1,8 +1,10 @@
 .ant-spin {
   color: var(--spin-color, #1890ff);
+
   .ant-spin-dot-item {
-    background-color: currentColor;
+    background-color: currentcolor;
   }
+
   .ant-spin-text {
     margin-top: 9px;
   }
@@ -19,13 +21,15 @@
 // 列表
 .ant-popover-content {
   transform: translateX(114px);
+
   .ant-popover-arrow {
     display: none;
   }
+
   .ant-popover-inner {
-    background-color: rgba($color: #000000, $alpha: .4);
-    border-radius: 12px 0 0 12px;
     max-height: 400px;
     overflow: overlay;
+    background-color: rgba($color: #000, $alpha: 40%);
+    border-radius: 12px 0 0 12px;
   }
 }

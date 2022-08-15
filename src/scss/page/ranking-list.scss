@@ -1,30 +1,35 @@
 .ranking-list {
   height: 100%;
   max-height: calc(100% - 68px);
+
   .left,
   .right {
     height: calc(100% - 6px);
     overflow: overlay;
+
     &::-webkit-scrollbar {
       width: 0;
     }
   }
+
   .left {
     .ranking-grid {
-      padding: 24px 60px 0 36px;
       gap: 32px;
+      padding: 24px 60px 0 36px;
     }
   }
+
   .right {
-    border-left: 1px solid rgba($color: #fff, $alpha: 0.3);
+    border-left: 1px solid rgba($color: #fff, $alpha: 30%);
+
     .title {
       width: 100%;
+      background-color: rgb(82 175 199 / 10%);
+      border: 1px rgb(255 255 255 / 40%) solid;
+      border-right: 1px rgb(40 40 40 / 35%) solid;
+      border-bottom: 1px rgb(40 40 40 / 35%) solid;
+      box-shadow: rgb(0 0 0 / 30%) 2px 8px 8px;
       backdrop-filter: blur(20px);
-      background-color: rgba(82, 175, 199, 0.1);
-      box-shadow: rgba(0, 0, 0, 0.3) 2px 8px 8px;
-      border: 1px rgba(255, 255, 255, 0.4) solid;
-      border-bottom: 1px rgba(40, 40, 40, 0.35) solid;
-      border-right: 1px rgba(40, 40, 40, 0.35) solid;
     }
   }
 }
@@ -32,13 +37,14 @@
 .ranking-right-item {
   height: 60px;
   border: 1px transparent solid;
+
   &:hover {
+    background-color: rgb(82 175 199 / 10%);
+    border-right: 1px rgb(40 40 40 / 35%) solid;
+    border-bottom: 1px rgb(40 40 40 / 35%) solid;
     border-radius: 6px;
+    box-shadow: rgb(0 0 0 / 30%) 2px 8px 8px;
     backdrop-filter: blur(20px);
-    background-color: rgba(82, 175, 199, 0.1);
-    box-shadow: rgba(0, 0, 0, 0.3) 2px 8px 8px;
-    border-bottom: 1px rgba(40, 40, 40, 0.35) solid;
-    border-right: 1px rgba(40, 40, 40, 0.35) solid;
   }
 }
 
@@ -47,34 +53,39 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-size: 100% 100%;
-  overflow: hidden;
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-color: burlywood;
   aspect-ratio: 1/1; // 比较好玩的是一个属性，控制 width/height 的比例;
+  overflow: hidden;
+  background-color: burlywood;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 100% 100%;
   transition: all .3s;
+
   &.hover:hover {
-    background-size: 120% 120%;
-    &::after {
-      background-color: rgba($color: #000000, $alpha: 0.2);
-    }
     cursor: pointer;
+    background-size: 120% 120%;
+
+    &::after {
+      background-color: rgba($color: #000, $alpha: 20%);
+    }
   }
+
   &::after {
-    content: '';
     position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
-    left: 0;
-    top: 0;
-    background-color: rgba($color: #000000, $alpha: 0.3);
+    content: '';
+    background-color: rgba($color: #000, $alpha: 30%);
     transition: all .2s;
   }
+
   &.active {
     background-size: 120% 120%;
+
     &::after {
-      background-color: rgba($color: #000000, $alpha: 0);
+      background-color: rgba($color: #000, $alpha: 0%);
     }
   }
 }

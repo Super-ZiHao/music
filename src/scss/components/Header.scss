@@ -1,55 +1,62 @@
 .header {
-  -webkit-app-region: drag;
-  min-height: 68px;
   display: flex;
   align-items: center;
+  min-height: 68px;
+  -webkit-app-region: drag;
+
   .search-input {
-    padding: 0 15px;
-    border-radius: 15px;
     width: 180px;
     height: 100%;
-    color: rgba($color: #fff, $alpha: 0.4);
+    padding: 0 15px;
+    color: rgba($color: #fff, $alpha: 40%);
+    background-color: rgba($color: #fff, $alpha: 15%);
+    border-radius: 15px;
     transition: 0.3s all;
+
     &::placeholder {
-      color: rgba($color: #fff, $alpha: 0.4);
+      color: rgba($color: #fff, $alpha: 40%);
     }
-    background-color: rgba($color: #fff, $alpha: 0.15);
+
     &:focus,
     &.is-search-page {
       width: 230px;
       border-radius: 10px 10px 4px 4px;
-      box-shadow: inset 0px -2px 1px #00b7ff, 0px -2px 5px rgba($color: #fff, $alpha: 0.2);
+      box-shadow: inset 0 -2px 1px #00b7ff, 0 -2px 5px rgba($color: #fff, $alpha: 20%);
     }
   }
+
   .search-input-box {
     width: 260px;
     min-height: 200px;
     max-height: 455px;
-    color: whitesmoke;
-    overflow-y: overlay;
     overflow-x: hidden;
-    border-radius: 6px;
+    overflow-y: overlay;
     overscroll-behavior: none;
-    backdrop-filter: blur(20px);
-    background-color: rgba($color: #000000, $alpha: 0.4);
-    box-shadow: rgba(0, 0, 0, 0.3) 2px 8px 8px;
-    border: 1px rgba(255, 255, 255, 0.4) solid;
-    border-bottom: 1px rgba(40, 40, 40, 0.35) solid;
-    border-right: 1px rgba(40, 40, 40, 0.35) solid;
+    color: whitesmoke;
+    background-color: rgba($color: #000, $alpha: 40%);
+    border: 1px rgb(255 255 255 / 40%) solid;
+    border-right: 1px rgb(40 40 40 / 35%) solid;
+    border-bottom: 1px rgb(40 40 40 / 35%) solid;
+    border-radius: 6px;
+    box-shadow: rgb(0 0 0 / 30%) 2px 8px 8px;
     transform: translateX(-14px);
+    backdrop-filter: blur(20px);
+
     .item {
       &:nth-child(1) .ranking {
         color: #d61c4e;
       }
+
       &:nth-child(2) .ranking {
         color: #f77e21;
       }
+
       &:nth-child(3) .ranking {
         color: #fac213;
       }
 
       &:hover {
-        background-color: rgba($color: #34d894, $alpha: 0.3);
+        background-color: rgba($color: #34d894, $alpha: 30%);
       }
     }
   }

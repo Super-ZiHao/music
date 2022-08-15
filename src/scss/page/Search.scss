@@ -1,23 +1,28 @@
 .ant-menu {
   background-color: transparent;
+
   .ant-menu-item-selected,
   .ant-menu-item-active {
     &::after {
-      border-color: currentColor !important;
+      border-color: currentcolor !important;
     }
   }
+
   .ant-menu-item-selected:nth-child(1),
   .ant-menu-item-active:nth-child(1) {
     color: #3db2ff !important;
   }
+
   .ant-menu-item-selected:nth-child(2),
   .ant-menu-item-active:nth-child(2) {
     color: #ffedda !important;
   }
+
   .ant-menu-item-selected:nth-child(3),
   .ant-menu-item-active:nth-child(3) {
     color: #ffb830 !important;
   }
+
   .ant-menu-item-selected:nth-child(4),
   .ant-menu-item-active:nth-child(4) {
     color: #ff2442 !important;
@@ -35,36 +40,41 @@
 }
 
 .music-list {
+  display: grid;
+  grid-auto-rows: 58px;
   width: 100%;
   height: 100%;
   overflow: overlay;
-  display: grid;
-  grid-auto-rows: 58px;
+
   .music-list-item {
     height: 100%;
     overflow: hidden;
+
     &:hover {
-      background-color: rgba($color: #000000, $alpha: 0.3);
+      background-color: rgba($color: #000, $alpha: 30%);
+
       .ranking-top {
         transform: translateY(10%);
       }
     }
+
     // 排名
     .ranking-top {
       margin-left: 18px;
       font-size: 34px;
-      color: var(--color-gray);
       font-weight: bolder;
+      color: var(--color-gray);
       text-align: center;
       transform: translateY(25%);
     }
+
     // 控件
     .control {
       display: grid;
-      gap: 24px;
       grid-template-columns: repeat(4, 1fr);
-      justify-items: center;
+      gap: 24px;
       align-items: center;
+      justify-items: center;
     }
   }
 }
