@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import ReactDOM from 'react-dom/client'
 import App from './App'
 import './scss/index.scss'
@@ -18,5 +18,5 @@ root.render(
     <HistoryRouter history={history}>
       <App />
     </HistoryRouter>
-  </Provider>
+  </Provider>,
 )

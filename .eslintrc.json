@@ -1,0 +1,36 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true
+    },
+    "extends": [
+        "eslint:recommended",
+        "plugin:react/recommended",
+        "plugin:@typescript-eslint/recommended"
+    ],
+    "overrides": [
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaVersion": "latest",
+        "sourceType": "module"
+    },
+    "plugins": [
+        "react",
+        "@typescript-eslint"
+    ],
+    "rules": {
+        "comma-dangle": ["error", "always-multiline"], // 允许对象中出现结尾逗号
+        "jsx-quotes": ["error", "prefer-single"], // jsx 中使用单引号
+        "no-cond-assign": 2, // 条件语句的条件中不允许出现赋值运算符
+        "no-constant-condition": 2, // 条件语句的条件中不允许出现恒定不变的量
+        "no-duplicate-case": 2, // switch不允许出现重复的case
+        "no-empty": 2, // 不允许出现空的代码块
+        "use-isnan": 2, // 要求检查NaN的时候使用isNaN()
+        "no-eval": 2, // 不允许使用 eval()
+        "no-var": 2, // 不允许使用 var
+        "block-spacing": 2, // 禁止或强制在代码块中开括号前和闭括号后有空格
+        "array-bracket-newline": 2, // 在数组开括号后和闭括号前强制换行
+        "array-bracket-spacing": 2 // 强制数组方括号中使用一致的空格
+    }
+}
